@@ -1,0 +1,6113 @@
+[
+  {
+    "brand": "mard",
+    "code": "A1",
+    "name": "A1",
+    "hex": "#FAF4C8",
+    "rgb": {
+      "red": 250,
+      "green": 244,
+      "blue": 200
+    },
+    "hsl": {
+      "hue": 52.8,
+      "saturation": 83.333,
+      "lightness": 88.235
+    },
+    "lab": {
+      "lightness": 95.662,
+      "greenRed": -4.928,
+      "blueYellow": 21.963
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A10",
+    "name": "A10",
+    "hex": "#F77C31",
+    "rgb": {
+      "red": 247,
+      "green": 124,
+      "blue": 49
+    },
+    "hsl": {
+      "hue": 22.727,
+      "saturation": 92.523,
+      "lightness": 58.039
+    },
+    "lab": {
+      "lightness": 65.288,
+      "greenRed": 42.526,
+      "blueYellow": 59.587
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A11",
+    "name": "A11",
+    "hex": "#FFDD99",
+    "rgb": {
+      "red": 255,
+      "green": 221,
+      "blue": 153
+    },
+    "hsl": {
+      "hue": 40,
+      "saturation": 100,
+      "lightness": 80
+    },
+    "lab": {
+      "lightness": 89.521,
+      "greenRed": 2.742,
+      "blueYellow": 37.712
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A12",
+    "name": "A12",
+    "hex": "#FE9F72",
+    "rgb": {
+      "red": 254,
+      "green": 159,
+      "blue": 114
+    },
+    "hsl": {
+      "hue": 19.286,
+      "saturation": 98.592,
+      "lightness": 72.157
+    },
+    "lab": {
+      "lightness": 74.242,
+      "greenRed": 30.96,
+      "blueYellow": 38.16
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A13",
+    "name": "A13",
+    "hex": "#FFC365",
+    "rgb": {
+      "red": 255,
+      "green": 195,
+      "blue": 101
+    },
+    "hsl": {
+      "hue": 36.623,
+      "saturation": 100,
+      "lightness": 69.804
+    },
+    "lab": {
+      "lightness": 82.502,
+      "greenRed": 11.612,
+      "blueYellow": 54.637
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A14",
+    "name": "A14",
+    "hex": "#FD543D",
+    "rgb": {
+      "red": 253,
+      "green": 84,
+      "blue": 61
+    },
+    "hsl": {
+      "hue": 7.187,
+      "saturation": 97.959,
+      "lightness": 61.569
+    },
+    "lab": {
+      "lightness": 59.489,
+      "greenRed": 62.924,
+      "blueYellow": 48.58
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A15",
+    "name": "A15",
+    "hex": "#FFF365",
+    "rgb": {
+      "red": 255,
+      "green": 243,
+      "blue": 101
+    },
+    "hsl": {
+      "hue": 55.325,
+      "saturation": 100,
+      "lightness": 69.804
+    },
+    "lab": {
+      "lightness": 94.441,
+      "greenRed": -12.69,
+      "blueYellow": 67.975
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A16",
+    "name": "A16",
+    "hex": "#FFFF9F",
+    "rgb": {
+      "red": 255,
+      "green": 255,
+      "blue": 159
+    },
+    "hsl": {
+      "hue": 60,
+      "saturation": 100,
+      "lightness": 81.176
+    },
+    "lab": {
+      "lightness": 98.147,
+      "greenRed": -13.603,
+      "blueYellow": 45.864
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A17",
+    "name": "A17",
+    "hex": "#FFE36E",
+    "rgb": {
+      "red": 255,
+      "green": 227,
+      "blue": 110
+    },
+    "hsl": {
+      "hue": 48.414,
+      "saturation": 100,
+      "lightness": 71.569
+    },
+    "lab": {
+      "lightness": 90.471,
+      "greenRed": -4.139,
+      "blueYellow": 59.638
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A18",
+    "name": "A18",
+    "hex": "#FEBE7D",
+    "rgb": {
+      "red": 254,
+      "green": 190,
+      "blue": 125
+    },
+    "hsl": {
+      "hue": 30.233,
+      "saturation": 98.473,
+      "lightness": 74.314
+    },
+    "lab": {
+      "lightness": 81.499,
+      "greenRed": 15.668,
+      "blueYellow": 41.614
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A19",
+    "name": "A19",
+    "hex": "#FD7C72",
+    "rgb": {
+      "red": 253,
+      "green": 124,
+      "blue": 114
+    },
+    "hsl": {
+      "hue": 4.317,
+      "saturation": 97.203,
+      "lightness": 71.961
+    },
+    "lab": {
+      "lightness": 66.91,
+      "greenRed": 48.273,
+      "blueYellow": 28.708
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A2",
+    "name": "A2",
+    "hex": "#FFFFD5",
+    "rgb": {
+      "red": 255,
+      "green": 255,
+      "blue": 213
+    },
+    "hsl": {
+      "hue": 60,
+      "saturation": 100,
+      "lightness": 91.765
+    },
+    "lab": {
+      "lightness": 99.058,
+      "greenRed": -6.759,
+      "blueYellow": 20.117
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A20",
+    "name": "A20",
+    "hex": "#FFD568",
+    "rgb": {
+      "red": 255,
+      "green": 213,
+      "blue": 104
+    },
+    "hsl": {
+      "hue": 43.311,
+      "saturation": 100,
+      "lightness": 70.392
+    },
+    "lab": {
+      "lightness": 86.922,
+      "greenRed": 2.535,
+      "blueYellow": 58.308
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A21",
+    "name": "A21",
+    "hex": "#FFE395",
+    "rgb": {
+      "red": 255,
+      "green": 227,
+      "blue": 149
+    },
+    "hsl": {
+      "hue": 44.151,
+      "saturation": 100,
+      "lightness": 79.216
+    },
+    "lab": {
+      "lightness": 90.948,
+      "greenRed": -0.729,
+      "blueYellow": 41.568
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A22",
+    "name": "A22",
+    "hex": "#F4F57D",
+    "rgb": {
+      "red": 244,
+      "green": 245,
+      "blue": 125
+    },
+    "hsl": {
+      "hue": 60.5,
+      "saturation": 85.714,
+      "lightness": 72.549
+    },
+    "lab": {
+      "lightness": 94.32,
+      "greenRed": -16.244,
+      "blueYellow": 57.066
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A23",
+    "name": "A23",
+    "hex": "#E6C9B7",
+    "rgb": {
+      "red": 230,
+      "green": 201,
+      "blue": 183
+    },
+    "hsl": {
+      "hue": 22.979,
+      "saturation": 48.454,
+      "lightness": 80.98
+    },
+    "lab": {
+      "lightness": 82.921,
+      "greenRed": 7.402,
+      "blueYellow": 12.736
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A24",
+    "name": "A24",
+    "hex": "#F7F8A2",
+    "rgb": {
+      "red": 247,
+      "green": 248,
+      "blue": 162
+    },
+    "hsl": {
+      "hue": 60.698,
+      "saturation": 86,
+      "lightness": 80.392
+    },
+    "lab": {
+      "lightness": 95.796,
+      "greenRed": -12.871,
+      "blueYellow": 41.253
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A25",
+    "name": "A25",
+    "hex": "#FFD67D",
+    "rgb": {
+      "red": 255,
+      "green": 214,
+      "blue": 125
+    },
+    "hsl": {
+      "hue": 41.077,
+      "saturation": 100,
+      "lightness": 74.51
+    },
+    "lab": {
+      "lightness": 87.404,
+      "greenRed": 3.64,
+      "blueYellow": 48.959
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A26",
+    "name": "A26",
+    "hex": "#FFC830",
+    "rgb": {
+      "red": 255,
+      "green": 200,
+      "blue": 48
+    },
+    "hsl": {
+      "hue": 44.058,
+      "saturation": 100,
+      "lightness": 59.412
+    },
+    "lab": {
+      "lightness": 83.328,
+      "greenRed": 6.491,
+      "blueYellow": 76.377
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A3",
+    "name": "A3",
+    "hex": "#FEFF8B",
+    "rgb": {
+      "red": 254,
+      "green": 255,
+      "blue": 139
+    },
+    "hsl": {
+      "hue": 60.517,
+      "saturation": 100,
+      "lightness": 77.255
+    },
+    "lab": {
+      "lightness": 97.815,
+      "greenRed": -15.966,
+      "blueYellow": 54.962
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A4",
+    "name": "A4",
+    "hex": "#FBED56",
+    "rgb": {
+      "red": 251,
+      "green": 237,
+      "blue": 86
+    },
+    "hsl": {
+      "hue": 54.909,
+      "saturation": 95.376,
+      "lightness": 66.078
+    },
+    "lab": {
+      "lightness": 92.464,
+      "greenRed": -12.258,
+      "blueYellow": 71.818
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A5",
+    "name": "A5",
+    "hex": "#F4D738",
+    "rgb": {
+      "red": 244,
+      "green": 215,
+      "blue": 56
+    },
+    "hsl": {
+      "hue": 50.745,
+      "saturation": 89.524,
+      "lightness": 58.824
+    },
+    "lab": {
+      "lightness": 86.066,
+      "greenRed": -5.558,
+      "blueYellow": 75.989
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A6",
+    "name": "A6",
+    "hex": "#FEAC4C",
+    "rgb": {
+      "red": 254,
+      "green": 172,
+      "blue": 76
+    },
+    "hsl": {
+      "hue": 32.36,
+      "saturation": 98.889,
+      "lightness": 64.706
+    },
+    "lab": {
+      "lightness": 76.738,
+      "greenRed": 21.741,
+      "blueYellow": 59.675
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A7",
+    "name": "A7",
+    "hex": "#FE8B4C",
+    "rgb": {
+      "red": 254,
+      "green": 139,
+      "blue": 76
+    },
+    "hsl": {
+      "hue": 21.236,
+      "saturation": 98.889,
+      "lightness": 64.706
+    },
+    "lab": {
+      "lightness": 69.511,
+      "greenRed": 38.806,
+      "blueYellow": 51.918
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A8",
+    "name": "A8",
+    "hex": "#FFDA45",
+    "rgb": {
+      "red": 255,
+      "green": 218,
+      "blue": 69
+    },
+    "hsl": {
+      "hue": 48.065,
+      "saturation": 100,
+      "lightness": 63.529
+    },
+    "lab": {
+      "lightness": 87.888,
+      "greenRed": -1.952,
+      "blueYellow": 73.701
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "A9",
+    "name": "A9",
+    "hex": "#FF995B",
+    "rgb": {
+      "red": 255,
+      "green": 153,
+      "blue": 91
+    },
+    "hsl": {
+      "hue": 22.683,
+      "saturation": 100,
+      "lightness": 67.843
+    },
+    "lab": {
+      "lightness": 72.759,
+      "greenRed": 32.86,
+      "blueYellow": 48.221
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B1",
+    "name": "B1",
+    "hex": "#E6EE31",
+    "rgb": {
+      "red": 230,
+      "green": 238,
+      "blue": 49
+    },
+    "hsl": {
+      "hue": 62.54,
+      "saturation": 84.753,
+      "lightness": 56.275
+    },
+    "lab": {
+      "lightness": 90.868,
+      "greenRed": -22.938,
+      "blueYellow": 81.8
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B10",
+    "name": "B10",
+    "hex": "#95D3C2",
+    "rgb": {
+      "red": 149,
+      "green": 211,
+      "blue": 194
+    },
+    "hsl": {
+      "hue": 163.548,
+      "saturation": 41.333,
+      "lightness": 70.588
+    },
+    "lab": {
+      "lightness": 80.108,
+      "greenRed": -23.335,
+      "blueYellow": 2.08
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B11",
+    "name": "B11",
+    "hex": "#5D722A",
+    "rgb": {
+      "red": 93,
+      "green": 114,
+      "blue": 42
+    },
+    "hsl": {
+      "hue": 77.5,
+      "saturation": 46.154,
+      "lightness": 30.588
+    },
+    "lab": {
+      "lightness": 44.982,
+      "greenRed": -19.566,
+      "blueYellow": 36.417
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B12",
+    "name": "B12",
+    "hex": "#166F41",
+    "rgb": {
+      "red": 22,
+      "green": 111,
+      "blue": 65
+    },
+    "hsl": {
+      "hue": 148.989,
+      "saturation": 66.917,
+      "lightness": 26.078
+    },
+    "lab": {
+      "lightness": 41.09,
+      "greenRed": -36.802,
+      "blueYellow": 18.561
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B13",
+    "name": "B13",
+    "hex": "#CAEB7B",
+    "rgb": {
+      "red": 202,
+      "green": 235,
+      "blue": 123
+    },
+    "hsl": {
+      "hue": 77.679,
+      "saturation": 73.684,
+      "lightness": 70.196
+    },
+    "lab": {
+      "lightness": 88.64,
+      "greenRed": -27.813,
+      "blueYellow": 50.461
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B14",
+    "name": "B14",
+    "hex": "#ADE946",
+    "rgb": {
+      "red": 173,
+      "green": 233,
+      "blue": 70
+    },
+    "hsl": {
+      "hue": 82.086,
+      "saturation": 78.744,
+      "lightness": 59.412
+    },
+    "lab": {
+      "lightness": 85.808,
+      "greenRed": -42.105,
+      "blueYellow": 69.247
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B15",
+    "name": "B15",
+    "hex": "#2E5132",
+    "rgb": {
+      "red": 46,
+      "green": 81,
+      "blue": 50
+    },
+    "hsl": {
+      "hue": 126.857,
+      "saturation": 27.559,
+      "lightness": 24.902
+    },
+    "lab": {
+      "lightness": 31.105,
+      "greenRed": -20.235,
+      "blueYellow": 14.369
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B16",
+    "name": "B16",
+    "hex": "#C5ED9C",
+    "rgb": {
+      "red": 197,
+      "green": 237,
+      "blue": 156
+    },
+    "hsl": {
+      "hue": 89.63,
+      "saturation": 69.231,
+      "lightness": 77.059
+    },
+    "lab": {
+      "lightness": 89.318,
+      "greenRed": -26.685,
+      "blueYellow": 35.107
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B17",
+    "name": "B17",
+    "hex": "#9BB13A",
+    "rgb": {
+      "red": 155,
+      "green": 177,
+      "blue": 58
+    },
+    "hsl": {
+      "hue": 71.092,
+      "saturation": 50.638,
+      "lightness": 46.078
+    },
+    "lab": {
+      "lightness": 68.547,
+      "greenRed": -23.98,
+      "blueYellow": 55.852
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B18",
+    "name": "B18",
+    "hex": "#E6EE49",
+    "rgb": {
+      "red": 230,
+      "green": 238,
+      "blue": 73
+    },
+    "hsl": {
+      "hue": 62.909,
+      "saturation": 82.915,
+      "lightness": 60.98
+    },
+    "lab": {
+      "lightness": 90.986,
+      "greenRed": -21.968,
+      "blueYellow": 74.589
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B19",
+    "name": "B19",
+    "hex": "#24B88C",
+    "rgb": {
+      "red": 36,
+      "green": 184,
+      "blue": 140
+    },
+    "hsl": {
+      "hue": 162.162,
+      "saturation": 67.273,
+      "lightness": 43.137
+    },
+    "lab": {
+      "lightness": 66.938,
+      "greenRed": -47.721,
+      "blueYellow": 11.886
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B2",
+    "name": "B2",
+    "hex": "#63F347",
+    "rgb": {
+      "red": 99,
+      "green": 243,
+      "blue": 71
+    },
+    "hsl": {
+      "hue": 110.233,
+      "saturation": 87.755,
+      "lightness": 61.569
+    },
+    "lab": {
+      "lightness": 85.609,
+      "greenRed": -68.554,
+      "blueYellow": 67.677
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B20",
+    "name": "B20",
+    "hex": "#C2F0CC",
+    "rgb": {
+      "red": 194,
+      "green": 240,
+      "blue": 204
+    },
+    "hsl": {
+      "hue": 133.043,
+      "saturation": 60.526,
+      "lightness": 85.098
+    },
+    "lab": {
+      "lightness": 90.848,
+      "greenRed": -21.606,
+      "blueYellow": 12.581
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B21",
+    "name": "B21",
+    "hex": "#156A6B",
+    "rgb": {
+      "red": 21,
+      "green": 106,
+      "blue": 107
+    },
+    "hsl": {
+      "hue": 180.698,
+      "saturation": 67.188,
+      "lightness": 25.098
+    },
+    "lab": {
+      "lightness": 40.458,
+      "greenRed": -23.165,
+      "blueYellow": -7.552
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B22",
+    "name": "B22",
+    "hex": "#0B3C43",
+    "rgb": {
+      "red": 11,
+      "green": 60,
+      "blue": 67
+    },
+    "hsl": {
+      "hue": 187.5,
+      "saturation": 71.795,
+      "lightness": 15.294
+    },
+    "lab": {
+      "lightness": 22.682,
+      "greenRed": -12.92,
+      "blueYellow": -8.904
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B23",
+    "name": "B23",
+    "hex": "#303A21",
+    "rgb": {
+      "red": 48,
+      "green": 58,
+      "blue": 33
+    },
+    "hsl": {
+      "hue": 84,
+      "saturation": 27.473,
+      "lightness": 17.843
+    },
+    "lab": {
+      "lightness": 22.876,
+      "greenRed": -9.442,
+      "blueYellow": 14.197
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B24",
+    "name": "B24",
+    "hex": "#EEFCA5",
+    "rgb": {
+      "red": 238,
+      "green": 252,
+      "blue": 165
+    },
+    "hsl": {
+      "hue": 69.655,
+      "saturation": 93.548,
+      "lightness": 81.765
+    },
+    "lab": {
+      "lightness": 96.21,
+      "greenRed": -17.833,
+      "blueYellow": 40.182
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B25",
+    "name": "B25",
+    "hex": "#4E846D",
+    "rgb": {
+      "red": 78,
+      "green": 132,
+      "blue": 109
+    },
+    "hsl": {
+      "hue": 154.444,
+      "saturation": 25.714,
+      "lightness": 41.176
+    },
+    "lab": {
+      "lightness": 50.951,
+      "greenRed": -23.562,
+      "blueYellow": 6.832
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B26",
+    "name": "B26",
+    "hex": "#8D7A35",
+    "rgb": {
+      "red": 141,
+      "green": 122,
+      "blue": 53
+    },
+    "hsl": {
+      "hue": 47.045,
+      "saturation": 45.361,
+      "lightness": 38.039
+    },
+    "lab": {
+      "lightness": 51.654,
+      "greenRed": -1.396,
+      "blueYellow": 39.628
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B27",
+    "name": "B27",
+    "hex": "#CCE1AF",
+    "rgb": {
+      "red": 204,
+      "green": 225,
+      "blue": 175
+    },
+    "hsl": {
+      "hue": 85.2,
+      "saturation": 45.455,
+      "lightness": 78.431
+    },
+    "lab": {
+      "lightness": 86.89,
+      "greenRed": -15.614,
+      "blueYellow": 22.189
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B28",
+    "name": "B28",
+    "hex": "#9EE5B9",
+    "rgb": {
+      "red": 158,
+      "green": 229,
+      "blue": 185
+    },
+    "hsl": {
+      "hue": 142.817,
+      "saturation": 57.724,
+      "lightness": 75.882
+    },
+    "lab": {
+      "lightness": 85.408,
+      "greenRed": -31.131,
+      "blueYellow": 14.493
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B29",
+    "name": "B29",
+    "hex": "#C5E254",
+    "rgb": {
+      "red": 197,
+      "green": 226,
+      "blue": 84
+    },
+    "hsl": {
+      "hue": 72.254,
+      "saturation": 71,
+      "lightness": 60.784
+    },
+    "lab": {
+      "lightness": 85.455,
+      "greenRed": -28.833,
+      "blueYellow": 64.01
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B3",
+    "name": "B3",
+    "hex": "#9EF780",
+    "rgb": {
+      "red": 158,
+      "green": 247,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 104.874,
+      "saturation": 88.148,
+      "lightness": 73.529
+    },
+    "lab": {
+      "lightness": 89.556,
+      "greenRed": -48.001,
+      "blueYellow": 48.657
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B30",
+    "name": "B30",
+    "hex": "#E2FCB1",
+    "rgb": {
+      "red": 226,
+      "green": 252,
+      "blue": 177
+    },
+    "hsl": {
+      "hue": 80.8,
+      "saturation": 92.593,
+      "lightness": 84.118
+    },
+    "lab": {
+      "lightness": 95.565,
+      "greenRed": -20.681,
+      "blueYellow": 33.208
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B31",
+    "name": "B31",
+    "hex": "#B0E792",
+    "rgb": {
+      "red": 176,
+      "green": 231,
+      "blue": 146
+    },
+    "hsl": {
+      "hue": 98.824,
+      "saturation": 63.91,
+      "lightness": 73.922
+    },
+    "lab": {
+      "lightness": 86.235,
+      "greenRed": -32.598,
+      "blueYellow": 35.846
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B32",
+    "name": "B32",
+    "hex": "#9CAB5A",
+    "rgb": {
+      "red": 156,
+      "green": 171,
+      "blue": 90
+    },
+    "hsl": {
+      "hue": 71.111,
+      "saturation": 32.53,
+      "lightness": 51.176
+    },
+    "lab": {
+      "lightness": 67.226,
+      "greenRed": -17.852,
+      "blueYellow": 39.71
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B4",
+    "name": "B4",
+    "hex": "#5DE035",
+    "rgb": {
+      "red": 93,
+      "green": 224,
+      "blue": 53
+    },
+    "hsl": {
+      "hue": 105.965,
+      "saturation": 73.391,
+      "lightness": 54.314
+    },
+    "lab": {
+      "lightness": 79.554,
+      "greenRed": -64.717,
+      "blueYellow": 67.597
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B5",
+    "name": "B5",
+    "hex": "#35E352",
+    "rgb": {
+      "red": 53,
+      "green": 227,
+      "blue": 82
+    },
+    "hsl": {
+      "hue": 130,
+      "saturation": 75.652,
+      "lightness": 54.902
+    },
+    "lab": {
+      "lightness": 79.787,
+      "greenRed": -70.709,
+      "blueYellow": 56.94
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B6",
+    "name": "B6",
+    "hex": "#65E2A6",
+    "rgb": {
+      "red": 101,
+      "green": 226,
+      "blue": 166
+    },
+    "hsl": {
+      "hue": 151.2,
+      "saturation": 68.306,
+      "lightness": 64.118
+    },
+    "lab": {
+      "lightness": 81.791,
+      "greenRed": -48.555,
+      "blueYellow": 19.012
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B7",
+    "name": "B7",
+    "hex": "#3DAF80",
+    "rgb": {
+      "red": 61,
+      "green": 175,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 155.263,
+      "saturation": 48.305,
+      "lightness": 46.275
+    },
+    "lab": {
+      "lightness": 64.331,
+      "greenRed": -43.262,
+      "blueYellow": 14.873
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B8",
+    "name": "B8",
+    "hex": "#1C9C4F",
+    "rgb": {
+      "red": 28,
+      "green": 156,
+      "blue": 79
+    },
+    "hsl": {
+      "hue": 143.906,
+      "saturation": 69.565,
+      "lightness": 36.078
+    },
+    "lab": {
+      "lightness": 56.672,
+      "greenRed": -50.583,
+      "blueYellow": 30.986
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "B9",
+    "name": "B9",
+    "hex": "#27523A",
+    "rgb": {
+      "red": 39,
+      "green": 82,
+      "blue": 58
+    },
+    "hsl": {
+      "hue": 146.512,
+      "saturation": 35.537,
+      "lightness": 23.725
+    },
+    "lab": {
+      "lightness": 31.281,
+      "greenRed": -21.351,
+      "blueYellow": 9.582
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C1",
+    "name": "C1",
+    "hex": "#E8FFE7",
+    "rgb": {
+      "red": 232,
+      "green": 255,
+      "blue": 231
+    },
+    "hsl": {
+      "hue": 117.5,
+      "saturation": 100,
+      "lightness": 95.294
+    },
+    "lab": {
+      "lightness": 97.811,
+      "greenRed": -11.765,
+      "blueYellow": 8.925
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C10",
+    "name": "C10",
+    "hex": "#3EBCE2",
+    "rgb": {
+      "red": 62,
+      "green": 188,
+      "blue": 226
+    },
+    "hsl": {
+      "hue": 193.902,
+      "saturation": 73.874,
+      "lightness": 56.471
+    },
+    "lab": {
+      "lightness": 71.202,
+      "greenRed": -21.99,
+      "blueYellow": -28.893
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C11",
+    "name": "C11",
+    "hex": "#28DDDE",
+    "rgb": {
+      "red": 40,
+      "green": 221,
+      "blue": 222
+    },
+    "hsl": {
+      "hue": 180.33,
+      "saturation": 73.387,
+      "lightness": 51.373
+    },
+    "lab": {
+      "lightness": 80.425,
+      "greenRed": -41.193,
+      "blueYellow": -12.772
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C12",
+    "name": "C12",
+    "hex": "#1C334D",
+    "rgb": {
+      "red": 28,
+      "green": 51,
+      "blue": 77
+    },
+    "hsl": {
+      "hue": 211.837,
+      "saturation": 46.667,
+      "lightness": 20.588
+    },
+    "lab": {
+      "lightness": 20.636,
+      "greenRed": 0.14,
+      "blueYellow": -18.713
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C13",
+    "name": "C13",
+    "hex": "#CDE8FF",
+    "rgb": {
+      "red": 205,
+      "green": 232,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 207.6,
+      "saturation": 100,
+      "lightness": 90.196
+    },
+    "lab": {
+      "lightness": 90.74,
+      "greenRed": -4.116,
+      "blueYellow": -14.089
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C14",
+    "name": "C14",
+    "hex": "#D5FDFF",
+    "rgb": {
+      "red": 213,
+      "green": 253,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 182.857,
+      "saturation": 100,
+      "lightness": 91.765
+    },
+    "lab": {
+      "lightness": 96.663,
+      "greenRed": -12.324,
+      "blueYellow": -5.237
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C15",
+    "name": "C15",
+    "hex": "#22C4C6",
+    "rgb": {
+      "red": 34,
+      "green": 196,
+      "blue": 198
+    },
+    "hsl": {
+      "hue": 180.732,
+      "saturation": 70.69,
+      "lightness": 45.49
+    },
+    "lab": {
+      "lightness": 72.16,
+      "greenRed": -37.339,
+      "blueYellow": -12.23
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C16",
+    "name": "C16",
+    "hex": "#1557A8",
+    "rgb": {
+      "red": 21,
+      "green": 87,
+      "blue": 168
+    },
+    "hsl": {
+      "hue": 213.061,
+      "saturation": 77.778,
+      "lightness": 37.059
+    },
+    "lab": {
+      "lightness": 37.486,
+      "greenRed": 11.522,
+      "blueYellow": -49.048
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C17",
+    "name": "C17",
+    "hex": "#04D1F6",
+    "rgb": {
+      "red": 4,
+      "green": 209,
+      "blue": 246
+    },
+    "hsl": {
+      "hue": 189.174,
+      "saturation": 96.8,
+      "lightness": 49.02
+    },
+    "lab": {
+      "lightness": 77.448,
+      "greenRed": -29.715,
+      "blueYellow": -30.126
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C18",
+    "name": "C18",
+    "hex": "#1D3344",
+    "rgb": {
+      "red": 29,
+      "green": 51,
+      "blue": 68
+    },
+    "hsl": {
+      "hue": 206.154,
+      "saturation": 40.206,
+      "lightness": 19.02
+    },
+    "lab": {
+      "lightness": 20.228,
+      "greenRed": -2.958,
+      "blueYellow": -13.274
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C19",
+    "name": "C19",
+    "hex": "#1887A2",
+    "rgb": {
+      "red": 24,
+      "green": 135,
+      "blue": 162
+    },
+    "hsl": {
+      "hue": 191.739,
+      "saturation": 74.194,
+      "lightness": 36.471
+    },
+    "lab": {
+      "lightness": 51.985,
+      "greenRed": -19.502,
+      "blueYellow": -22.661
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C2",
+    "name": "C2",
+    "hex": "#A9F9FC",
+    "rgb": {
+      "red": 169,
+      "green": 249,
+      "blue": 252
+    },
+    "hsl": {
+      "hue": 182.169,
+      "saturation": 93.258,
+      "lightness": 82.549
+    },
+    "lab": {
+      "lightness": 93.108,
+      "greenRed": -23.523,
+      "blueYellow": -9.214
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C20",
+    "name": "C20",
+    "hex": "#176DAF",
+    "rgb": {
+      "red": 23,
+      "green": 109,
+      "blue": 175
+    },
+    "hsl": {
+      "hue": 206.053,
+      "saturation": 76.768,
+      "lightness": 38.824
+    },
+    "lab": {
+      "lightness": 44.539,
+      "greenRed": 0.317,
+      "blueYellow": -41.885
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C21",
+    "name": "C21",
+    "hex": "#BEDDFF",
+    "rgb": {
+      "red": 190,
+      "green": 221,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 211.385,
+      "saturation": 100,
+      "lightness": 87.255
+    },
+    "lab": {
+      "lightness": 86.938,
+      "greenRed": -2.863,
+      "blueYellow": -19.903
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C22",
+    "name": "C22",
+    "hex": "#67B4BE",
+    "rgb": {
+      "red": 103,
+      "green": 180,
+      "blue": 190
+    },
+    "hsl": {
+      "hue": 186.897,
+      "saturation": 40.092,
+      "lightness": 57.451
+    },
+    "lab": {
+      "lightness": 68.927,
+      "greenRed": -21.121,
+      "blueYellow": -12.511
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C23",
+    "name": "C23",
+    "hex": "#C8E2FF",
+    "rgb": {
+      "red": 200,
+      "green": 226,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 211.636,
+      "saturation": 100,
+      "lightness": 89.216
+    },
+    "lab": {
+      "lightness": 88.871,
+      "greenRed": -2.516,
+      "blueYellow": -16.925
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C24",
+    "name": "C24",
+    "hex": "#7CC4FF",
+    "rgb": {
+      "red": 124,
+      "green": 196,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 207.023,
+      "saturation": 100,
+      "lightness": 74.314
+    },
+    "lab": {
+      "lightness": 76.67,
+      "greenRed": -6.586,
+      "blueYellow": -35.93
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C25",
+    "name": "C25",
+    "hex": "#A9E5E5",
+    "rgb": {
+      "red": 169,
+      "green": 229,
+      "blue": 229
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 53.571,
+      "lightness": 78.039
+    },
+    "lab": {
+      "lightness": 87.061,
+      "greenRed": -18.856,
+      "blueYellow": -6.16
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C26",
+    "name": "C26",
+    "hex": "#3CAED8",
+    "rgb": {
+      "red": 60,
+      "green": 174,
+      "blue": 216
+    },
+    "hsl": {
+      "hue": 196.154,
+      "saturation": 66.667,
+      "lightness": 54.118
+    },
+    "lab": {
+      "lightness": 66.665,
+      "greenRed": -18.191,
+      "blueYellow": -30.417
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C27",
+    "name": "C27",
+    "hex": "#D3DFFA",
+    "rgb": {
+      "red": 211,
+      "green": 223,
+      "blue": 250
+    },
+    "hsl": {
+      "hue": 221.538,
+      "saturation": 79.592,
+      "lightness": 90.392
+    },
+    "lab": {
+      "lightness": 88.698,
+      "greenRed": 1.336,
+      "blueYellow": -14.485
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C28",
+    "name": "C28",
+    "hex": "#BBCFED",
+    "rgb": {
+      "red": 187,
+      "green": 207,
+      "blue": 237
+    },
+    "hsl": {
+      "hue": 216,
+      "saturation": 58.14,
+      "lightness": 83.137
+    },
+    "lab": {
+      "lightness": 82.542,
+      "greenRed": -0.428,
+      "blueYellow": -17.023
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C29",
+    "name": "C29",
+    "hex": "#34488E",
+    "rgb": {
+      "red": 52,
+      "green": 72,
+      "blue": 142
+    },
+    "hsl": {
+      "hue": 226.667,
+      "saturation": 46.392,
+      "lightness": 38.039
+    },
+    "lab": {
+      "lightness": 32.52,
+      "greenRed": 15.472,
+      "blueYellow": -41.293
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C3",
+    "name": "C3",
+    "hex": "#A0E2FB",
+    "rgb": {
+      "red": 160,
+      "green": 226,
+      "blue": 251
+    },
+    "hsl": {
+      "hue": 196.484,
+      "saturation": 91.919,
+      "lightness": 80.588
+    },
+    "lab": {
+      "lightness": 86.42,
+      "greenRed": -14.69,
+      "blueYellow": -18.746
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C4",
+    "name": "C4",
+    "hex": "#41CCFF",
+    "rgb": {
+      "red": 65,
+      "green": 204,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 196.105,
+      "saturation": 100,
+      "lightness": 62.745
+    },
+    "lab": {
+      "lightness": 76.999,
+      "greenRed": -20.555,
+      "blueYellow": -35.574
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C5",
+    "name": "C5",
+    "hex": "#01ACEB",
+    "rgb": {
+      "red": 1,
+      "green": 172,
+      "blue": 235
+    },
+    "hsl": {
+      "hue": 196.154,
+      "saturation": 99.153,
+      "lightness": 46.275
+    },
+    "lab": {
+      "lightness": 66.144,
+      "greenRed": -14.543,
+      "blueYellow": -41.718
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C6",
+    "name": "C6",
+    "hex": "#50AAF0",
+    "rgb": {
+      "red": 80,
+      "green": 170,
+      "blue": 240
+    },
+    "hsl": {
+      "hue": 206.25,
+      "saturation": 84.211,
+      "lightness": 62.745
+    },
+    "lab": {
+      "lightness": 67.086,
+      "greenRed": -5.255,
+      "blueYellow": -42.882
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C7",
+    "name": "C7",
+    "hex": "#3677D2",
+    "rgb": {
+      "red": 54,
+      "green": 119,
+      "blue": 210
+    },
+    "hsl": {
+      "hue": 215,
+      "saturation": 63.415,
+      "lightness": 51.765
+    },
+    "lab": {
+      "lightness": 50.253,
+      "greenRed": 10.584,
+      "blueYellow": -52.892
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C8",
+    "name": "C8",
+    "hex": "#0F54C0",
+    "rgb": {
+      "red": 15,
+      "green": 84,
+      "blue": 192
+    },
+    "hsl": {
+      "hue": 216.61,
+      "saturation": 85.507,
+      "lightness": 40.588
+    },
+    "lab": {
+      "lightness": 38.284,
+      "greenRed": 22.85,
+      "blueYellow": -61.9
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "C9",
+    "name": "C9",
+    "hex": "#324BCA",
+    "rgb": {
+      "red": 50,
+      "green": 75,
+      "blue": 202
+    },
+    "hsl": {
+      "hue": 230.132,
+      "saturation": 60.317,
+      "lightness": 49.412
+    },
+    "lab": {
+      "lightness": 37.797,
+      "greenRed": 35.235,
+      "blueYellow": -68.472
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D1",
+    "name": "D1",
+    "hex": "#AEB4F2",
+    "rgb": {
+      "red": 174,
+      "green": 180,
+      "blue": 242
+    },
+    "hsl": {
+      "hue": 234.706,
+      "saturation": 72.34,
+      "lightness": 81.569
+    },
+    "lab": {
+      "lightness": 74.858,
+      "greenRed": 11.471,
+      "blueYellow": -31.5
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D10",
+    "name": "D10",
+    "hex": "#361851",
+    "rgb": {
+      "red": 54,
+      "green": 24,
+      "blue": 81
+    },
+    "hsl": {
+      "hue": 271.579,
+      "saturation": 54.286,
+      "lightness": 20.588
+    },
+    "lab": {
+      "lightness": 15.652,
+      "greenRed": 27.228,
+      "blueYellow": -29.198
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D11",
+    "name": "D11",
+    "hex": "#B9BAE1",
+    "rgb": {
+      "red": 185,
+      "green": 186,
+      "blue": 225
+    },
+    "hsl": {
+      "hue": 238.5,
+      "saturation": 40,
+      "lightness": 80.392
+    },
+    "lab": {
+      "lightness": 76.599,
+      "greenRed": 7.583,
+      "blueYellow": -19.572
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D12",
+    "name": "D12",
+    "hex": "#DE9AD4",
+    "rgb": {
+      "red": 222,
+      "green": 154,
+      "blue": 212
+    },
+    "hsl": {
+      "hue": 308.824,
+      "saturation": 50.746,
+      "lightness": 73.725
+    },
+    "lab": {
+      "lightness": 71.822,
+      "greenRed": 34.455,
+      "blueYellow": -19.403
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D13",
+    "name": "D13",
+    "hex": "#B90095",
+    "rgb": {
+      "red": 185,
+      "green": 0,
+      "blue": 149
+    },
+    "hsl": {
+      "hue": 311.676,
+      "saturation": 100,
+      "lightness": 36.275
+    },
+    "lab": {
+      "lightness": 41.976,
+      "greenRed": 72.301,
+      "blueYellow": -29.461
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D14",
+    "name": "D14",
+    "hex": "#8B279B",
+    "rgb": {
+      "red": 139,
+      "green": 39,
+      "blue": 155
+    },
+    "hsl": {
+      "hue": 291.724,
+      "saturation": 59.794,
+      "lightness": 38.039
+    },
+    "lab": {
+      "lightness": 36.568,
+      "greenRed": 56.716,
+      "blueYellow": -42.193
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D15",
+    "name": "D15",
+    "hex": "#2F1F90",
+    "rgb": {
+      "red": 47,
+      "green": 31,
+      "blue": 144
+    },
+    "hsl": {
+      "hue": 248.496,
+      "saturation": 64.571,
+      "lightness": 34.314
+    },
+    "lab": {
+      "lightness": 22.295,
+      "greenRed": 41.443,
+      "blueYellow": -59.2
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D16",
+    "name": "D16",
+    "hex": "#E3E1EE",
+    "rgb": {
+      "red": 227,
+      "green": 225,
+      "blue": 238
+    },
+    "hsl": {
+      "hue": 249.231,
+      "saturation": 27.66,
+      "lightness": 90.784
+    },
+    "lab": {
+      "lightness": 90.024,
+      "greenRed": 3.052,
+      "blueYellow": -6.089
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D17",
+    "name": "D17",
+    "hex": "#C4D4F6",
+    "rgb": {
+      "red": 196,
+      "green": 212,
+      "blue": 246
+    },
+    "hsl": {
+      "hue": 220.8,
+      "saturation": 73.529,
+      "lightness": 86.667
+    },
+    "lab": {
+      "lightness": 84.729,
+      "greenRed": 1.644,
+      "blueYellow": -18.447
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D18",
+    "name": "D18",
+    "hex": "#A45EC7",
+    "rgb": {
+      "red": 164,
+      "green": 94,
+      "blue": 199
+    },
+    "hsl": {
+      "hue": 280,
+      "saturation": 48.387,
+      "lightness": 57.451
+    },
+    "lab": {
+      "lightness": 51.861,
+      "greenRed": 46.488,
+      "blueYellow": -43.558
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D19",
+    "name": "D19",
+    "hex": "#D8C3D7",
+    "rgb": {
+      "red": 216,
+      "green": 195,
+      "blue": 215
+    },
+    "hsl": {
+      "hue": 302.857,
+      "saturation": 21.212,
+      "lightness": 80.588
+    },
+    "lab": {
+      "lightness": 81.036,
+      "greenRed": 10.899,
+      "blueYellow": -7.279
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D2",
+    "name": "D2",
+    "hex": "#858EDD",
+    "rgb": {
+      "red": 133,
+      "green": 142,
+      "blue": 221
+    },
+    "hsl": {
+      "hue": 233.864,
+      "saturation": 56.41,
+      "lightness": 69.412
+    },
+    "lab": {
+      "lightness": 61.267,
+      "greenRed": 16.222,
+      "blueYellow": -41.349
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D20",
+    "name": "D20",
+    "hex": "#9C32B2",
+    "rgb": {
+      "red": 156,
+      "green": 50,
+      "blue": 178
+    },
+    "hsl": {
+      "hue": 289.688,
+      "saturation": 56.14,
+      "lightness": 44.706
+    },
+    "lab": {
+      "lightness": 42.098,
+      "greenRed": 60.643,
+      "blueYellow": -46.949
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D21",
+    "name": "D21",
+    "hex": "#9A009B",
+    "rgb": {
+      "red": 154,
+      "green": 0,
+      "blue": 155
+    },
+    "hsl": {
+      "hue": 299.613,
+      "saturation": 100,
+      "lightness": 30.392
+    },
+    "lab": {
+      "lightness": 36.436,
+      "greenRed": 67.577,
+      "blueYellow": -42.258
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D22",
+    "name": "D22",
+    "hex": "#333A95",
+    "rgb": {
+      "red": 51,
+      "green": 58,
+      "blue": 149
+    },
+    "hsl": {
+      "hue": 235.714,
+      "saturation": 49,
+      "lightness": 39.216
+    },
+    "lab": {
+      "lightness": 29.158,
+      "greenRed": 27.208,
+      "blueYellow": -51.019
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D23",
+    "name": "D23",
+    "hex": "#EBDAFC",
+    "rgb": {
+      "red": 235,
+      "green": 218,
+      "blue": 252
+    },
+    "hsl": {
+      "hue": 270,
+      "saturation": 85,
+      "lightness": 92.157
+    },
+    "lab": {
+      "lightness": 89.315,
+      "greenRed": 11.97,
+      "blueYellow": -14.427
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D24",
+    "name": "D24",
+    "hex": "#7786E5",
+    "rgb": {
+      "red": 119,
+      "green": 134,
+      "blue": 229
+    },
+    "hsl": {
+      "hue": 231.818,
+      "saturation": 67.901,
+      "lightness": 68.235
+    },
+    "lab": {
+      "lightness": 58.63,
+      "greenRed": 19.793,
+      "blueYellow": -50.032
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D25",
+    "name": "D25",
+    "hex": "#494FC7",
+    "rgb": {
+      "red": 73,
+      "green": 79,
+      "blue": 199
+    },
+    "hsl": {
+      "hue": 237.143,
+      "saturation": 52.941,
+      "lightness": 53.333
+    },
+    "lab": {
+      "lightness": 39.802,
+      "greenRed": 34.701,
+      "blueYellow": -63.404
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D26",
+    "name": "D26",
+    "hex": "#DFC2F8",
+    "rgb": {
+      "red": 223,
+      "green": 194,
+      "blue": 248
+    },
+    "hsl": {
+      "hue": 272.222,
+      "saturation": 79.412,
+      "lightness": 86.667
+    },
+    "lab": {
+      "lightness": 82.405,
+      "greenRed": 20.089,
+      "blueYellow": -22.829
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D3",
+    "name": "D3",
+    "hex": "#2F54AF",
+    "rgb": {
+      "red": 47,
+      "green": 84,
+      "blue": 175
+    },
+    "hsl": {
+      "hue": 222.656,
+      "saturation": 57.658,
+      "lightness": 43.529
+    },
+    "lab": {
+      "lightness": 37.914,
+      "greenRed": 19.003,
+      "blueYellow": -52.469
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D4",
+    "name": "D4",
+    "hex": "#182A84",
+    "rgb": {
+      "red": 24,
+      "green": 42,
+      "blue": 132
+    },
+    "hsl": {
+      "hue": 230,
+      "saturation": 69.231,
+      "lightness": 30.588
+    },
+    "lab": {
+      "lightness": 22.002,
+      "greenRed": 28.05,
+      "blueYellow": -52.238
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D5",
+    "name": "D5",
+    "hex": "#B843C5",
+    "rgb": {
+      "red": 184,
+      "green": 67,
+      "blue": 197
+    },
+    "hsl": {
+      "hue": 294,
+      "saturation": 52.846,
+      "lightness": 51.765
+    },
+    "lab": {
+      "lightness": 49.781,
+      "greenRed": 63.761,
+      "blueYellow": -45.541
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D6",
+    "name": "D6",
+    "hex": "#AC7BDE",
+    "rgb": {
+      "red": 172,
+      "green": 123,
+      "blue": 222
+    },
+    "hsl": {
+      "hue": 269.697,
+      "saturation": 60,
+      "lightness": 67.647
+    },
+    "lab": {
+      "lightness": 60.078,
+      "greenRed": 38.08,
+      "blueYellow": -43.545
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D7",
+    "name": "D7",
+    "hex": "#8854B3",
+    "rgb": {
+      "red": 136,
+      "green": 84,
+      "blue": 179
+    },
+    "hsl": {
+      "hue": 272.842,
+      "saturation": 38.462,
+      "lightness": 51.569
+    },
+    "lab": {
+      "lightness": 45.4,
+      "greenRed": 39.81,
+      "blueYellow": -42.425
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D8",
+    "name": "D8",
+    "hex": "#E2D3FF",
+    "rgb": {
+      "red": 226,
+      "green": 211,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 260.455,
+      "saturation": 100,
+      "lightness": 91.373
+    },
+    "lab": {
+      "lightness": 86.986,
+      "greenRed": 13.379,
+      "blueYellow": -19.581
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "D9",
+    "name": "D9",
+    "hex": "#D5B9F8",
+    "rgb": {
+      "red": 213,
+      "green": 185,
+      "blue": 248
+    },
+    "hsl": {
+      "hue": 266.667,
+      "saturation": 81.818,
+      "lightness": 84.902
+    },
+    "lab": {
+      "lightness": 79.398,
+      "greenRed": 21.81,
+      "blueYellow": -27.492
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E1",
+    "name": "E1",
+    "hex": "#FDD3CC",
+    "rgb": {
+      "red": 253,
+      "green": 211,
+      "blue": 204
+    },
+    "hsl": {
+      "hue": 8.571,
+      "saturation": 92.453,
+      "lightness": 89.608
+    },
+    "lab": {
+      "lightness": 87.887,
+      "greenRed": 13.635,
+      "blueYellow": 8.958
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E10",
+    "name": "E10",
+    "hex": "#D33793",
+    "rgb": {
+      "red": 211,
+      "green": 55,
+      "blue": 147
+    },
+    "hsl": {
+      "hue": 324.615,
+      "saturation": 63.934,
+      "lightness": 52.157
+    },
+    "lab": {
+      "lightness": 50.32,
+      "greenRed": 67.314,
+      "blueYellow": -14.99
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E11",
+    "name": "E11",
+    "hex": "#FCDDD2",
+    "rgb": {
+      "red": 252,
+      "green": 221,
+      "blue": 210
+    },
+    "hsl": {
+      "hue": 15.714,
+      "saturation": 87.5,
+      "lightness": 90.588
+    },
+    "lab": {
+      "lightness": 90.35,
+      "greenRed": 8.98,
+      "blueYellow": 9.317
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E12",
+    "name": "E12",
+    "hex": "#F78FC3",
+    "rgb": {
+      "red": 247,
+      "green": 143,
+      "blue": 195
+    },
+    "hsl": {
+      "hue": 330,
+      "saturation": 86.667,
+      "lightness": 76.471
+    },
+    "lab": {
+      "lightness": 71.798,
+      "greenRed": 45.733,
+      "blueYellow": -9.757
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E13",
+    "name": "E13",
+    "hex": "#B5006D",
+    "rgb": {
+      "red": 181,
+      "green": 0,
+      "blue": 109
+    },
+    "hsl": {
+      "hue": 323.867,
+      "saturation": 100,
+      "lightness": 35.49
+    },
+    "lab": {
+      "lightness": 39.459,
+      "greenRed": 67.092,
+      "blueYellow": -8.647
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E14",
+    "name": "E14",
+    "hex": "#FFD1BA",
+    "rgb": {
+      "red": 255,
+      "green": 209,
+      "blue": 186
+    },
+    "hsl": {
+      "hue": 20,
+      "saturation": 100,
+      "lightness": 86.471
+    },
+    "lab": {
+      "lightness": 87.196,
+      "greenRed": 12.883,
+      "blueYellow": 17.491
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E15",
+    "name": "E15",
+    "hex": "#F8C7C9",
+    "rgb": {
+      "red": 248,
+      "green": 199,
+      "blue": 201
+    },
+    "hsl": {
+      "hue": 357.551,
+      "saturation": 77.778,
+      "lightness": 87.647
+    },
+    "lab": {
+      "lightness": 84.494,
+      "greenRed": 17.674,
+      "blueYellow": 5.613
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E16",
+    "name": "E16",
+    "hex": "#FFF3EB",
+    "rgb": {
+      "red": 255,
+      "green": 243,
+      "blue": 235
+    },
+    "hsl": {
+      "hue": 24,
+      "saturation": 100,
+      "lightness": 96.078
+    },
+    "lab": {
+      "lightness": 96.558,
+      "greenRed": 2.689,
+      "blueYellow": 5.277
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E17",
+    "name": "E17",
+    "hex": "#FFE2EA",
+    "rgb": {
+      "red": 255,
+      "green": 226,
+      "blue": 234
+    },
+    "hsl": {
+      "hue": 343.448,
+      "saturation": 100,
+      "lightness": 94.314
+    },
+    "lab": {
+      "lightness": 92.395,
+      "greenRed": 11.246,
+      "blueYellow": -0.252
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E18",
+    "name": "E18",
+    "hex": "#FFC7DB",
+    "rgb": {
+      "red": 255,
+      "green": 199,
+      "blue": 219
+    },
+    "hsl": {
+      "hue": 338.571,
+      "saturation": 100,
+      "lightness": 89.02
+    },
+    "lab": {
+      "lightness": 85.616,
+      "greenRed": 22.907,
+      "blueYellow": -2.266
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E19",
+    "name": "E19",
+    "hex": "#FEBAD5",
+    "rgb": {
+      "red": 254,
+      "green": 186,
+      "blue": 213
+    },
+    "hsl": {
+      "hue": 336.176,
+      "saturation": 97.143,
+      "lightness": 86.275
+    },
+    "lab": {
+      "lightness": 82.375,
+      "greenRed": 28.453,
+      "blueYellow": -3.829
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E2",
+    "name": "E2",
+    "hex": "#FEC0DF",
+    "rgb": {
+      "red": 254,
+      "green": 192,
+      "blue": 223
+    },
+    "hsl": {
+      "hue": 330,
+      "saturation": 96.875,
+      "lightness": 87.451
+    },
+    "lab": {
+      "lightness": 84.017,
+      "greenRed": 26.875,
+      "blueYellow": -6.767
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E20",
+    "name": "E20",
+    "hex": "#D8C7D1",
+    "rgb": {
+      "red": 216,
+      "green": 199,
+      "blue": 209
+    },
+    "hsl": {
+      "hue": 324.706,
+      "saturation": 17.895,
+      "lightness": 81.373
+    },
+    "lab": {
+      "lightness": 81.865,
+      "greenRed": 7.684,
+      "blueYellow": -2.837
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E21",
+    "name": "E21",
+    "hex": "#BD9DA1",
+    "rgb": {
+      "red": 189,
+      "green": 157,
+      "blue": 161
+    },
+    "hsl": {
+      "hue": 352.5,
+      "saturation": 19.512,
+      "lightness": 67.843
+    },
+    "lab": {
+      "lightness": 67.655,
+      "greenRed": 12.47,
+      "blueYellow": 2.346
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E22",
+    "name": "E22",
+    "hex": "#B785A1",
+    "rgb": {
+      "red": 183,
+      "green": 133,
+      "blue": 161
+    },
+    "hsl": {
+      "hue": 326.4,
+      "saturation": 25.773,
+      "lightness": 61.961
+    },
+    "lab": {
+      "lightness": 61.147,
+      "greenRed": 23.618,
+      "blueYellow": -7.286
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E23",
+    "name": "E23",
+    "hex": "#937A8D",
+    "rgb": {
+      "red": 147,
+      "green": 122,
+      "blue": 141
+    },
+    "hsl": {
+      "hue": 314.4,
+      "saturation": 10.373,
+      "lightness": 52.745
+    },
+    "lab": {
+      "lightness": 54.075,
+      "greenRed": 13.102,
+      "blueYellow": -6.666
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E24",
+    "name": "E24",
+    "hex": "#E1BCE8",
+    "rgb": {
+      "red": 225,
+      "green": 188,
+      "blue": 232
+    },
+    "hsl": {
+      "hue": 290.455,
+      "saturation": 48.889,
+      "lightness": 82.353
+    },
+    "lab": {
+      "lightness": 80.628,
+      "greenRed": 20.832,
+      "blueYellow": -16.938
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E3",
+    "name": "E3",
+    "hex": "#FFB7E7",
+    "rgb": {
+      "red": 255,
+      "green": 183,
+      "blue": 231
+    },
+    "hsl": {
+      "hue": 320,
+      "saturation": 100,
+      "lightness": 85.882
+    },
+    "lab": {
+      "lightness": 82.323,
+      "greenRed": 33.244,
+      "blueYellow": -13.564
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E4",
+    "name": "E4",
+    "hex": "#E8649E",
+    "rgb": {
+      "red": 232,
+      "green": 100,
+      "blue": 158
+    },
+    "hsl": {
+      "hue": 333.636,
+      "saturation": 74.157,
+      "lightness": 65.098
+    },
+    "lab": {
+      "lightness": 60.55,
+      "greenRed": 56.853,
+      "blueYellow": -5.767
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E5",
+    "name": "E5",
+    "hex": "#F551A2",
+    "rgb": {
+      "red": 245,
+      "green": 81,
+      "blue": 162
+    },
+    "hsl": {
+      "hue": 330.366,
+      "saturation": 89.13,
+      "lightness": 63.922
+    },
+    "lab": {
+      "lightness": 59.804,
+      "greenRed": 68.984,
+      "blueYellow": -8.976
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E6",
+    "name": "E6",
+    "hex": "#F13D74",
+    "rgb": {
+      "red": 241,
+      "green": 61,
+      "blue": 116
+    },
+    "hsl": {
+      "hue": 341.667,
+      "saturation": 86.538,
+      "lightness": 59.216
+    },
+    "lab": {
+      "lightness": 55.379,
+      "greenRed": 70.419,
+      "blueYellow": 11.592
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E7",
+    "name": "E7",
+    "hex": "#C63478",
+    "rgb": {
+      "red": 198,
+      "green": 52,
+      "blue": 120
+    },
+    "hsl": {
+      "hue": 332.055,
+      "saturation": 58.4,
+      "lightness": 49.02
+    },
+    "lab": {
+      "lightness": 46.735,
+      "greenRed": 61.916,
+      "blueYellow": -4.284
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E8",
+    "name": "E8",
+    "hex": "#FFDBE9",
+    "rgb": {
+      "red": 255,
+      "green": 219,
+      "blue": 233
+    },
+    "hsl": {
+      "hue": 336.667,
+      "saturation": 100,
+      "lightness": 92.941
+    },
+    "lab": {
+      "lightness": 90.691,
+      "greenRed": 14.712,
+      "blueYellow": -2.222
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "E9",
+    "name": "E9",
+    "hex": "#E970CC",
+    "rgb": {
+      "red": 233,
+      "green": 112,
+      "blue": 204
+    },
+    "hsl": {
+      "hue": 314.38,
+      "saturation": 73.333,
+      "lightness": 67.647
+    },
+    "lab": {
+      "lightness": 64.38,
+      "greenRed": 57.96,
+      "blueYellow": -26.196
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F1",
+    "name": "F1",
+    "hex": "#FD957B",
+    "rgb": {
+      "red": 253,
+      "green": 149,
+      "blue": 123
+    },
+    "hsl": {
+      "hue": 12,
+      "saturation": 97.015,
+      "lightness": 73.725
+    },
+    "lab": {
+      "lightness": 72.1,
+      "greenRed": 36.488,
+      "blueYellow": 30.574
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F10",
+    "name": "F10",
+    "hex": "#8A4526",
+    "rgb": {
+      "red": 138,
+      "green": 69,
+      "blue": 38
+    },
+    "hsl": {
+      "hue": 18.6,
+      "saturation": 56.818,
+      "lightness": 34.51
+    },
+    "lab": {
+      "lightness": 37.48,
+      "greenRed": 26.828,
+      "blueYellow": 31.519
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F11",
+    "name": "F11",
+    "hex": "#5A2121",
+    "rgb": {
+      "red": 90,
+      "green": 33,
+      "blue": 33
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 46.341,
+      "lightness": 24.118
+    },
+    "lab": {
+      "lightness": 21.473,
+      "greenRed": 26.259,
+      "blueYellow": 13.433
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F12",
+    "name": "F12",
+    "hex": "#FD4E6A",
+    "rgb": {
+      "red": 253,
+      "green": 78,
+      "blue": 106
+    },
+    "hsl": {
+      "hue": 350.4,
+      "saturation": 97.765,
+      "lightness": 64.902
+    },
+    "lab": {
+      "lightness": 59.317,
+      "greenRed": 67.448,
+      "blueYellow": 23.222
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F13",
+    "name": "F13",
+    "hex": "#F35744",
+    "rgb": {
+      "red": 243,
+      "green": 87,
+      "blue": 68
+    },
+    "hsl": {
+      "hue": 6.514,
+      "saturation": 87.94,
+      "lightness": 60.98
+    },
+    "lab": {
+      "lightness": 58.31,
+      "greenRed": 58.757,
+      "blueYellow": 43.114
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F14",
+    "name": "F14",
+    "hex": "#FFA9AD",
+    "rgb": {
+      "red": 255,
+      "green": 169,
+      "blue": 173
+    },
+    "hsl": {
+      "hue": 357.209,
+      "saturation": 100,
+      "lightness": 83.137
+    },
+    "lab": {
+      "lightness": 77.67,
+      "greenRed": 32.135,
+      "blueYellow": 11.017
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F15",
+    "name": "F15",
+    "hex": "#D30022",
+    "rgb": {
+      "red": 211,
+      "green": 0,
+      "blue": 34
+    },
+    "hsl": {
+      "hue": 350.332,
+      "saturation": 100,
+      "lightness": 41.373
+    },
+    "lab": {
+      "lightness": 44.182,
+      "greenRed": 69.898,
+      "blueYellow": 44.886
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F16",
+    "name": "F16",
+    "hex": "#FEC2A6",
+    "rgb": {
+      "red": 254,
+      "green": 194,
+      "blue": 166
+    },
+    "hsl": {
+      "hue": 19.091,
+      "saturation": 97.778,
+      "lightness": 82.353
+    },
+    "lab": {
+      "lightness": 83.13,
+      "greenRed": 17.811,
+      "blueYellow": 22.394
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F17",
+    "name": "F17",
+    "hex": "#E69C79",
+    "rgb": {
+      "red": 230,
+      "green": 156,
+      "blue": 121
+    },
+    "hsl": {
+      "hue": 19.266,
+      "saturation": 68.553,
+      "lightness": 68.824
+    },
+    "lab": {
+      "lightness": 70.857,
+      "greenRed": 23.712,
+      "blueYellow": 29.508
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F18",
+    "name": "F18",
+    "hex": "#D37C46",
+    "rgb": {
+      "red": 211,
+      "green": 124,
+      "blue": 70
+    },
+    "hsl": {
+      "hue": 22.979,
+      "saturation": 61.572,
+      "lightness": 55.098
+    },
+    "lab": {
+      "lightness": 60.522,
+      "greenRed": 29.151,
+      "blueYellow": 43.287
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F19",
+    "name": "F19",
+    "hex": "#C1444A",
+    "rgb": {
+      "red": 193,
+      "green": 68,
+      "blue": 74
+    },
+    "hsl": {
+      "hue": 357.12,
+      "saturation": 50.201,
+      "lightness": 51.176
+    },
+    "lab": {
+      "lightness": 46.93,
+      "greenRed": 50.366,
+      "blueYellow": 23.948
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F2",
+    "name": "F2",
+    "hex": "#FC3D46",
+    "rgb": {
+      "red": 252,
+      "green": 61,
+      "blue": 70
+    },
+    "hsl": {
+      "hue": 357.173,
+      "saturation": 96.954,
+      "lightness": 61.373
+    },
+    "lab": {
+      "lightness": 56.56,
+      "greenRed": 70.836,
+      "blueYellow": 40.451
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F20",
+    "name": "F20",
+    "hex": "#CD9391",
+    "rgb": {
+      "red": 205,
+      "green": 147,
+      "blue": 145
+    },
+    "hsl": {
+      "hue": 2,
+      "saturation": 37.5,
+      "lightness": 68.627
+    },
+    "lab": {
+      "lightness": 66.436,
+      "greenRed": 21.604,
+      "blueYellow": 9.759
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F21",
+    "name": "F21",
+    "hex": "#F7B4C6",
+    "rgb": {
+      "red": 247,
+      "green": 180,
+      "blue": 198
+    },
+    "hsl": {
+      "hue": 343.881,
+      "saturation": 80.723,
+      "lightness": 83.725
+    },
+    "lab": {
+      "lightness": 79.894,
+      "greenRed": 26.89,
+      "blueYellow": 0.54
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F22",
+    "name": "F22",
+    "hex": "#FDC0D0",
+    "rgb": {
+      "red": 253,
+      "green": 192,
+      "blue": 208
+    },
+    "hsl": {
+      "hue": 344.262,
+      "saturation": 93.846,
+      "lightness": 87.255
+    },
+    "lab": {
+      "lightness": 83.514,
+      "greenRed": 24.186,
+      "blueYellow": 0.511
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F23",
+    "name": "F23",
+    "hex": "#F67E66",
+    "rgb": {
+      "red": 246,
+      "green": 126,
+      "blue": 102
+    },
+    "hsl": {
+      "hue": 10,
+      "saturation": 88.889,
+      "lightness": 68.235
+    },
+    "lab": {
+      "lightness": 66.116,
+      "greenRed": 43.851,
+      "blueYellow": 34.108
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F24",
+    "name": "F24",
+    "hex": "#E698AA",
+    "rgb": {
+      "red": 230,
+      "green": 152,
+      "blue": 170
+    },
+    "hsl": {
+      "hue": 346.154,
+      "saturation": 60.938,
+      "lightness": 74.902
+    },
+    "lab": {
+      "lightness": 70.996,
+      "greenRed": 31.628,
+      "blueYellow": 2.717
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F25",
+    "name": "F25",
+    "hex": "#E54B4F",
+    "rgb": {
+      "red": 229,
+      "green": 75,
+      "blue": 79
+    },
+    "hsl": {
+      "hue": 358.442,
+      "saturation": 74.757,
+      "lightness": 59.608
+    },
+    "lab": {
+      "lightness": 54.296,
+      "greenRed": 59.566,
+      "blueYellow": 31.624
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F3",
+    "name": "F3",
+    "hex": "#F74941",
+    "rgb": {
+      "red": 247,
+      "green": 73,
+      "blue": 65
+    },
+    "hsl": {
+      "hue": 2.637,
+      "saturation": 91.919,
+      "lightness": 61.176
+    },
+    "lab": {
+      "lightness": 56.998,
+      "greenRed": 65.265,
+      "blueYellow": 43.463
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F4",
+    "name": "F4",
+    "hex": "#FC283C",
+    "rgb": {
+      "red": 252,
+      "green": 40,
+      "blue": 60
+    },
+    "hsl": {
+      "hue": 354.34,
+      "saturation": 97.248,
+      "lightness": 57.255
+    },
+    "lab": {
+      "lightness": 54.595,
+      "greenRed": 75.701,
+      "blueYellow": 43.845
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F5",
+    "name": "F5",
+    "hex": "#E7002F",
+    "rgb": {
+      "red": 231,
+      "green": 0,
+      "blue": 47
+    },
+    "hsl": {
+      "hue": 347.792,
+      "saturation": 100,
+      "lightness": 45.294
+    },
+    "lab": {
+      "lightness": 48.504,
+      "greenRed": 75.042,
+      "blueYellow": 43.401
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F6",
+    "name": "F6",
+    "hex": "#943630",
+    "rgb": {
+      "red": 148,
+      "green": 54,
+      "blue": 48
+    },
+    "hsl": {
+      "hue": 3.6,
+      "saturation": 51.02,
+      "lightness": 38.431
+    },
+    "lab": {
+      "lightness": 36.267,
+      "greenRed": 39.18,
+      "blueYellow": 24.638
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F7",
+    "name": "F7",
+    "hex": "#971937",
+    "rgb": {
+      "red": 151,
+      "green": 25,
+      "blue": 55
+    },
+    "hsl": {
+      "hue": 345.714,
+      "saturation": 71.591,
+      "lightness": 34.51
+    },
+    "lab": {
+      "lightness": 33.028,
+      "greenRed": 51.464,
+      "blueYellow": 16.19
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F8",
+    "name": "F8",
+    "hex": "#BC0028",
+    "rgb": {
+      "red": 188,
+      "green": 0,
+      "blue": 40
+    },
+    "hsl": {
+      "hue": 347.234,
+      "saturation": 100,
+      "lightness": 36.863
+    },
+    "lab": {
+      "lightness": 39.317,
+      "greenRed": 64.419,
+      "blueYellow": 35.053
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "F9",
+    "name": "F9",
+    "hex": "#E2677A",
+    "rgb": {
+      "red": 226,
+      "green": 103,
+      "blue": 122
+    },
+    "hsl": {
+      "hue": 350.732,
+      "saturation": 67.956,
+      "lightness": 64.51
+    },
+    "lab": {
+      "lightness": 59.227,
+      "greenRed": 49.584,
+      "blueYellow": 13.089
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G1",
+    "name": "G1",
+    "hex": "#FFE2CE",
+    "rgb": {
+      "red": 255,
+      "green": 226,
+      "blue": 206
+    },
+    "hsl": {
+      "hue": 24.49,
+      "saturation": 100,
+      "lightness": 90.392
+    },
+    "lab": {
+      "lightness": 91.734,
+      "greenRed": 6.882,
+      "blueYellow": 13.413
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G10",
+    "name": "G10",
+    "hex": "#D98C39",
+    "rgb": {
+      "red": 217,
+      "green": 140,
+      "blue": 57
+    },
+    "hsl": {
+      "hue": 31.125,
+      "saturation": 67.797,
+      "lightness": 53.725
+    },
+    "lab": {
+      "lightness": 64.806,
+      "greenRed": 22.39,
+      "blueYellow": 54.335
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G11",
+    "name": "G11",
+    "hex": "#E0C593",
+    "rgb": {
+      "red": 224,
+      "green": 197,
+      "blue": 147
+    },
+    "hsl": {
+      "hue": 38.961,
+      "saturation": 55.396,
+      "lightness": 72.745
+    },
+    "lab": {
+      "lightness": 80.676,
+      "greenRed": 2.394,
+      "blueYellow": 28.608
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G12",
+    "name": "G12",
+    "hex": "#FFC890",
+    "rgb": {
+      "red": 255,
+      "green": 200,
+      "blue": 144
+    },
+    "hsl": {
+      "hue": 30.27,
+      "saturation": 100,
+      "lightness": 78.235
+    },
+    "lab": {
+      "lightness": 84.268,
+      "greenRed": 12.64,
+      "blueYellow": 35.451
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G13",
+    "name": "G13",
+    "hex": "#B7714A",
+    "rgb": {
+      "red": 183,
+      "green": 113,
+      "blue": 74
+    },
+    "hsl": {
+      "hue": 21.468,
+      "saturation": 43.083,
+      "lightness": 50.392
+    },
+    "lab": {
+      "lightness": 54.419,
+      "greenRed": 23.806,
+      "blueYellow": 33.047
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G14",
+    "name": "G14",
+    "hex": "#8D614C",
+    "rgb": {
+      "red": 141,
+      "green": 97,
+      "blue": 76
+    },
+    "hsl": {
+      "hue": 19.385,
+      "saturation": 29.954,
+      "lightness": 42.549
+    },
+    "lab": {
+      "lightness": 45.268,
+      "greenRed": 15.198,
+      "blueYellow": 19.135
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G15",
+    "name": "G15",
+    "hex": "#FCF9E0",
+    "rgb": {
+      "red": 252,
+      "green": 249,
+      "blue": 224
+    },
+    "hsl": {
+      "hue": 53.571,
+      "saturation": 82.353,
+      "lightness": 93.333
+    },
+    "lab": {
+      "lightness": 97.563,
+      "greenRed": -3.142,
+      "blueYellow": 12.353
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G16",
+    "name": "G16",
+    "hex": "#F2D9BA",
+    "rgb": {
+      "red": 242,
+      "green": 217,
+      "blue": 186
+    },
+    "hsl": {
+      "hue": 33.214,
+      "saturation": 68.293,
+      "lightness": 83.922
+    },
+    "lab": {
+      "lightness": 87.992,
+      "greenRed": 3.924,
+      "blueYellow": 18.432
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G17",
+    "name": "G17",
+    "hex": "#78524B",
+    "rgb": {
+      "red": 120,
+      "green": 82,
+      "blue": 75
+    },
+    "hsl": {
+      "hue": 9.333,
+      "saturation": 23.077,
+      "lightness": 38.235
+    },
+    "lab": {
+      "lightness": 38.787,
+      "greenRed": 14.911,
+      "blueYellow": 10.499
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G18",
+    "name": "G18",
+    "hex": "#FFE4CC",
+    "rgb": {
+      "red": 255,
+      "green": 228,
+      "blue": 204
+    },
+    "hsl": {
+      "hue": 28.235,
+      "saturation": 100,
+      "lightness": 90
+    },
+    "lab": {
+      "lightness": 92.179,
+      "greenRed": 5.565,
+      "blueYellow": 15.084
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G19",
+    "name": "G19",
+    "hex": "#E07935",
+    "rgb": {
+      "red": 224,
+      "green": 121,
+      "blue": 53
+    },
+    "hsl": {
+      "hue": 23.86,
+      "saturation": 73.391,
+      "lightness": 54.314
+    },
+    "lab": {
+      "lightness": 61.463,
+      "greenRed": 35.16,
+      "blueYellow": 53.051
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G2",
+    "name": "G2",
+    "hex": "#FFC4AA",
+    "rgb": {
+      "red": 255,
+      "green": 196,
+      "blue": 170
+    },
+    "hsl": {
+      "hue": 18.353,
+      "saturation": 100,
+      "lightness": 83.333
+    },
+    "lab": {
+      "lightness": 83.779,
+      "greenRed": 17.625,
+      "blueYellow": 21.185
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G20",
+    "name": "G20",
+    "hex": "#A94023",
+    "rgb": {
+      "red": 169,
+      "green": 64,
+      "blue": 35
+    },
+    "hsl": {
+      "hue": 12.985,
+      "saturation": 65.686,
+      "lightness": 40
+    },
+    "lab": {
+      "lightness": 41.569,
+      "greenRed": 41.62,
+      "blueYellow": 39.022
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G21",
+    "name": "G21",
+    "hex": "#B88558",
+    "rgb": {
+      "red": 184,
+      "green": 133,
+      "blue": 88
+    },
+    "hsl": {
+      "hue": 28.125,
+      "saturation": 40.336,
+      "lightness": 53.333
+    },
+    "lab": {
+      "lightness": 59.589,
+      "greenRed": 14.299,
+      "blueYellow": 31.853
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G3",
+    "name": "G3",
+    "hex": "#F4C3A5",
+    "rgb": {
+      "red": 244,
+      "green": 195,
+      "blue": 165
+    },
+    "hsl": {
+      "hue": 22.785,
+      "saturation": 78.218,
+      "lightness": 80.196
+    },
+    "lab": {
+      "lightness": 82.368,
+      "greenRed": 13.365,
+      "blueYellow": 21.72
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G4",
+    "name": "G4",
+    "hex": "#E1B383",
+    "rgb": {
+      "red": 225,
+      "green": 179,
+      "blue": 131
+    },
+    "hsl": {
+      "hue": 30.638,
+      "saturation": 61.039,
+      "lightness": 69.804
+    },
+    "lab": {
+      "lightness": 76,
+      "greenRed": 10.462,
+      "blueYellow": 30.835
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G5",
+    "name": "G5",
+    "hex": "#EDB045",
+    "rgb": {
+      "red": 237,
+      "green": 176,
+      "blue": 69
+    },
+    "hsl": {
+      "hue": 38.214,
+      "saturation": 82.353,
+      "lightness": 60
+    },
+    "lab": {
+      "lightness": 75.752,
+      "greenRed": 12.206,
+      "blueYellow": 61.078
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G6",
+    "name": "G6",
+    "hex": "#E99C17",
+    "rgb": {
+      "red": 233,
+      "green": 156,
+      "blue": 23
+    },
+    "hsl": {
+      "hue": 38,
+      "saturation": 82.677,
+      "lightness": 50.196
+    },
+    "lab": {
+      "lightness": 70.29,
+      "greenRed": 19.62,
+      "blueYellow": 71.216
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G7",
+    "name": "G7",
+    "hex": "#9D5B3E",
+    "rgb": {
+      "red": 157,
+      "green": 91,
+      "blue": 62
+    },
+    "hsl": {
+      "hue": 18.316,
+      "saturation": 43.379,
+      "lightness": 42.941
+    },
+    "lab": {
+      "lightness": 45.632,
+      "greenRed": 24.192,
+      "blueYellow": 28.19
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G8",
+    "name": "G8",
+    "hex": "#753832",
+    "rgb": {
+      "red": 117,
+      "green": 56,
+      "blue": 50
+    },
+    "hsl": {
+      "hue": 5.373,
+      "saturation": 40.12,
+      "lightness": 32.745
+    },
+    "lab": {
+      "lightness": 31.441,
+      "greenRed": 26.128,
+      "blueYellow": 16.171
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "G9",
+    "name": "G9",
+    "hex": "#E6B483",
+    "rgb": {
+      "red": 230,
+      "green": 180,
+      "blue": 131
+    },
+    "hsl": {
+      "hue": 29.697,
+      "saturation": 66.443,
+      "lightness": 70.784
+    },
+    "lab": {
+      "lightness": 76.742,
+      "greenRed": 11.925,
+      "blueYellow": 31.904
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H1",
+    "name": "H1",
+    "hex": "#FDFBFF",
+    "rgb": {
+      "red": 253,
+      "green": 251,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 270,
+      "saturation": 100,
+      "lightness": 99.216
+    },
+    "lab": {
+      "lightness": 98.866,
+      "greenRed": 1.369,
+      "blueYellow": -1.686
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H10",
+    "name": "H10",
+    "hex": "#EEE9EA",
+    "rgb": {
+      "red": 238,
+      "green": 233,
+      "blue": 234
+    },
+    "hsl": {
+      "hue": 348,
+      "saturation": 12.821,
+      "lightness": 92.353
+    },
+    "lab": {
+      "lightness": 92.749,
+      "greenRed": 1.859,
+      "blueYellow": 0.102
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H11",
+    "name": "H11",
+    "hex": "#CECDD5",
+    "rgb": {
+      "red": 206,
+      "green": 205,
+      "blue": 213
+    },
+    "hsl": {
+      "hue": 247.5,
+      "saturation": 8.696,
+      "lightness": 81.961
+    },
+    "lab": {
+      "lightness": 82.694,
+      "greenRed": 1.826,
+      "blueYellow": -3.849
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H12",
+    "name": "H12",
+    "hex": "#FFF5ED",
+    "rgb": {
+      "red": 255,
+      "green": 245,
+      "blue": 237
+    },
+    "hsl": {
+      "hue": 26.667,
+      "saturation": 100,
+      "lightness": 96.471
+    },
+    "lab": {
+      "lightness": 97.097,
+      "greenRed": 2.002,
+      "blueYellow": 5.025
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H13",
+    "name": "H13",
+    "hex": "#F5ECD2",
+    "rgb": {
+      "red": 245,
+      "green": 236,
+      "blue": 210
+    },
+    "hsl": {
+      "hue": 44.571,
+      "saturation": 63.636,
+      "lightness": 89.216
+    },
+    "lab": {
+      "lightness": 93.475,
+      "greenRed": -1.201,
+      "blueYellow": 13.69
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H14",
+    "name": "H14",
+    "hex": "#CFD7D3",
+    "rgb": {
+      "red": 207,
+      "green": 215,
+      "blue": 211
+    },
+    "hsl": {
+      "hue": 150,
+      "saturation": 9.091,
+      "lightness": 82.745
+    },
+    "lab": {
+      "lightness": 85.286,
+      "greenRed": -3.435,
+      "blueYellow": 1.02
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H15",
+    "name": "H15",
+    "hex": "#98A6A8",
+    "rgb": {
+      "red": 152,
+      "green": 166,
+      "blue": 168
+    },
+    "hsl": {
+      "hue": 187.5,
+      "saturation": 8.421,
+      "lightness": 62.745
+    },
+    "lab": {
+      "lightness": 67.108,
+      "greenRed": -4.499,
+      "blueYellow": -2.726
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H16",
+    "name": "H16",
+    "hex": "#1D1414",
+    "rgb": {
+      "red": 29,
+      "green": 20,
+      "blue": 20
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 18.367,
+      "lightness": 9.608
+    },
+    "lab": {
+      "lightness": 7.335,
+      "greenRed": 4.533,
+      "blueYellow": 1.604
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H17",
+    "name": "H17",
+    "hex": "#F1EDED",
+    "rgb": {
+      "red": 241,
+      "green": 237,
+      "blue": 237
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 12.5,
+      "lightness": 93.725
+    },
+    "lab": {
+      "lightness": 94.048,
+      "greenRed": 1.343,
+      "blueYellow": 0.464
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H18",
+    "name": "H18",
+    "hex": "#FFFDF0",
+    "rgb": {
+      "red": 255,
+      "green": 253,
+      "blue": 240
+    },
+    "hsl": {
+      "hue": 52,
+      "saturation": 100,
+      "lightness": 97.059
+    },
+    "lab": {
+      "lightness": 99.144,
+      "greenRed": -1.543,
+      "blueYellow": 6.438
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H19",
+    "name": "H19",
+    "hex": "#F6EFE2",
+    "rgb": {
+      "red": 246,
+      "green": 239,
+      "blue": 226
+    },
+    "hsl": {
+      "hue": 39,
+      "saturation": 52.632,
+      "lightness": 92.549
+    },
+    "lab": {
+      "lightness": 94.66,
+      "greenRed": 0.16,
+      "blueYellow": 7.106
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H2",
+    "name": "H2",
+    "hex": "#FEFFFF",
+    "rgb": {
+      "red": 254,
+      "green": 255,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 180,
+      "saturation": 100,
+      "lightness": 99.804
+    },
+    "lab": {
+      "lightness": 99.927,
+      "greenRed": -0.324,
+      "blueYellow": -0.126
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H20",
+    "name": "H20",
+    "hex": "#949FA3",
+    "rgb": {
+      "red": 148,
+      "green": 159,
+      "blue": 163
+    },
+    "hsl": {
+      "hue": 196,
+      "saturation": 7.538,
+      "lightness": 60.98
+    },
+    "lab": {
+      "lightness": 64.753,
+      "greenRed": -3.08,
+      "blueYellow": -3.431
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H21",
+    "name": "H21",
+    "hex": "#FFFBE1",
+    "rgb": {
+      "red": 255,
+      "green": 251,
+      "blue": 225
+    },
+    "hsl": {
+      "hue": 52,
+      "saturation": 100,
+      "lightness": 94.118
+    },
+    "lab": {
+      "lightness": 98.309,
+      "greenRed": -2.949,
+      "blueYellow": 12.933
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H22",
+    "name": "H22",
+    "hex": "#CACAD4",
+    "rgb": {
+      "red": 202,
+      "green": 202,
+      "blue": 212
+    },
+    "hsl": {
+      "hue": 240,
+      "saturation": 10.417,
+      "lightness": 81.176
+    },
+    "lab": {
+      "lightness": 81.594,
+      "greenRed": 1.874,
+      "blueYellow": -4.971
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H23",
+    "name": "H23",
+    "hex": "#9A9D94",
+    "rgb": {
+      "red": 154,
+      "green": 157,
+      "blue": 148
+    },
+    "hsl": {
+      "hue": 80,
+      "saturation": 4.39,
+      "lightness": 59.804
+    },
+    "lab": {
+      "lightness": 64.26,
+      "greenRed": -2.78,
+      "blueYellow": 4.321
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H3",
+    "name": "H3",
+    "hex": "#B6B1BA",
+    "rgb": {
+      "red": 182,
+      "green": 177,
+      "blue": 186
+    },
+    "hsl": {
+      "hue": 273.333,
+      "saturation": 6.122,
+      "lightness": 71.176
+    },
+    "lab": {
+      "lightness": 72.849,
+      "greenRed": 3.458,
+      "blueYellow": -3.956
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H4",
+    "name": "H4",
+    "hex": "#89858C",
+    "rgb": {
+      "red": 137,
+      "green": 133,
+      "blue": 140
+    },
+    "hsl": {
+      "hue": 274.286,
+      "saturation": 2.954,
+      "lightness": 53.529
+    },
+    "lab": {
+      "lightness": 56.075,
+      "greenRed": 2.875,
+      "blueYellow": -3.227
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H5",
+    "name": "H5",
+    "hex": "#48464E",
+    "rgb": {
+      "red": 72,
+      "green": 70,
+      "blue": 78
+    },
+    "hsl": {
+      "hue": 255,
+      "saturation": 5.405,
+      "lightness": 29.02
+    },
+    "lab": {
+      "lightness": 30.177,
+      "greenRed": 2.644,
+      "blueYellow": -4.487
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H6",
+    "name": "H6",
+    "hex": "#2F2B2F",
+    "rgb": {
+      "red": 47,
+      "green": 43,
+      "blue": 47
+    },
+    "hsl": {
+      "hue": 300,
+      "saturation": 4.444,
+      "lightness": 17.647
+    },
+    "lab": {
+      "lightness": 18.087,
+      "greenRed": 2.743,
+      "blueYellow": -1.935
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H7",
+    "name": "H7",
+    "hex": "#000000",
+    "rgb": {
+      "red": 0,
+      "green": 0,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 0
+    },
+    "lab": {
+      "lightness": 0,
+      "greenRed": 0,
+      "blueYellow": 0
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H8",
+    "name": "H8",
+    "hex": "#E7D6DB",
+    "rgb": {
+      "red": 231,
+      "green": 214,
+      "blue": 219
+    },
+    "hsl": {
+      "hue": 342.353,
+      "saturation": 26.154,
+      "lightness": 87.255
+    },
+    "lab": {
+      "lightness": 87.093,
+      "greenRed": 6.709,
+      "blueYellow": -0.353
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "H9",
+    "name": "H9",
+    "hex": "#EDEDED",
+    "rgb": {
+      "red": 237,
+      "green": 237,
+      "blue": 237
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 92.941
+    },
+    "lab": {
+      "lightness": 93.748,
+      "greenRed": 0.005,
+      "blueYellow": -0.01
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M1",
+    "name": "M1",
+    "hex": "#BCC6B8",
+    "rgb": {
+      "red": 188,
+      "green": 198,
+      "blue": 184
+    },
+    "hsl": {
+      "hue": 102.857,
+      "saturation": 10.938,
+      "lightness": 74.902
+    },
+    "lab": {
+      "lightness": 78.776,
+      "greenRed": -6.009,
+      "blueYellow": 5.822
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M10",
+    "name": "M10",
+    "hex": "#C5B2BC",
+    "rgb": {
+      "red": 197,
+      "green": 178,
+      "blue": 188
+    },
+    "hsl": {
+      "hue": 328.421,
+      "saturation": 14.074,
+      "lightness": 73.529
+    },
+    "lab": {
+      "lightness": 74.408,
+      "greenRed": 8.548,
+      "blueYellow": -2.613
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M11",
+    "name": "M11",
+    "hex": "#9F7594",
+    "rgb": {
+      "red": 159,
+      "green": 117,
+      "blue": 148
+    },
+    "hsl": {
+      "hue": 315.714,
+      "saturation": 17.949,
+      "lightness": 54.118
+    },
+    "lab": {
+      "lightness": 54.272,
+      "greenRed": 21.698,
+      "blueYellow": -10.325
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M12",
+    "name": "M12",
+    "hex": "#644749",
+    "rgb": {
+      "red": 100,
+      "green": 71,
+      "blue": 73
+    },
+    "hsl": {
+      "hue": 355.862,
+      "saturation": 16.959,
+      "lightness": 33.529
+    },
+    "lab": {
+      "lightness": 33.343,
+      "greenRed": 12.747,
+      "blueYellow": 3.715
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M13",
+    "name": "M13",
+    "hex": "#D19066",
+    "rgb": {
+      "red": 209,
+      "green": 144,
+      "blue": 102
+    },
+    "hsl": {
+      "hue": 23.551,
+      "saturation": 53.769,
+      "lightness": 60.98
+    },
+    "lab": {
+      "lightness": 65.327,
+      "greenRed": 19.935,
+      "blueYellow": 32.137
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M14",
+    "name": "M14",
+    "hex": "#C77362",
+    "rgb": {
+      "red": 199,
+      "green": 115,
+      "blue": 98
+    },
+    "hsl": {
+      "hue": 10.099,
+      "saturation": 47.418,
+      "lightness": 58.235
+    },
+    "lab": {
+      "lightness": 57.352,
+      "greenRed": 31.257,
+      "blueYellow": 23.741
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M15",
+    "name": "M15",
+    "hex": "#757D78",
+    "rgb": {
+      "red": 117,
+      "green": 125,
+      "blue": 120
+    },
+    "hsl": {
+      "hue": 142.5,
+      "saturation": 3.306,
+      "lightness": 47.451
+    },
+    "lab": {
+      "lightness": 51.616,
+      "greenRed": -3.999,
+      "blueYellow": 1.69
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M2",
+    "name": "M2",
+    "hex": "#8AA386",
+    "rgb": {
+      "red": 138,
+      "green": 163,
+      "blue": 134
+    },
+    "hsl": {
+      "hue": 111.724,
+      "saturation": 13.615,
+      "lightness": 58.235
+    },
+    "lab": {
+      "lightness": 64.418,
+      "greenRed": -14.408,
+      "blueYellow": 12.206
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M3",
+    "name": "M3",
+    "hex": "#697D80",
+    "rgb": {
+      "red": 105,
+      "green": 125,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 187.826,
+      "saturation": 9.871,
+      "lightness": 45.686
+    },
+    "lab": {
+      "lightness": 50.954,
+      "greenRed": -6.575,
+      "blueYellow": -4.077
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M4",
+    "name": "M4",
+    "hex": "#E3D2BC",
+    "rgb": {
+      "red": 227,
+      "green": 210,
+      "blue": 188
+    },
+    "hsl": {
+      "hue": 33.846,
+      "saturation": 41.053,
+      "lightness": 81.373
+    },
+    "lab": {
+      "lightness": 85.024,
+      "greenRed": 2.343,
+      "blueYellow": 13.025
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M5",
+    "name": "M5",
+    "hex": "#D0CCAA",
+    "rgb": {
+      "red": 208,
+      "green": 204,
+      "blue": 170
+    },
+    "hsl": {
+      "hue": 53.684,
+      "saturation": 28.788,
+      "lightness": 74.118
+    },
+    "lab": {
+      "lightness": 81.565,
+      "greenRed": -4.232,
+      "blueYellow": 17.47
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M6",
+    "name": "M6",
+    "hex": "#B0A782",
+    "rgb": {
+      "red": 176,
+      "green": 167,
+      "blue": 130
+    },
+    "hsl": {
+      "hue": 48.261,
+      "saturation": 22.549,
+      "lightness": 60
+    },
+    "lab": {
+      "lightness": 68.372,
+      "greenRed": -2.742,
+      "blueYellow": 20.346
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M7",
+    "name": "M7",
+    "hex": "#B4A497",
+    "rgb": {
+      "red": 180,
+      "green": 164,
+      "blue": 151
+    },
+    "hsl": {
+      "hue": 26.897,
+      "saturation": 16.201,
+      "lightness": 64.902
+    },
+    "lab": {
+      "lightness": 68.379,
+      "greenRed": 3.614,
+      "blueYellow": 8.842
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M8",
+    "name": "M8",
+    "hex": "#B38281",
+    "rgb": {
+      "red": 179,
+      "green": 130,
+      "blue": 129
+    },
+    "hsl": {
+      "hue": 1.2,
+      "saturation": 24.752,
+      "lightness": 60.392
+    },
+    "lab": {
+      "lightness": 59.098,
+      "greenRed": 18.747,
+      "blueYellow": 8.004
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "M9",
+    "name": "M9",
+    "hex": "#A58767",
+    "rgb": {
+      "red": 165,
+      "green": 135,
+      "blue": 103
+    },
+    "hsl": {
+      "hue": 30.968,
+      "saturation": 25.62,
+      "lightness": 52.549
+    },
+    "lab": {
+      "lightness": 58.327,
+      "greenRed": 6.798,
+      "blueYellow": 21.509
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P1",
+    "name": "P1",
+    "hex": "#FCF7F8",
+    "rgb": {
+      "red": 252,
+      "green": 247,
+      "blue": 248
+    },
+    "hsl": {
+      "hue": 348,
+      "saturation": 45.455,
+      "lightness": 97.843
+    },
+    "lab": {
+      "lightness": 97.63,
+      "greenRed": 1.839,
+      "blueYellow": 0.1
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P10",
+    "name": "P10",
+    "hex": "#D9C7EA",
+    "rgb": {
+      "red": 217,
+      "green": 199,
+      "blue": 234
+    },
+    "hsl": {
+      "hue": 270.857,
+      "saturation": 45.455,
+      "lightness": 84.902
+    },
+    "lab": {
+      "lightness": 82.668,
+      "greenRed": 12.702,
+      "blueYellow": -15.01
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P11",
+    "name": "P11",
+    "hex": "#F3ECC9",
+    "rgb": {
+      "red": 243,
+      "green": 236,
+      "blue": 201
+    },
+    "hsl": {
+      "hue": 50,
+      "saturation": 63.636,
+      "lightness": 87.059
+    },
+    "lab": {
+      "lightness": 93.129,
+      "greenRed": -3.269,
+      "blueYellow": 17.835
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P12",
+    "name": "P12",
+    "hex": "#E6EEF2",
+    "rgb": {
+      "red": 230,
+      "green": 238,
+      "blue": 242
+    },
+    "hsl": {
+      "hue": 200,
+      "saturation": 31.579,
+      "lightness": 92.549
+    },
+    "lab": {
+      "lightness": 93.617,
+      "greenRed": -1.91,
+      "blueYellow": -2.862
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P13",
+    "name": "P13",
+    "hex": "#AACBEF",
+    "rgb": {
+      "red": 170,
+      "green": 203,
+      "blue": 239
+    },
+    "hsl": {
+      "hue": 211.304,
+      "saturation": 68.317,
+      "lightness": 80.196
+    },
+    "lab": {
+      "lightness": 80.454,
+      "greenRed": -2.883,
+      "blueYellow": -21.353
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P14",
+    "name": "P14",
+    "hex": "#337680",
+    "rgb": {
+      "red": 51,
+      "green": 118,
+      "blue": 128
+    },
+    "hsl": {
+      "hue": 187.792,
+      "saturation": 43.017,
+      "lightness": 35.098
+    },
+    "lab": {
+      "lightness": 45.933,
+      "greenRed": -17.945,
+      "blueYellow": -11.881
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P15",
+    "name": "P15",
+    "hex": "#668575",
+    "rgb": {
+      "red": 102,
+      "green": 133,
+      "blue": 117
+    },
+    "hsl": {
+      "hue": 149.032,
+      "saturation": 13.191,
+      "lightness": 46.078
+    },
+    "lab": {
+      "lightness": 52.823,
+      "greenRed": -14.506,
+      "blueYellow": 5.045
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P16",
+    "name": "P16",
+    "hex": "#FEBF45",
+    "rgb": {
+      "red": 254,
+      "green": 191,
+      "blue": 69
+    },
+    "hsl": {
+      "hue": 39.568,
+      "saturation": 98.93,
+      "lightness": 63.333
+    },
+    "lab": {
+      "lightness": 81.161,
+      "greenRed": 11.495,
+      "blueYellow": 67.106
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P17",
+    "name": "P17",
+    "hex": "#FEA324",
+    "rgb": {
+      "red": 254,
+      "green": 163,
+      "blue": 36
+    },
+    "hsl": {
+      "hue": 34.954,
+      "saturation": 99.091,
+      "lightness": 56.863
+    },
+    "lab": {
+      "lightness": 74.44,
+      "greenRed": 25.024,
+      "blueYellow": 72.32
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P18",
+    "name": "P18",
+    "hex": "#FEB89F",
+    "rgb": {
+      "red": 254,
+      "green": 184,
+      "blue": 159
+    },
+    "hsl": {
+      "hue": 15.789,
+      "saturation": 97.938,
+      "lightness": 80.98
+    },
+    "lab": {
+      "lightness": 80.658,
+      "greenRed": 22.234,
+      "blueYellow": 22.723
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P19",
+    "name": "P19",
+    "hex": "#FFFEEC",
+    "rgb": {
+      "red": 255,
+      "green": 254,
+      "blue": 236
+    },
+    "hsl": {
+      "hue": 56.842,
+      "saturation": 100,
+      "lightness": 96.275
+    },
+    "lab": {
+      "lightness": 99.3,
+      "greenRed": -2.701,
+      "blueYellow": 8.712
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P2",
+    "name": "P2",
+    "hex": "#B0A9AC",
+    "rgb": {
+      "red": 176,
+      "green": 169,
+      "blue": 172
+    },
+    "hsl": {
+      "hue": 334.286,
+      "saturation": 4.242,
+      "lightness": 67.647
+    },
+    "lab": {
+      "lightness": 69.884,
+      "greenRed": 3.06,
+      "blueYellow": -0.656
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P20",
+    "name": "P20",
+    "hex": "#FEBECF",
+    "rgb": {
+      "red": 254,
+      "green": 190,
+      "blue": 207
+    },
+    "hsl": {
+      "hue": 344.063,
+      "saturation": 96.97,
+      "lightness": 87.059
+    },
+    "lab": {
+      "lightness": 83.127,
+      "greenRed": 25.439,
+      "blueYellow": 0.494
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P21",
+    "name": "P21",
+    "hex": "#ECBEBF",
+    "rgb": {
+      "red": 236,
+      "green": 190,
+      "blue": 191
+    },
+    "hsl": {
+      "hue": 358.696,
+      "saturation": 54.762,
+      "lightness": 83.529
+    },
+    "lab": {
+      "lightness": 80.972,
+      "greenRed": 16.599,
+      "blueYellow": 5.744
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P22",
+    "name": "P22",
+    "hex": "#E4A89F",
+    "rgb": {
+      "red": 228,
+      "green": 168,
+      "blue": 159
+    },
+    "hsl": {
+      "hue": 7.826,
+      "saturation": 56.098,
+      "lightness": 75.882
+    },
+    "lab": {
+      "lightness": 74.191,
+      "greenRed": 20.852,
+      "blueYellow": 13.322
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P23",
+    "name": "P23",
+    "hex": "#A56268",
+    "rgb": {
+      "red": 165,
+      "green": 98,
+      "blue": 104
+    },
+    "hsl": {
+      "hue": 354.627,
+      "saturation": 27.126,
+      "lightness": 51.569
+    },
+    "lab": {
+      "lightness": 49.172,
+      "greenRed": 27.854,
+      "blueYellow": 8.297
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P3",
+    "name": "P3",
+    "hex": "#AFDCAB",
+    "rgb": {
+      "red": 175,
+      "green": 220,
+      "blue": 171
+    },
+    "hsl": {
+      "hue": 115.102,
+      "saturation": 41.176,
+      "lightness": 76.667
+    },
+    "lab": {
+      "lightness": 83.569,
+      "greenRed": -23.879,
+      "blueYellow": 19.385
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P4",
+    "name": "P4",
+    "hex": "#FEA49F",
+    "rgb": {
+      "red": 254,
+      "green": 164,
+      "blue": 159
+    },
+    "hsl": {
+      "hue": 3.158,
+      "saturation": 97.938,
+      "lightness": 80.98
+    },
+    "lab": {
+      "lightness": 76.146,
+      "greenRed": 32.704,
+      "blueYellow": 16.482
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P5",
+    "name": "P5",
+    "hex": "#EE8C3E",
+    "rgb": {
+      "red": 238,
+      "green": 140,
+      "blue": 62
+    },
+    "hsl": {
+      "hue": 26.591,
+      "saturation": 83.81,
+      "lightness": 58.824
+    },
+    "lab": {
+      "lightness": 67.487,
+      "greenRed": 31.298,
+      "blueYellow": 55.692
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P6",
+    "name": "P6",
+    "hex": "#5FD0A7",
+    "rgb": {
+      "red": 95,
+      "green": 208,
+      "blue": 167
+    },
+    "hsl": {
+      "hue": 158.23,
+      "saturation": 54.589,
+      "lightness": 59.412
+    },
+    "lab": {
+      "lightness": 76.274,
+      "greenRed": -41.929,
+      "blueYellow": 10.706
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P7",
+    "name": "P7",
+    "hex": "#EB9270",
+    "rgb": {
+      "red": 235,
+      "green": 146,
+      "blue": 112
+    },
+    "hsl": {
+      "hue": 16.585,
+      "saturation": 75.46,
+      "lightness": 68.039
+    },
+    "lab": {
+      "lightness": 69.033,
+      "greenRed": 30.166,
+      "blueYellow": 32.109
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P8",
+    "name": "P8",
+    "hex": "#F0D958",
+    "rgb": {
+      "red": 240,
+      "green": 217,
+      "blue": 88
+    },
+    "hsl": {
+      "hue": 50.921,
+      "saturation": 83.516,
+      "lightness": 64.314
+    },
+    "lab": {
+      "lightness": 86.432,
+      "greenRed": -6.703,
+      "blueYellow": 64.4
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "P9",
+    "name": "P9",
+    "hex": "#D9D9D9",
+    "rgb": {
+      "red": 217,
+      "green": 217,
+      "blue": 217
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 85.098
+    },
+    "lab": {
+      "lightness": 86.695,
+      "greenRed": 0.005,
+      "blueYellow": -0.009
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Q1",
+    "name": "Q1",
+    "hex": "#F2A5E8",
+    "rgb": {
+      "red": 242,
+      "green": 165,
+      "blue": 232
+    },
+    "hsl": {
+      "hue": 307.792,
+      "saturation": 74.757,
+      "lightness": 79.804
+    },
+    "lab": {
+      "lightness": 77.049,
+      "greenRed": 38.623,
+      "blueYellow": -22.195
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Q2",
+    "name": "Q2",
+    "hex": "#E9EC91",
+    "rgb": {
+      "red": 233,
+      "green": 236,
+      "blue": 145
+    },
+    "hsl": {
+      "hue": 61.978,
+      "saturation": 70.543,
+      "lightness": 74.706
+    },
+    "lab": {
+      "lightness": 91.396,
+      "greenRed": -14.172,
+      "blueYellow": 43.759
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Q3",
+    "name": "Q3",
+    "hex": "#FFFF00",
+    "rgb": {
+      "red": 255,
+      "green": 255,
+      "blue": 0
+    },
+    "hsl": {
+      "hue": 60,
+      "saturation": 100,
+      "lightness": 50
+    },
+    "lab": {
+      "lightness": 97.138,
+      "greenRed": -21.556,
+      "blueYellow": 94.482
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Q4",
+    "name": "Q4",
+    "hex": "#FFEBFA",
+    "rgb": {
+      "red": 255,
+      "green": 235,
+      "blue": 250
+    },
+    "hsl": {
+      "hue": 315,
+      "saturation": 100,
+      "lightness": 96.078
+    },
+    "lab": {
+      "lightness": 94.983,
+      "greenRed": 9.324,
+      "blueYellow": -4.789
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Q5",
+    "name": "Q5",
+    "hex": "#76CEDE",
+    "rgb": {
+      "red": 118,
+      "green": 206,
+      "blue": 222
+    },
+    "hsl": {
+      "hue": 189.231,
+      "saturation": 61.176,
+      "lightness": 66.667
+    },
+    "lab": {
+      "lightness": 78.033,
+      "greenRed": -22.291,
+      "blueYellow": -16.166
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R1",
+    "name": "R1",
+    "hex": "#D50D21",
+    "rgb": {
+      "red": 213,
+      "green": 13,
+      "blue": 33
+    },
+    "hsl": {
+      "hue": 354,
+      "saturation": 88.496,
+      "lightness": 44.314
+    },
+    "lab": {
+      "lightness": 45.003,
+      "greenRed": 69.19,
+      "blueYellow": 46.301
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R10",
+    "name": "R10",
+    "hex": "#FFDB4C",
+    "rgb": {
+      "red": 255,
+      "green": 219,
+      "blue": 76
+    },
+    "hsl": {
+      "hue": 47.933,
+      "saturation": 100,
+      "lightness": 64.902
+    },
+    "lab": {
+      "lightness": 88.182,
+      "greenRed": -2.142,
+      "blueYellow": 71.419
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R11",
+    "name": "R11",
+    "hex": "#FFEBFA",
+    "rgb": {
+      "red": 255,
+      "green": 235,
+      "blue": 250
+    },
+    "hsl": {
+      "hue": 315,
+      "saturation": 100,
+      "lightness": 96.078
+    },
+    "lab": {
+      "lightness": 94.983,
+      "greenRed": 9.324,
+      "blueYellow": -4.789
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R12",
+    "name": "R12",
+    "hex": "#D8D5CE",
+    "rgb": {
+      "red": 216,
+      "green": 213,
+      "blue": 206
+    },
+    "hsl": {
+      "hue": 42,
+      "saturation": 11.364,
+      "lightness": 82.745
+    },
+    "lab": {
+      "lightness": 85.324,
+      "greenRed": -0.205,
+      "blueYellow": 3.807
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R13",
+    "name": "R13",
+    "hex": "#55514C",
+    "rgb": {
+      "red": 85,
+      "green": 81,
+      "blue": 76
+    },
+    "hsl": {
+      "hue": 33.333,
+      "saturation": 5.59,
+      "lightness": 31.569
+    },
+    "lab": {
+      "lightness": 34.677,
+      "greenRed": 0.625,
+      "blueYellow": 3.518
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R14",
+    "name": "R14",
+    "hex": "#9FE4DF",
+    "rgb": {
+      "red": 159,
+      "green": 228,
+      "blue": 223
+    },
+    "hsl": {
+      "hue": 175.652,
+      "saturation": 56.098,
+      "lightness": 75.882
+    },
+    "lab": {
+      "lightness": 86.099,
+      "greenRed": -22.517,
+      "blueYellow": -4.479
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R15",
+    "name": "R15",
+    "hex": "#77CEE9",
+    "rgb": {
+      "red": 119,
+      "green": 206,
+      "blue": 233
+    },
+    "hsl": {
+      "hue": 194.211,
+      "saturation": 72.152,
+      "lightness": 69.02
+    },
+    "lab": {
+      "lightness": 78.431,
+      "greenRed": -19.111,
+      "blueYellow": -21.461
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R16",
+    "name": "R16",
+    "hex": "#3ECFCA",
+    "rgb": {
+      "red": 62,
+      "green": 207,
+      "blue": 202
+    },
+    "hsl": {
+      "hue": 177.931,
+      "saturation": 60.166,
+      "lightness": 52.745
+    },
+    "lab": {
+      "lightness": 76.016,
+      "greenRed": -38.377,
+      "blueYellow": -8.596
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R17",
+    "name": "R17",
+    "hex": "#4A867A",
+    "rgb": {
+      "red": 74,
+      "green": 134,
+      "blue": 122
+    },
+    "hsl": {
+      "hue": 168,
+      "saturation": 28.846,
+      "lightness": 40.784
+    },
+    "lab": {
+      "lightness": 51.737,
+      "greenRed": -22.598,
+      "blueYellow": 0.374
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R18",
+    "name": "R18",
+    "hex": "#7FCD9D",
+    "rgb": {
+      "red": 127,
+      "green": 205,
+      "blue": 157
+    },
+    "hsl": {
+      "hue": 143.077,
+      "saturation": 43.82,
+      "lightness": 65.098
+    },
+    "lab": {
+      "lightness": 76.442,
+      "greenRed": -34.463,
+      "blueYellow": 16.46
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R19",
+    "name": "R19",
+    "hex": "#CDE55D",
+    "rgb": {
+      "red": 205,
+      "green": 229,
+      "blue": 93
+    },
+    "hsl": {
+      "hue": 70.588,
+      "saturation": 72.34,
+      "lightness": 63.137
+    },
+    "lab": {
+      "lightness": 86.903,
+      "greenRed": -26.456,
+      "blueYellow": 62.007
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R2",
+    "name": "R2",
+    "hex": "#F92F83",
+    "rgb": {
+      "red": 249,
+      "green": 47,
+      "blue": 131
+    },
+    "hsl": {
+      "hue": 335.05,
+      "saturation": 94.393,
+      "lightness": 58.039
+    },
+    "lab": {
+      "lightness": 55.899,
+      "greenRed": 77.409,
+      "blueYellow": 3.587
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R20",
+    "name": "R20",
+    "hex": "#E8C7B4",
+    "rgb": {
+      "red": 232,
+      "green": 199,
+      "blue": 180
+    },
+    "hsl": {
+      "hue": 21.923,
+      "saturation": 53.061,
+      "lightness": 80.784
+    },
+    "lab": {
+      "lightness": 82.539,
+      "greenRed": 8.757,
+      "blueYellow": 13.817
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R21",
+    "name": "R21",
+    "hex": "#AD6F3C",
+    "rgb": {
+      "red": 173,
+      "green": 111,
+      "blue": 60
+    },
+    "hsl": {
+      "hue": 27.08,
+      "saturation": 48.498,
+      "lightness": 45.686
+    },
+    "lab": {
+      "lightness": 52.486,
+      "greenRed": 19.658,
+      "blueYellow": 37.973
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R22",
+    "name": "R22",
+    "hex": "#6C372F",
+    "rgb": {
+      "red": 108,
+      "green": 55,
+      "blue": 47
+    },
+    "hsl": {
+      "hue": 7.869,
+      "saturation": 39.355,
+      "lightness": 30.392
+    },
+    "lab": {
+      "lightness": 29.728,
+      "greenRed": 22.6,
+      "blueYellow": 15.573
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R23",
+    "name": "R23",
+    "hex": "#FEB872",
+    "rgb": {
+      "red": 254,
+      "green": 184,
+      "blue": 114
+    },
+    "hsl": {
+      "hue": 30,
+      "saturation": 98.592,
+      "lightness": 72.157
+    },
+    "lab": {
+      "lightness": 79.935,
+      "greenRed": 17.893,
+      "blueYellow": 45.233
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R24",
+    "name": "R24",
+    "hex": "#F3C1C0",
+    "rgb": {
+      "red": 243,
+      "green": 193,
+      "blue": 192
+    },
+    "hsl": {
+      "hue": 1.176,
+      "saturation": 68,
+      "lightness": 85.294
+    },
+    "lab": {
+      "lightness": 82.379,
+      "greenRed": 17.7,
+      "blueYellow": 7.317
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R25",
+    "name": "R25",
+    "hex": "#C9675E",
+    "rgb": {
+      "red": 201,
+      "green": 103,
+      "blue": 94
+    },
+    "hsl": {
+      "hue": 5.047,
+      "saturation": 49.767,
+      "lightness": 57.843
+    },
+    "lab": {
+      "lightness": 54.996,
+      "greenRed": 38,
+      "blueYellow": 22.967
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R26",
+    "name": "R26",
+    "hex": "#D293BE",
+    "rgb": {
+      "red": 210,
+      "green": 147,
+      "blue": 190
+    },
+    "hsl": {
+      "hue": 319.048,
+      "saturation": 41.176,
+      "lightness": 70
+    },
+    "lab": {
+      "lightness": 68.231,
+      "greenRed": 30.366,
+      "blueYellow": -12.755
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R27",
+    "name": "R27",
+    "hex": "#EA8CB1",
+    "rgb": {
+      "red": 234,
+      "green": 140,
+      "blue": 177
+    },
+    "hsl": {
+      "hue": 336.383,
+      "saturation": 69.118,
+      "lightness": 73.333
+    },
+    "lab": {
+      "lightness": 69.057,
+      "greenRed": 40.329,
+      "blueYellow": -3.967
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R28",
+    "name": "R28",
+    "hex": "#9C87D6",
+    "rgb": {
+      "red": 156,
+      "green": 135,
+      "blue": 214
+    },
+    "hsl": {
+      "hue": 255.949,
+      "saturation": 49.068,
+      "lightness": 68.431
+    },
+    "lab": {
+      "lightness": 61.002,
+      "greenRed": 24.801,
+      "blueYellow": -37.725
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R3",
+    "name": "R3",
+    "hex": "#FD8324",
+    "rgb": {
+      "red": 253,
+      "green": 131,
+      "blue": 36
+    },
+    "hsl": {
+      "hue": 26.267,
+      "saturation": 98.19,
+      "lightness": 56.667
+    },
+    "lab": {
+      "lightness": 67.459,
+      "greenRed": 41.027,
+      "blueYellow": 66.629
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R4",
+    "name": "R4",
+    "hex": "#F8EC31",
+    "rgb": {
+      "red": 248,
+      "green": 236,
+      "blue": 49
+    },
+    "hsl": {
+      "hue": 56.382,
+      "saturation": 93.427,
+      "lightness": 58.235
+    },
+    "lab": {
+      "lightness": 91.761,
+      "greenRed": -14.546,
+      "blueYellow": 83.125
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R5",
+    "name": "R5",
+    "hex": "#35C75B",
+    "rgb": {
+      "red": 53,
+      "green": 199,
+      "blue": 91
+    },
+    "hsl": {
+      "hue": 135.616,
+      "saturation": 57.937,
+      "lightness": 49.412
+    },
+    "lab": {
+      "lightness": 71.118,
+      "greenRed": -60.447,
+      "blueYellow": 42.889
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R6",
+    "name": "R6",
+    "hex": "#238891",
+    "rgb": {
+      "red": 35,
+      "green": 136,
+      "blue": 145
+    },
+    "hsl": {
+      "hue": 184.909,
+      "saturation": 61.111,
+      "lightness": 35.294
+    },
+    "lab": {
+      "lightness": 51.848,
+      "greenRed": -24.623,
+      "blueYellow": -12.989
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R7",
+    "name": "R7",
+    "hex": "#19779D",
+    "rgb": {
+      "red": 25,
+      "green": 119,
+      "blue": 157
+    },
+    "hsl": {
+      "hue": 197.273,
+      "saturation": 72.527,
+      "lightness": 35.686
+    },
+    "lab": {
+      "lightness": 46.757,
+      "greenRed": -12.338,
+      "blueYellow": -27.837
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R8",
+    "name": "R8",
+    "hex": "#1A60C3",
+    "rgb": {
+      "red": 26,
+      "green": 96,
+      "blue": 195
+    },
+    "hsl": {
+      "hue": 215.148,
+      "saturation": 76.471,
+      "lightness": 43.333
+    },
+    "lab": {
+      "lightness": 42.039,
+      "greenRed": 16.745,
+      "blueYellow": -57.54
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "R9",
+    "name": "R9",
+    "hex": "#9A56B4",
+    "rgb": {
+      "red": 154,
+      "green": 86,
+      "blue": 180
+    },
+    "hsl": {
+      "hue": 283.404,
+      "saturation": 38.525,
+      "lightness": 52.157
+    },
+    "lab": {
+      "lightness": 48.034,
+      "greenRed": 43.892,
+      "blueYellow": -38.699
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "T1",
+    "name": "T1",
+    "hex": "#FFFFFF",
+    "rgb": {
+      "red": 255,
+      "green": 255,
+      "blue": 255
+    },
+    "hsl": {
+      "hue": 0,
+      "saturation": 0,
+      "lightness": 100
+    },
+    "lab": {
+      "lightness": 100,
+      "greenRed": 0.005,
+      "blueYellow": -0.01
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Y1",
+    "name": "Y1",
+    "hex": "#FD6FB4",
+    "rgb": {
+      "red": 253,
+      "green": 111,
+      "blue": 180
+    },
+    "hsl": {
+      "hue": 330.845,
+      "saturation": 97.26,
+      "lightness": 71.373
+    },
+    "lab": {
+      "lightness": 66.172,
+      "greenRed": 61.023,
+      "blueYellow": -9.659
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Y2",
+    "name": "Y2",
+    "hex": "#FEB481",
+    "rgb": {
+      "red": 254,
+      "green": 180,
+      "blue": 129
+    },
+    "hsl": {
+      "hue": 24.48,
+      "saturation": 98.425,
+      "lightness": 75.098
+    },
+    "lab": {
+      "lightness": 79.213,
+      "greenRed": 21.257,
+      "blueYellow": 36.646
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Y3",
+    "name": "Y3",
+    "hex": "#D7FAA0",
+    "rgb": {
+      "red": 215,
+      "green": 250,
+      "blue": 160
+    },
+    "hsl": {
+      "hue": 83.333,
+      "saturation": 90,
+      "lightness": 80.392
+    },
+    "lab": {
+      "lightness": 94.036,
+      "greenRed": -25.89,
+      "blueYellow": 39.517
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Y4",
+    "name": "Y4",
+    "hex": "#8BDBFA",
+    "rgb": {
+      "red": 139,
+      "green": 219,
+      "blue": 250
+    },
+    "hsl": {
+      "hue": 196.757,
+      "saturation": 91.736,
+      "lightness": 76.275
+    },
+    "lab": {
+      "lightness": 83.471,
+      "greenRed": -16.605,
+      "blueYellow": -22.78
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "Y5",
+    "name": "Y5",
+    "hex": "#E987EA",
+    "rgb": {
+      "red": 233,
+      "green": 135,
+      "blue": 234
+    },
+    "hsl": {
+      "hue": 299.394,
+      "saturation": 70.213,
+      "lightness": 72.353
+    },
+    "lab": {
+      "lightness": 69.889,
+      "greenRed": 51.729,
+      "blueYellow": -34.369
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "ZG1",
+    "name": "ZG1",
+    "hex": "#DAABB3",
+    "rgb": {
+      "red": 218,
+      "green": 171,
+      "blue": 179
+    },
+    "hsl": {
+      "hue": 349.787,
+      "saturation": 38.843,
+      "lightness": 76.275
+    },
+    "lab": {
+      "lightness": 74.372,
+      "greenRed": 18.386,
+      "blueYellow": 2.493
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "ZG2",
+    "name": "ZG2",
+    "hex": "#D6AA87",
+    "rgb": {
+      "red": 214,
+      "green": 170,
+      "blue": 135
+    },
+    "hsl": {
+      "hue": 26.582,
+      "saturation": 49.068,
+      "lightness": 68.431
+    },
+    "lab": {
+      "lightness": 72.757,
+      "greenRed": 11.351,
+      "blueYellow": 24.175
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "ZG3",
+    "name": "ZG3",
+    "hex": "#C1BD8D",
+    "rgb": {
+      "red": 193,
+      "green": 189,
+      "blue": 141
+    },
+    "hsl": {
+      "hue": 55.385,
+      "saturation": 29.545,
+      "lightness": 65.49
+    },
+    "lab": {
+      "lightness": 75.857,
+      "greenRed": -6.246,
+      "blueYellow": 24.835
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "ZG4",
+    "name": "ZG4",
+    "hex": "#96869F",
+    "rgb": {
+      "red": 150,
+      "green": 134,
+      "blue": 159
+    },
+    "hsl": {
+      "hue": 278.4,
+      "saturation": 11.521,
+      "lightness": 57.451
+    },
+    "lab": {
+      "lightness": 58.073,
+      "greenRed": 10.863,
+      "blueYellow": -11.076
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "ZG5",
+    "name": "ZG5",
+    "hex": "#8490A6",
+    "rgb": {
+      "red": 132,
+      "green": 144,
+      "blue": 166
+    },
+    "hsl": {
+      "hue": 218.824,
+      "saturation": 16.038,
+      "lightness": 58.431
+    },
+    "lab": {
+      "lightness": 59.53,
+      "greenRed": 0.553,
+      "blueYellow": -13.032
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "ZG6",
+    "name": "ZG6",
+    "hex": "#94BFE2",
+    "rgb": {
+      "red": 148,
+      "green": 191,
+      "blue": 226
+    },
+    "hsl": {
+      "hue": 206.923,
+      "saturation": 57.353,
+      "lightness": 73.333
+    },
+    "lab": {
+      "lightness": 75.481,
+      "greenRed": -5.861,
+      "blueYellow": -22.042
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "ZG7",
+    "name": "ZG7",
+    "hex": "#E2A9D2",
+    "rgb": {
+      "red": 226,
+      "green": 169,
+      "blue": 210
+    },
+    "hsl": {
+      "hue": 316.842,
+      "saturation": 49.565,
+      "lightness": 77.451
+    },
+    "lab": {
+      "lightness": 75.574,
+      "greenRed": 27.386,
+      "blueYellow": -12.61
+    }
+  },
+  {
+    "brand": "mard",
+    "code": "ZG8",
+    "name": "ZG8",
+    "hex": "#AB91C0",
+    "rgb": {
+      "red": 171,
+      "green": 145,
+      "blue": 192
+    },
+    "hsl": {
+      "hue": 273.191,
+      "saturation": 27.168,
+      "lightness": 66.078
+    },
+    "lab": {
+      "lightness": 63.929,
+      "greenRed": 18.691,
+      "blueYellow": -20.758
+    }
+  }
+]
