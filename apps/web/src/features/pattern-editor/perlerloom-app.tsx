@@ -103,6 +103,9 @@ export function PerlerloomApp(): React.ReactElement {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartScrollRef = useRef<HTMLDivElement>(null);
   const handPanRef = useRef<{ clientX: number; clientY: number; scrollLeft: number; scrollTop: number } | null>(null);
+  const pencilStrokeActiveRef = useRef(false);
+  const pencilLastCellRef = useRef<PatternPoint | null>(null);
+  const pencilStrokeLatestRef = useRef<PatternDocument | null>(null);
 
   const paletteByCode = useMemo(() => new Map(mardPalette.map((color) => [color.code, color])), []);
   const legend = pattern.legend ?? buildLegend(pattern.cells);
@@ -225,11 +228,6 @@ export function PerlerloomApp(): React.ReactElement {
 
     if (activeTool === "paintBucket") {
       applyPatternEdit("Bucket fill", bucketFillPattern(pattern, point, activeColor));
-      return;
-    }
-
-    if (activeTool === "pencil") {
-      applyPatternEdit("Pencil", drawPatternLine(pattern, point, point, activeColor));
     }
   }
 
@@ -245,6 +243,25 @@ export function PerlerloomApp(): React.ReactElement {
         };
         event.currentTarget.setPointerCapture(event.pointerId);
       }
+      return;
+    }
+
+    if (activeTool === "pencil") {
+      if (event.button !== 0) {
+        return;
+      }
+      const point = canvasPointToPatternPoint(event.currentTarget, event.clientX, event.clientY, pattern, canvasLayout);
+      if (point === null) {
+        return;
+      }
+      pencilStrokeActiveRef.current = true;
+      pencilLastCellRef.current = point;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      setPattern((currentPattern) => {
+        const next = drawPatternLine(currentPattern, point, point, activeColor);
+        pencilStrokeLatestRef.current = next;
+        return clonePattern(next);
+      });
       return;
     }
 
@@ -269,9 +286,52 @@ export function PerlerloomApp(): React.ReactElement {
     if (activeTool === "line" && lineStartPoint !== null) {
       setLinePreviewPoint(canvasPointToPatternPoint(event.currentTarget, event.clientX, event.clientY, pattern, canvasLayout));
     }
+
+    if (activeTool === "pencil" && pencilStrokeActiveRef.current) {
+      const canvas = event.currentTarget;
+      if (canvas === null) {
+        return;
+      }
+      const clientX = event.clientX;
+      const clientY = event.clientY;
+      setPattern((currentPattern) => {
+        const current = canvasPointToPatternPoint(canvas, clientX, clientY, currentPattern, canvasLayout);
+        const last = pencilLastCellRef.current;
+        if (current === null || last === null) {
+          return currentPattern;
+        }
+        if (current.column === last.column && current.row === last.row) {
+          return currentPattern;
+        }
+        const next = drawPatternLine(currentPattern, last, current, activeColor);
+        pencilLastCellRef.current = current;
+        pencilStrokeLatestRef.current = next;
+        return clonePattern(next);
+      });
+    }
+  }
+
+  function finishPencilStrokeIfActive(event: React.PointerEvent<HTMLCanvasElement>): void {
+    if (!pencilStrokeActiveRef.current) {
+      return;
+    }
+    pencilStrokeActiveRef.current = false;
+    pencilLastCellRef.current = null;
+    try {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    } catch {
+      /* pointer capture may already be released */
+    }
+    const snapshot = pencilStrokeLatestRef.current;
+    pencilStrokeLatestRef.current = null;
+    if (snapshot !== null) {
+      appendHistory("Pencil stroke", clonePattern(snapshot));
+    }
   }
 
   function handleCanvasPointerUp(event: React.PointerEvent<HTMLCanvasElement>): void {
+    finishPencilStrokeIfActive(event);
+
     if (activeTool === "hand") {
       handPanRef.current = null;
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -517,7 +577,9 @@ export function PerlerloomApp(): React.ReactElement {
                 onClick={handleCanvasClick}
                 onPointerDown={handleCanvasPointerDown}
                 onPointerMove={handleCanvasPointerMove}
+                onPointerCancel={finishPencilStrokeIfActive}
                 onPointerUp={handleCanvasPointerUp}
+                onLostPointerCapture={finishPencilStrokeIfActive}
               />
             </div>
           </div>
