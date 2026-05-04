@@ -1,11 +1,15 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { mardPalette, type BeadColor } from "@perlerloom/palettes";
 import { readableTextHexOnBackgroundHex } from "@perlerloom/core";
 import { cn } from "@perlerloom/ui";
+import {
+  drawingColorChromeBorderColorWhenActiveClass,
+  drawingColorChromeBorderColorWhenIdleClass,
+  drawingColorChromeBorderWidthClass
+} from "./active-drawing-color-chrome";
 
 function beadCodeLetterPrefix(code: string): string {
   const match = /^([A-Za-z]+)/.exec(code);
@@ -55,11 +59,10 @@ function buildMardPaletteLetterGroups(palette: readonly BeadColor[]): { prefix: 
 type MardPaletteGridProps = {
   activeColor: string;
   onSelectColor: (code: string) => void;
-  getActiveLegendOutlineStyle: () => CSSProperties;
   className?: string;
 };
 
-export function MardPaletteGrid({ activeColor, onSelectColor, getActiveLegendOutlineStyle, className }: MardPaletteGridProps): React.ReactElement {
+export function MardPaletteGrid({ activeColor, onSelectColor, className }: MardPaletteGridProps): React.ReactElement {
   const letterGroups = useMemo(() => buildMardPaletteLetterGroups(mardPalette), []);
   const [expandedPrefixes, setExpandedPrefixes] = useState<Set<string>>(() => new Set());
 
@@ -126,14 +129,14 @@ export function MardPaletteGrid({ activeColor, onSelectColor, getActiveLegendOut
                             aria-label={`Select palette color ${color.code}`}
                             aria-pressed={isActive}
                             className={cn(
-                              "flex aspect-square min-h-0 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md border px-1 py-0.5 text-center font-mono text-xs font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-violet-800",
-                              isActive ? "border-transparent" : "border-stone-200"
+                              "flex aspect-square min-h-0 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md px-1 py-0.5 text-center font-mono text-xs font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-violet-800",
+                              drawingColorChromeBorderWidthClass,
+                              isActive ? drawingColorChromeBorderColorWhenActiveClass : drawingColorChromeBorderColorWhenIdleClass
                             )}
                             key={color.code}
                             style={{
                               backgroundColor: color.hex,
-                              color: labelColor,
-                              ...(isActive ? getActiveLegendOutlineStyle() : {})
+                              color: labelColor
                             }}
                             type="button"
                             onClick={() => onSelectColor(color.code)}

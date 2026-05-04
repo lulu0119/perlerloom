@@ -1,9 +1,13 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import { ArrowLeftRight, Redo2, Trash2, Undo2 } from "lucide-react";
 import { readableTextHexOnBackgroundHex, type PatternDocument, type PatternLegendItem } from "@perlerloom/core";
 import { cn } from "@perlerloom/ui";
+import {
+  drawingColorChromeBorderColorWhenActiveClass,
+  drawingColorChromeBorderColorWhenIdleClass,
+  drawingColorChromeBorderWidthClass
+} from "./active-drawing-color-chrome";
 import { MardPaletteGrid } from "./mard-palette-grid";
 
 type HistoryEntry = {
@@ -19,7 +23,6 @@ type EditorSidePanelsProps = {
   paletteByCode: Map<string, { hex: string }>;
   onApplyReplace: (fromCode: string) => void;
   onApplyDelete: (fromCode: string) => void;
-  getActiveLegendOutlineStyle: () => CSSProperties;
   historyEntries: HistoryEntry[];
   activeHistoryIndex: number;
   onJumpToHistory: (index: number) => void;
@@ -35,7 +38,6 @@ export function EditorSidePanels({
   paletteByCode,
   onApplyReplace,
   onApplyDelete,
-  getActiveLegendOutlineStyle,
   historyEntries,
   activeHistoryIndex,
   onJumpToHistory,
@@ -51,17 +53,16 @@ export function EditorSidePanels({
           {legend.map((item) => {
             const color = paletteByCode.get(item.code);
             const isActiveChip = activeColor === item.code;
-            const legendOutline = getActiveLegendOutlineStyle();
             const swatchHex = color?.hex ?? "#ffffff";
             const codeOnSwatchColor = readableTextHexOnBackgroundHex(swatchHex);
             return (
               <div
                 className={cn(
-                  "flex min-h-9 min-w-0 items-stretch overflow-hidden rounded-full border border-stone-200 bg-white shadow-sm transition",
-                  "focus-within:ring-2 focus-within:ring-violet-800/30 focus-within:ring-offset-2 focus-within:ring-offset-white"
+                  "flex min-h-9 min-w-0 items-stretch overflow-hidden rounded-full bg-white shadow-sm transition",
+                  drawingColorChromeBorderWidthClass,
+                  isActiveChip ? drawingColorChromeBorderColorWhenActiveClass : drawingColorChromeBorderColorWhenIdleClass
                 )}
                 key={item.code}
-                style={isActiveChip ? legendOutline : undefined}
               >
                 <button
                   aria-label={`Select ${item.code}`}
@@ -97,12 +98,7 @@ export function EditorSidePanels({
         </div>
       </section>
 
-      <MardPaletteGrid
-        activeColor={activeColor}
-        className="min-h-0 w-full shrink-0"
-        getActiveLegendOutlineStyle={getActiveLegendOutlineStyle}
-        onSelectColor={onActiveColorChange}
-      />
+      <MardPaletteGrid activeColor={activeColor} className="min-h-0 w-full shrink-0" onSelectColor={onActiveColorChange} />
 
       <section aria-label="History timeline" className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white p-2">
         <div className="mb-1.5 flex shrink-0 items-center justify-between gap-2">

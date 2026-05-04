@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { Hand, ImagePlus, Layers, Minus, PaintBucket, Pencil, Save, Share2, Square, ZoomIn, ZoomOut, type LucideIcon } from "lucide-react";
 import {
@@ -383,7 +383,6 @@ export function PerlerloomApp(): React.ReactElement {
     <EditorSidePanels
       activeColor={activeColor}
       activeHistoryIndex={activeHistoryIndex}
-      getActiveLegendOutlineStyle={getActivePaletteMatchLegendSelectionOutline}
       historyEntries={historyEntries}
       legend={legend}
       paletteByCode={paletteByCode}
@@ -594,18 +593,6 @@ const PATTERN_CANVAS_BEAD_CODE_FONT_CELL_FRACTION = 0.42;
 const PATTERN_CANVAS_AXIS_LABEL_FONT_CELL_FRACTION = 0.32;
 /** Below this cell size, bead codes are omitted on the canvas (axis numbers still draw). */
 const PATTERN_CANVAS_HIDE_BEAD_CODES_WHEN_CELL_BELOW_PX = 10;
-
-/** Outline width for the selected color in legend and Mard palette controls. */
-const ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX = 2;
-const ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX = "#171717";
-
-/** Legend / palette selection outline for the active drawing color. */
-function getActivePaletteMatchLegendSelectionOutline(): CSSProperties {
-  return {
-    outline: `${ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX}px solid ${ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX}`,
-    outlineOffset: "1px"
-  };
-}
 
 function drawPatternCanvas(
   canvas: HTMLCanvasElement,
