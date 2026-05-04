@@ -46,7 +46,7 @@ export function EditorSidePanels({
   className
 }: EditorSidePanelsProps): React.ReactElement {
   return (
-    <div className={cn("flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-hidden", className)}>
+    <div className={cn("flex min-h-0 min-w-0 flex-1 flex-col gap-3", className)}>
       <section aria-label="Legend badges" className="shrink-0 rounded-xl border border-stone-200 bg-stone-50/80 p-2">
         <h2 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-stone-500">Used in chart</h2>
         <div className="flex flex-wrap gap-1.5">
@@ -98,9 +98,9 @@ export function EditorSidePanels({
         </div>
       </section>
 
-      <MardPaletteGrid activeColor={activeColor} className="min-h-0 w-full shrink-0" onSelectColor={onActiveColorChange} />
+      <MardPaletteGrid activeColor={activeColor} className="w-full shrink-0" onSelectColor={onActiveColorChange} />
 
-      <section aria-label="History timeline" className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white p-2">
+      <section aria-label="History timeline" className="flex shrink-0 flex-col rounded-xl border border-stone-200 bg-white p-2">
         <div className="mb-1.5 flex shrink-0 items-center justify-between gap-2">
           <h2 className="text-xs font-semibold uppercase tracking-wide text-stone-500">History</h2>
           <div className="flex gap-1">
@@ -122,7 +122,7 @@ export function EditorSidePanels({
             </button>
           </div>
         </div>
-        <div className="flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto">
+        <div className="flex flex-col gap-0.5">
           {historyEntries.map((entry, index) => (
             <button
               aria-current={index === activeHistoryIndex ? "step" : undefined}

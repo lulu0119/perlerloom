@@ -86,8 +86,6 @@ export function MardPaletteGrid({
     });
   }
 
-  const scrollMaxClass = embedded ? "max-h-[min(70dvh,24rem)]" : "max-h-[min(52dvh,26rem)]";
-
   const groupsList = (
     <div className="flex flex-col">
       {letterGroups.map(({ prefix, colors }) => {
@@ -161,26 +159,20 @@ export function MardPaletteGrid({
     </div>
   );
 
-  const scrollArea = (
-    <div
-      className={cn(
-        "w-full min-h-0 overflow-y-auto overscroll-contain",
-        scrollMaxClass,
-        embedded && "px-1 pb-1 pt-0.5"
-      )}
-    >
+  const paletteBody = (
+    <div className={cn("flex flex-col", embedded && "px-1 pb-1 pt-0.5")}>
       {groupsList}
     </div>
   );
 
   if (embedded) {
-    return <div className={cn("flex min-w-0 w-full shrink-0 flex-col", className)}>{scrollArea}</div>;
+    return <div className={cn("flex min-w-0 w-full shrink-0 flex-col", className)}>{paletteBody}</div>;
   }
 
   return (
     <section aria-label="Mard palette" className={cn("flex w-full shrink-0 flex-col rounded-xl border border-stone-200 bg-white p-2", className)}>
       <h2 className="mb-1.5 shrink-0 text-xs font-semibold uppercase tracking-wide text-stone-500">Mard palette</h2>
-      {scrollArea}
+      {paletteBody}
     </section>
   );
 }

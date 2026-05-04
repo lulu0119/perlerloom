@@ -496,7 +496,7 @@ export function PerlerloomApp(): React.ReactElement {
   );
 
   return (
-    <main className="flex min-h-dvh flex-col overflow-hidden bg-[#f8efe3] text-stone-950">
+    <main className="flex min-h-0 flex-1 flex-col overflow-hidden bg-[#f8efe3] text-stone-950">
       <header className="shrink-0 border-b border-amber-200 bg-white/90 px-4 py-3 shadow-sm">
         <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div>
@@ -547,7 +547,7 @@ export function PerlerloomApp(): React.ReactElement {
         </aside>
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-          <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-[#f1eadf] md:bg-[#f8efe3]">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-[#f1eadf] md:bg-[#f8efe3]">
             <div className="flex shrink-0 flex-col gap-1 border-b border-stone-200/80 bg-white/90 px-2 py-1.5">
               <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-700">Generated chart preview</p>
               <div className="flex flex-wrap items-center gap-2">
@@ -642,7 +642,10 @@ export function PerlerloomApp(): React.ReactElement {
           </div>
         </div>
 
-        <aside className="hidden w-[300px] shrink-0 flex-col border-l border-amber-200 bg-white/95 p-3 md:flex" aria-label="Palette and history">
+        <aside
+          className="hidden min-h-0 w-[300px] shrink-0 flex-col overflow-y-auto overscroll-contain border-l border-amber-200 bg-white/95 p-3 md:flex"
+          aria-label="Palette and history"
+        >
           {sidePanelContent}
         </aside>
       </div>
@@ -668,7 +671,7 @@ export function PerlerloomApp(): React.ReactElement {
           />
           <div
             aria-label="Palette and history"
-            className="absolute bottom-0 left-0 right-0 flex max-h-[78dvh] flex-col rounded-t-2xl border border-stone-200 bg-white p-3 shadow-2xl"
+            className="absolute bottom-0 left-0 right-0 flex max-h-[78dvh] flex-col overflow-y-auto overscroll-contain rounded-t-2xl border border-stone-200 bg-white p-3 shadow-2xl"
             role="dialog"
           >
             <div className="mx-auto mb-2 h-1 w-10 shrink-0 rounded-full bg-stone-300" role="presentation" />

@@ -126,7 +126,7 @@ export function ChartToolHud({
               align="end"
               side="bottom"
               sideOffset={6}
-              className="max-h-[min(80dvh,28rem)] w-[min(22rem,calc(100vw-2rem))] min-w-[17rem] overflow-hidden p-0"
+              className="max-h-[min(80dvh,28rem)] w-[min(22rem,calc(100vw-2rem))] min-w-[17rem] overflow-y-auto overscroll-contain p-0"
             >
               <MardPaletteGrid
                 embedded
