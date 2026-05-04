@@ -125,6 +125,15 @@ describe("Perlerloom editor shell", () => {
     expect(screen.getByText(/active tool: paint bucket/i)).toBeInTheDocument();
   });
 
+  it("includes the eyedropper tool in the rail", async () => {
+    const user = userEvent.setup();
+    render(<PerlerloomApp />);
+
+    await user.click(screen.getByRole("button", { name: /^eyedropper$/i }));
+
+    expect(screen.getByText(/active tool: eyedropper/i)).toBeInTheDocument();
+  });
+
   it("uses a tool-specific chart cursor", async () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { Hand, ImagePlus, Layers, Minus, PaintBucket, Pencil, Save, Share2, ZoomIn, ZoomOut, type LucideIcon } from "lucide-react";
+import { Hand, ImagePlus, Layers, Minus, PaintBucket, Pencil, Pipette, Save, Share2, ZoomIn, ZoomOut, type LucideIcon } from "lucide-react";
 import {
   bucketFillPattern,
   buildLegend,
@@ -25,7 +25,7 @@ import { createExportMetadata } from "@/lib/pattern-storage";
 import { EditorSidePanels } from "./editor-side-panels";
 import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
 
-type EditorTool = "pencil" | "paintBucket" | "hand" | "line";
+type EditorTool = "pencil" | "eyedropper" | "paintBucket" | "hand" | "line";
 
 type HistoryEntry = {
   id: string;
@@ -47,6 +47,7 @@ const maxHistoryEntries = 24;
 
 const toolLabels: Record<EditorTool, string> = {
   pencil: "Pencil",
+  eyedropper: "Eyedropper",
   paintBucket: "Paint Bucket",
   hand: "Hand",
   line: "Line"
@@ -222,6 +223,17 @@ export function PerlerloomApp(): React.ReactElement {
   function handleCanvasClick(event: React.MouseEvent<HTMLCanvasElement>): void {
     const point = canvasPointToPatternPoint(event.currentTarget, event.clientX, event.clientY, pattern, canvasLayout);
     if (point === null) {
+      return;
+    }
+
+    if (activeTool === "eyedropper") {
+      const index = point.row * pattern.width + point.column;
+      const code = pattern.cells[index];
+      if (code === null) {
+        setMessage("That cell is empty—no bead color to pick.");
+        return;
+      }
+      setActiveColor(code);
       return;
     }
 
@@ -863,6 +875,9 @@ function getCanvasCursorClassName(activeTool: EditorTool): string {
 function getToolIcon(tool: EditorTool): LucideIcon {
   if (tool === "paintBucket") {
     return PaintBucket;
+  }
+  if (tool === "eyedropper") {
+    return Pipette;
   }
   if (tool === "hand") {
     return Hand;
