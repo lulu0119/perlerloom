@@ -198,6 +198,25 @@ describe("Perlerloom editor shell", () => {
     expect(zoomedOutSizeMatch).not.toBeNull();
     expect(Number(zoomedOutSizeMatch![1])).toBeLessThan(Number(defaultSizeMatch![1]));
   });
+
+  it("steps chart zoom when zoom out and zoom in buttons are clicked", async () => {
+    const user = userEvent.setup();
+    render(<PerlerloomApp />);
+
+    await waitFor(() => expect(patternCanvasMockContexts.length).toBeGreaterThan(0));
+    const fontAt100 = patternCanvasMockContexts.at(-1)!.font;
+
+    await user.click(screen.getByRole("button", { name: /^zoom out$/i }));
+    await waitFor(() => {
+      expect(patternCanvasMockContexts.at(-1)!.font).not.toEqual(fontAt100);
+    });
+    const fontAfterZoomOut = patternCanvasMockContexts.at(-1)!.font;
+
+    await user.click(screen.getByRole("button", { name: /^zoom in$/i }));
+    await waitFor(() => {
+      expect(patternCanvasMockContexts.at(-1)!.font).not.toEqual(fontAfterZoomOut);
+    });
+  });
 });
 
 function getCanvasContext(contextId: "2d", options?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null;

@@ -561,9 +561,20 @@ export function PerlerloomApp(): React.ReactElement {
                     pattern={pattern}
                   />
                 </div>
-                <label className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full border border-stone-300 bg-white px-2 text-xs font-medium text-stone-700">
-                  <span className="sr-only">Chart zoom</span>
-                  <ZoomOut className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                <div
+                  className="inline-flex h-8 shrink-0 items-center gap-0.5 rounded-full border border-stone-300 bg-white px-1 text-xs font-medium text-stone-700"
+                  role="group"
+                  aria-label="Magnification controls"
+                >
+                  <button
+                    aria-label="Zoom out"
+                    className="inline-flex shrink-0 items-center justify-center rounded-full p-1 text-stone-600 transition hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800 disabled:cursor-not-allowed disabled:opacity-40"
+                    disabled={snapZoomToChartStep(zoom) <= CHART_ZOOM_STEPS[0]!}
+                    type="button"
+                    onClick={() => setZoom((current) => stepChartZoom(current, -1))}
+                  >
+                    <ZoomOut className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  </button>
                   <select
                     aria-label="Chart zoom"
                     className="max-h-6 min-h-0 max-w-[4.5rem] shrink-0 cursor-pointer appearance-none border-0 bg-transparent py-0 text-xs font-semibold leading-none outline-none"
@@ -582,8 +593,16 @@ export function PerlerloomApp(): React.ReactElement {
                     <option value="1.5">150%</option>
                     <option value="2">200%</option>
                   </select>
-                  <ZoomIn className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                </label>
+                  <button
+                    aria-label="Zoom in"
+                    className="inline-flex shrink-0 items-center justify-center rounded-full p-1 text-stone-600 transition hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800 disabled:cursor-not-allowed disabled:opacity-40"
+                    disabled={snapZoomToChartStep(zoom) >= CHART_ZOOM_STEPS[CHART_ZOOM_STEPS.length - 1]!}
+                    type="button"
+                    onClick={() => setZoom((current) => stepChartZoom(current, 1))}
+                  >
+                    <ZoomIn className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  </button>
+                </div>
                 <button
                   aria-label="Save to cloud"
                   className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full bg-stone-950 px-2.5 text-xs font-semibold text-white md:px-3"
@@ -952,6 +971,34 @@ function getToolIcon(tool: EditorTool): LucideIcon {
 
 function clampZoom(value: number): number {
   return Math.min(3, Math.max(0.5, Math.round(value * 10) / 10));
+}
+
+/** Discrete zoom values shown in the chart toolbar (must match the select options). */
+const CHART_ZOOM_STEPS: readonly number[] = [0.5, 0.75, 1, 1.25, 1.5, 2];
+
+function snapZoomToChartStep(value: number): number {
+  const clamped = clampZoom(value);
+  let closest = CHART_ZOOM_STEPS[0]!;
+  let closestAbs = Math.abs(clamped - closest);
+  for (const step of CHART_ZOOM_STEPS) {
+    const abs = Math.abs(clamped - step);
+    if (abs < closestAbs) {
+      closestAbs = abs;
+      closest = step;
+    }
+  }
+  return closest;
+}
+
+function stepChartZoom(current: number, direction: -1 | 1): number {
+  const normalized = snapZoomToChartStep(current);
+  const index = CHART_ZOOM_STEPS.indexOf(normalized);
+  const safeIndex = index === -1 ? 0 : index;
+  const nextIndex = safeIndex + direction;
+  if (nextIndex < 0 || nextIndex >= CHART_ZOOM_STEPS.length) {
+    return normalized;
+  }
+  return CHART_ZOOM_STEPS[nextIndex]!;
 }
 
 function clonePattern(pattern: PatternDocument): PatternDocument {
