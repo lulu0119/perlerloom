@@ -21,6 +21,7 @@ import { mardPalette } from "@perlerloom/palettes";
 import { cn } from "@perlerloom/ui";
 import QRCode from "qrcode";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
+import { majorGridLineCellIndices } from "@/lib/major-grid-line-indices";
 import { createExportMetadata } from "@/lib/pattern-storage";
 import { EditorSidePanels } from "./editor-side-panels";
 import { ChartToolHud } from "./chart-tool-hud";
@@ -713,6 +714,9 @@ const PATTERN_CANVAS_AXIS_LABEL_FONT_CELL_FRACTION = 0.32;
 /** Below this cell size, bead codes are omitted on the canvas (axis numbers still draw). */
 const PATTERN_CANVAS_HIDE_BEAD_CODES_WHEN_CELL_BELOW_PX = 10;
 
+/** Thick guide lines on the bead grid every this many cells (plus the outer right/bottom edge). */
+const PATTERN_CANVAS_MAJOR_GRID_STEP = 5;
+
 function drawPatternCanvas(
   canvas: HTMLCanvasElement,
   pattern: PatternDocument,
@@ -803,19 +807,29 @@ function drawPatternCanvas(
 function drawOuterMajorLines(context: CanvasRenderingContext2D, pattern: PatternDocument, layout: CanvasLayout): void {
   context.strokeStyle = "#b85b52";
   context.lineWidth = 2;
-  for (let column = 0; column <= pattern.width; column += 5) {
-    const x = layout.headerSize + column * layout.cellSize;
+
+  function strokeVerticalLine(atColumnIndex: number): void {
+    const x = layout.headerSize + atColumnIndex * layout.cellSize;
     context.beginPath();
     context.moveTo(x, layout.headerSize);
     context.lineTo(x, layout.headerSize + pattern.height * layout.cellSize);
     context.stroke();
   }
-  for (let row = 0; row <= pattern.height; row += 5) {
-    const y = layout.headerSize + row * layout.cellSize;
+
+  function strokeHorizontalLine(atRowIndex: number): void {
+    const y = layout.headerSize + atRowIndex * layout.cellSize;
     context.beginPath();
     context.moveTo(layout.headerSize, y);
     context.lineTo(layout.headerSize + pattern.width * layout.cellSize, y);
     context.stroke();
+  }
+
+  for (const column of majorGridLineCellIndices(pattern.width, PATTERN_CANVAS_MAJOR_GRID_STEP)) {
+    strokeVerticalLine(column);
+  }
+
+  for (const row of majorGridLineCellIndices(pattern.height, PATTERN_CANVAS_MAJOR_GRID_STEP)) {
+    strokeHorizontalLine(row);
   }
 }
 
