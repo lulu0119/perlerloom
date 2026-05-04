@@ -400,9 +400,10 @@ export function PerlerloomApp(): React.ReactElement {
       <header className="shrink-0 border-b border-amber-200 bg-white/90 px-4 py-3 shadow-sm">
         <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-700">Perlerloom</p>
-            <h1 className="text-xl font-bold tracking-tight md:text-2xl">Chart-first bead pattern studio</h1>
-            <p className="mt-0.5 max-w-3xl text-xs text-stone-600 md:text-sm">
+            <h1 className="font-sans text-lg font-semibold uppercase tracking-[0.22em] text-amber-700">
+              Perlerloom
+            </h1>
+            <p className="mt-1 max-w-3xl text-xs text-stone-600 md:text-sm">
               Preview an image, choose an explicit size, generate a crisp bead chart, then edit it like a craft worksheet.
             </p>
           </div>
