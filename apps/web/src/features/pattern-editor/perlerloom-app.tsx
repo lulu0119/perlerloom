@@ -113,8 +113,8 @@ export function PerlerloomApp(): React.ReactElement {
     if (canvas === null) {
       return;
     }
-    drawPatternCanvas(canvas, pattern, paletteByCode, activeColor, canvasLayout, lineStartPoint, linePreviewPoint);
-  }, [activeColor, canvasLayout, linePreviewPoint, lineStartPoint, paletteByCode, pattern]);
+    drawPatternCanvas(canvas, pattern, paletteByCode, canvasLayout, lineStartPoint, linePreviewPoint);
+  }, [canvasLayout, linePreviewPoint, lineStartPoint, paletteByCode, pattern]);
 
   useEffect(() => {
     return () => {
@@ -595,17 +595,11 @@ const PATTERN_CANVAS_AXIS_LABEL_FONT_CELL_FRACTION = 0.32;
 /** Below this cell size, bead codes are omitted on the canvas (axis numbers still draw). */
 const PATTERN_CANVAS_HIDE_BEAD_CODES_WHEN_CELL_BELOW_PX = 10;
 
-/** Shared outline width for active palette match on canvas and selected legend pill. */
+/** Outline width for the selected color in legend and Mard palette controls. */
 const ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX = 2;
-/** Selected legend pill outline is always near-black (not per-bead contrast like the canvas). */
 const ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX = "#171717";
 
-/** Stroke color for active-match cells on canvas: same luminance rule as bead code labels. */
-function activePaletteMatchStrokeHexForCanvas(backgroundHex: string): string {
-  return readableTextHexOnBackgroundHex(backgroundHex);
-}
-
-/** Legend selection outline: solid black, same width as canvas active-match stroke. */
+/** Legend / palette selection outline for the active drawing color. */
 function getActivePaletteMatchLegendSelectionOutline(): CSSProperties {
   return {
     outline: `${ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX}px solid ${ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX}`,
@@ -617,7 +611,6 @@ function drawPatternCanvas(
   canvas: HTMLCanvasElement,
   pattern: PatternDocument,
   paletteByCode: Map<string, { hex: string }>,
-  activeColor: string,
   layout: CanvasLayout,
   lineStartPoint: PatternPoint | null,
   linePreviewPoint: PatternPoint | null
@@ -665,22 +658,6 @@ function drawPatternCanvas(
       context.strokeStyle = "#d9d0c5";
       context.lineWidth = 1;
       context.strokeRect(x, y, layout.cellSize, layout.cellSize);
-    }
-  }
-
-  context.lineWidth = ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX;
-  for (let row = 0; row < pattern.height; row += 1) {
-    for (let column = 0; column < pattern.width; column += 1) {
-      const index = row * pattern.width + column;
-      const code = pattern.cells[index];
-      if (code === null || activeColor !== code) {
-        continue;
-      }
-      const backgroundHex = paletteByCode.get(code)?.hex ?? "#ffffff";
-      context.strokeStyle = activePaletteMatchStrokeHexForCanvas(backgroundHex);
-      const x = layout.headerSize + column * layout.cellSize;
-      const y = layout.headerSize + row * layout.cellSize;
-      context.strokeRect(x + 1, y + 1, layout.cellSize - 2, layout.cellSize - 2);
     }
   }
 
