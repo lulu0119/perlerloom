@@ -8,6 +8,7 @@ import {
   findNearestPaletteColor,
   hexToRgb,
   kMeansCluster,
+  readableTextHexOnBackgroundHex,
   redoPatternHistory,
   replacePatternColor,
   rgbToHex,
@@ -28,6 +29,11 @@ describe("color helpers", () => {
 
     expect(findNearestPaletteColor(source, mardPalette, "rgb").code).toBe("A1");
     expect(findNearestPaletteColor(source, mardPalette, "lab").code).toBe("A1");
+  });
+
+  it("picks dark text on light backgrounds and light text on dark backgrounds", () => {
+    expect(readableTextHexOnBackgroundHex("#ffffff")).toBe("#171717");
+    expect(readableTextHexOnBackgroundHex("#000000")).toBe("#f4f4f5");
   });
 });
 

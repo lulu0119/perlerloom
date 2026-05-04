@@ -3,8 +3,11 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { PerlerloomApp } from "./perlerloom-app";
 
+const patternCanvasMockContexts: Array<{ font: string }> = [];
+
 describe("Perlerloom editor shell", () => {
   beforeEach(() => {
+    patternCanvasMockContexts.length = 0;
     vi.stubGlobal(
       "createImageBitmap",
       vi.fn(async () => ({
@@ -116,11 +119,11 @@ describe("Perlerloom editor shell", () => {
     render(<PerlerloomApp />);
 
     const legend = screen.getByLabelText(/legend badges/i);
-    await user.click(screen.getByRole("button", { name: /select h7, 22 beads/i }));
+    await user.click(screen.getByRole("button", { name: /^select h7$/i }));
 
     expect(legend).toBeInTheDocument();
-    expect(screen.getByText(/active color: h7/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /select h7, 22 beads/i })).toHaveClass("rounded-full");
+    expect(screen.getByText(/active tool:/i).closest("p")).toHaveTextContent(/active color:\s*h7/i);
+    expect(screen.getByRole("button", { name: /^select h7$/i }).closest("div.flex.min-h-9")).toHaveClass("rounded-full");
   });
 
   it("records edit history and can jump to a previous snapshot", async () => {
@@ -144,6 +147,26 @@ describe("Perlerloom editor shell", () => {
 
     expect(screen.getByText(/sign in to save/i)).toBeInTheDocument();
   });
+
+  it("scales pattern canvas label font when chart zoom changes", async () => {
+    const user = userEvent.setup();
+    render(<PerlerloomApp />);
+
+    await waitFor(() => expect(patternCanvasMockContexts.length).toBeGreaterThan(0));
+    const fontAfterDefaultZoom = patternCanvasMockContexts.at(-1)!.font;
+    const defaultSizeMatch = /(\d+)px\b/.exec(fontAfterDefaultZoom);
+    expect(defaultSizeMatch).not.toBeNull();
+
+    await user.selectOptions(screen.getByLabelText(/chart zoom/i), "0.5");
+    await waitFor(() => {
+      const lastFont = patternCanvasMockContexts.at(-1)!.font;
+      expect(lastFont).not.toEqual(fontAfterDefaultZoom);
+    });
+
+    const zoomedOutSizeMatch = /(\d+)px\b/.exec(patternCanvasMockContexts.at(-1)!.font);
+    expect(zoomedOutSizeMatch).not.toBeNull();
+    expect(Number(zoomedOutSizeMatch![1])).toBeLessThan(Number(defaultSizeMatch![1]));
+  });
 });
 
 function getCanvasContext(contextId: "2d", options?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null;
@@ -155,16 +178,16 @@ function getCanvasContext(contextId: string): CanvasRenderingContext2D | ImageBi
     return null;
   }
 
-  return {
+  const context = {
     clearRect: vi.fn(),
     fillRect: vi.fn(),
     strokeRect: vi.fn(),
     fillText: vi.fn(),
-    strokeText: vi.fn(),
     beginPath: vi.fn(),
     moveTo: vi.fn(),
     lineTo: vi.fn(),
     stroke: vi.fn(),
+    setLineDash: vi.fn(),
     drawImage: vi.fn(),
     getImageData: vi.fn(
       () =>
@@ -184,4 +207,6 @@ function getCanvasContext(contextId: string): CanvasRenderingContext2D | ImageBi
     textAlign: "start",
     textBaseline: "alphabetic"
   } as unknown as CanvasRenderingContext2D;
+  patternCanvasMockContexts.push(context as unknown as { font: string });
+  return context;
 }

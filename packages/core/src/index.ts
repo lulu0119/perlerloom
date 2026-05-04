@@ -143,6 +143,30 @@ export function rgbToHex(rgb: RgbColor): string {
   return paletteRgbToHex(rgb);
 }
 
+function linearizeSrgbChannel(channel0To255: number): number {
+  const normalized = channel0To255 / 255;
+  return normalized <= 0.03928 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+}
+
+/** WCAG 2.x relative luminance in the 0–1 range (higher means visually lighter). */
+export function relativeLuminanceFromRgb(rgb: RgbColor): number {
+  const red = linearizeSrgbChannel(rgb.red);
+  const green = linearizeSrgbChannel(rgb.green);
+  const blue = linearizeSrgbChannel(rgb.blue);
+  return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+}
+
+const readableTextLuminanceThreshold = 0.55;
+
+/**
+ * Solid text color for labels on a uniform sRGB `backgroundHex` (#RRGGBB).
+ * Light backgrounds use near-black; dark backgrounds use near-white.
+ */
+export function readableTextHexOnBackgroundHex(backgroundHex: string): string {
+  const rgb = hexToRgb(backgroundHex);
+  return relativeLuminanceFromRgb(rgb) >= readableTextLuminanceThreshold ? "#171717" : "#f4f4f5";
+}
+
 export function findNearestPaletteColor(source: RgbColor, palette: BeadColor[], matchingSpace: MatchingSpace): BeadColor {
   if (palette.length === 0) {
     throw new Error("Palette must contain at least one color.");

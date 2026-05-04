@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import {
+  ArrowLeftRight,
   Hand,
   ImageIcon,
   Minus,
@@ -13,6 +14,7 @@ import {
   Share2,
   Sparkles,
   Square,
+  Trash2,
   Undo2,
   UploadCloud,
   ZoomIn,
@@ -24,6 +26,7 @@ import {
   buildLegend,
   deletePatternColor,
   drawPatternLine,
+  readableTextHexOnBackgroundHex,
   replacePatternColor,
   type ClusteringSpace,
   type DownsamplingMode,
@@ -545,7 +548,7 @@ export function PerlerloomApp(): React.ReactElement {
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-700">Generated chart preview</p>
                 <p className="mt-1 text-sm text-stone-600">
-                  Active tool: {toolLabels[activeTool]} · Active color: {activeColor}
+                  Active tool: {toolLabels[activeTool]} · Active color: <span className="font-bold">{activeColor}</span>
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
@@ -609,16 +612,46 @@ export function PerlerloomApp(): React.ReactElement {
             <div aria-label="Legend badges" className="mt-3 flex flex-wrap gap-2">
               {legend.map((item) => {
                 const color = paletteByCode.get(item.code);
+                const isActiveChip = activeColor === item.code;
+                const legendOutline = getActivePaletteMatchLegendSelectionOutline(canvasLayout.cellSize);
+                const swatchHex = color?.hex ?? "#ffffff";
+                const codeOnSwatchColor = readableTextHexOnBackgroundHex(swatchHex);
                 return (
-                  <div className="flex items-center gap-1 rounded-full border border-stone-200 bg-white px-2 py-1 shadow-sm" key={item.code}>
-                    <button aria-label={`Select ${item.code}, ${item.count} beads`} className={cn("rounded-full border px-2.5 py-1 text-xs font-semibold transition", activeColor === item.code ? "border-stone-950 ring-2 ring-amber-300" : "border-stone-300")} style={{ backgroundColor: color?.hex ?? "#ffffff" }} type="button" onClick={() => setActiveColor(item.code)}>
-                      {item.code} · {item.count}
+                  <div
+                    className={cn(
+                      "flex min-h-9 min-w-0 items-stretch overflow-hidden rounded-full border border-stone-200 bg-white shadow-sm transition",
+                      "focus-within:ring-2 focus-within:ring-violet-800/30 focus-within:ring-offset-2 focus-within:ring-offset-white"
+                    )}
+                    key={item.code}
+                    style={isActiveChip ? legendOutline : undefined}
+                  >
+                    <button
+                      aria-label={`Select ${item.code}`}
+                      aria-pressed={isActiveChip}
+                      className="flex min-h-9 min-w-0 flex-1 items-center justify-center border-r border-stone-200 px-3 font-mono text-sm font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
+                      style={{ backgroundColor: swatchHex, color: codeOnSwatchColor }}
+                      type="button"
+                      onClick={() => setActiveColor(item.code)}
+                    >
+                      {item.code}
                     </button>
-                    <button className="rounded-full px-2 text-xs text-amber-700 hover:bg-amber-50" type="button" onClick={() => applyPatternEdit("Replace", replacePatternColor(pattern, item.code, activeColor))}>
-                      Replace
+                    <button
+                      aria-label={`Replace ${item.code} with active color ${activeColor}`}
+                      className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center border-r border-stone-200 bg-white text-amber-800 transition hover:bg-amber-100/90 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
+                      title={`Replace ${item.code} with ${activeColor}`}
+                      type="button"
+                      onClick={() => applyPatternEdit("Replace", replacePatternColor(pattern, item.code, activeColor))}
+                    >
+                      <ArrowLeftRight className="h-4 w-4" aria-hidden="true" />
                     </button>
-                    <button className="rounded-full px-2 text-xs text-red-700 hover:bg-red-50" type="button" onClick={() => applyPatternEdit("Delete", deletePatternColor(pattern, item.code))}>
-                      Delete
+                    <button
+                      aria-label={`Delete ${item.code} from pattern`}
+                      className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center bg-white text-red-800 transition hover:bg-red-100/80 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
+                      title={`Delete ${item.code}`}
+                      type="button"
+                      onClick={() => applyPatternEdit("Delete", deletePatternColor(pattern, item.code))}
+                    >
+                      <Trash2 className="h-4 w-4" aria-hidden="true" />
                     </button>
                   </div>
                 );
@@ -657,6 +690,44 @@ export function PerlerloomApp(): React.ReactElement {
   );
 }
 
+const PATTERN_CANVAS_MONO_FONT_FAMILY = "ui-monospace, SFMono-Regular, Menlo, monospace";
+/** Bead code `fillText` size is this fraction of `cellSize` (zoom halves cell → halves font the same way). */
+const PATTERN_CANVAS_BEAD_CODE_FONT_CELL_FRACTION = 0.42;
+/** Row/column numbers use a smaller fraction of the same `cellSize` so they stay subordinate to codes. */
+const PATTERN_CANVAS_AXIS_LABEL_FONT_CELL_FRACTION = 0.32;
+/** Below this cell size, bead codes are omitted on the canvas (axis numbers still draw). */
+const PATTERN_CANVAS_HIDE_BEAD_CODES_WHEN_CELL_BELOW_PX = 10;
+
+/** Shared outline width for active palette match on canvas and selected legend pill. */
+const ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX = 2;
+/** When `cellSize` is below this, canvas match stroke is solid; at or above, dashed (legend follows the same rule; color is always black). */
+const ACTIVE_PALETTE_MATCH_DASH_WHEN_CELL_SIZE_AT_LEAST_PX = 20;
+/** Selected legend pill outline is always near-black (not per-bead contrast like the canvas). */
+const ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX = "#171717";
+
+function getActivePaletteMatchDashPattern(cellSize: number): number[] {
+  if (cellSize < ACTIVE_PALETTE_MATCH_DASH_WHEN_CELL_SIZE_AT_LEAST_PX) {
+    return [];
+  }
+  const dashLength = Math.max(4, Math.round(cellSize * 0.22));
+  const gapLength = Math.max(3, Math.round(cellSize * 0.14));
+  return [dashLength, gapLength];
+}
+
+/** Stroke color for active-match cells on canvas: same luminance rule as bead code labels. */
+function activePaletteMatchStrokeHexForCanvas(backgroundHex: string): string {
+  return readableTextHexOnBackgroundHex(backgroundHex);
+}
+
+/** Legend selection outline: black, 2px; dashed vs solid follows same cell-size rule as canvas dash pattern. */
+function getActivePaletteMatchLegendSelectionOutline(cellSize: number): CSSProperties {
+  const useDash = cellSize >= ACTIVE_PALETTE_MATCH_DASH_WHEN_CELL_SIZE_AT_LEAST_PX;
+  return {
+    outline: `${ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX}px ${useDash ? "dashed" : "solid"} ${ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX}`,
+    outlineOffset: "2px"
+  };
+}
+
 function drawPatternCanvas(
   canvas: HTMLCanvasElement,
   pattern: PatternDocument,
@@ -679,9 +750,10 @@ function drawPatternCanvas(
   context.fillRect(0, canvas.height - layout.headerSize, canvas.width, layout.headerSize);
   context.fillRect(0, 0, layout.headerSize, canvas.height);
   context.fillRect(canvas.width - layout.headerSize, 0, layout.headerSize, canvas.height);
-  context.font = `${Math.max(10, Math.round(layout.cellSize * 0.34))}px ui-monospace, SFMono-Regular, Menlo, monospace`;
   context.textAlign = "center";
   context.textBaseline = "middle";
+  const axisLabelFontPx = Math.round(layout.cellSize * PATTERN_CANVAS_AXIS_LABEL_FONT_CELL_FRACTION);
+  context.font = `600 ${axisLabelFontPx}px ${PATTERN_CANVAS_MONO_FONT_FAMILY}`;
 
   for (let column = 0; column < pattern.width; column += 1) {
     const x = layout.headerSize + column * layout.cellSize + layout.cellSize / 2;
@@ -703,20 +775,53 @@ function drawPatternCanvas(
       const code = pattern.cells[index];
       const x = layout.headerSize + column * layout.cellSize;
       const y = layout.headerSize + row * layout.cellSize;
-      const isMajorLine = column % 5 === 4 || row % 5 === 4;
       context.fillStyle = code === null ? "#ffffff" : paletteByCode.get(code)?.hex ?? "#ffffff";
       context.fillRect(x, y, layout.cellSize, layout.cellSize);
-      context.strokeStyle = isMajorLine ? "#b85b52" : "#d9d0c5";
-      context.lineWidth = isMajorLine ? 2 : 1;
+      context.strokeStyle = "#d9d0c5";
+      context.lineWidth = 1;
       context.strokeRect(x, y, layout.cellSize, layout.cellSize);
+    }
+  }
 
-      if (code !== null) {
+  context.lineWidth = ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX;
+  const dashPattern = getActivePaletteMatchDashPattern(layout.cellSize);
+  if (typeof context.setLineDash === "function") {
+    context.setLineDash(dashPattern);
+  }
+  for (let row = 0; row < pattern.height; row += 1) {
+    for (let column = 0; column < pattern.width; column += 1) {
+      const index = row * pattern.width + column;
+      const code = pattern.cells[index];
+      if (code === null || activeColor !== code) {
+        continue;
+      }
+      const backgroundHex = paletteByCode.get(code)?.hex ?? "#ffffff";
+      context.strokeStyle = activePaletteMatchStrokeHexForCanvas(backgroundHex);
+      const x = layout.headerSize + column * layout.cellSize;
+      const y = layout.headerSize + row * layout.cellSize;
+      context.strokeRect(x + 1, y + 1, layout.cellSize - 2, layout.cellSize - 2);
+    }
+  }
+  if (typeof context.setLineDash === "function") {
+    context.setLineDash([]);
+  }
+
+  if (layout.cellSize >= PATTERN_CANVAS_HIDE_BEAD_CODES_WHEN_CELL_BELOW_PX) {
+    const beadCodeFontPx = Math.round(layout.cellSize * PATTERN_CANVAS_BEAD_CODE_FONT_CELL_FRACTION);
+    context.font = `700 ${beadCodeFontPx}px ${PATTERN_CANVAS_MONO_FONT_FAMILY}`;
+    for (let row = 0; row < pattern.height; row += 1) {
+      for (let column = 0; column < pattern.width; column += 1) {
+        const index = row * pattern.width + column;
+        const code = pattern.cells[index];
+        if (code === null) {
+          continue;
+        }
+        const x = layout.headerSize + column * layout.cellSize;
+        const y = layout.headerSize + row * layout.cellSize;
+        const backgroundHex = paletteByCode.get(code)?.hex ?? "#ffffff";
         const centerX = x + layout.cellSize / 2;
         const centerY = y + layout.cellSize / 2;
-        context.lineWidth = Math.max(2, layout.cellSize * 0.08);
-        context.strokeStyle = activeColor === code ? "#ffffff" : "rgba(0, 0, 0, 0.72)";
-        context.strokeText(code, centerX, centerY);
-        context.fillStyle = activeColor === code ? "#1c1917" : "#ffffff";
+        context.fillStyle = readableTextHexOnBackgroundHex(backgroundHex);
         context.fillText(code, centerX, centerY);
       }
     }
