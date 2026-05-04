@@ -63,15 +63,3 @@ export function handleConversionRequest(request: ConversionWorkerRequest): Conve
     };
   }
 }
-
-if (typeof self !== "undefined" && typeof (self as unknown as { postMessage?: unknown }).postMessage === "function") {
-  type WorkerGlobal = {
-    onmessage: ((event: MessageEvent<ConversionWorkerRequest>) => void) | null;
-    postMessage(message: ConversionWorkerResponse): void;
-  };
-
-  const workerSelf = self as unknown as WorkerGlobal;
-  workerSelf.onmessage = (event: MessageEvent<ConversionWorkerRequest>) => {
-    workerSelf.postMessage(handleConversionRequest(event.data));
-  };
-}

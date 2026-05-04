@@ -1,5 +1,4 @@
 import type { PatternDocument, PatternSettings } from "@perlerloom/core";
-import { handleConversionRequest } from "@/workers/conversion-worker";
 
 export type BrowserConversionInput = {
   rgbBytes: ArrayBuffer;
@@ -10,43 +9,19 @@ export type BrowserConversionInput = {
   settings: PatternSettings;
 };
 
+/**
+ * Runs palette conversion in the browser.
+ *
+ * We do not use `new Worker(new URL("./…ts"))` here: Next.js dev (Turbopack) can emit a **raw `.ts`**
+ * asset URL for that pattern, which browsers cannot execute as a worker script, so the worker would
+ * never respond. A compiled worker pipeline could be reintroduced later; until then this path
+ * matches the previous `Worker === undefined` fallback (same thread, dynamic import of handlers).
+ */
 export async function convertImageInWorker(input: BrowserConversionInput): Promise<PatternDocument> {
-  if (typeof Worker === "undefined") {
-    return convertInCurrentThread(input);
-  }
-
-  return new Promise((resolve, reject) => {
-    const worker = new Worker(new URL("../workers/conversion-worker.ts", import.meta.url), { type: "module" });
-
-    worker.addEventListener("message", (event) => {
-      worker.terminate();
-      const response = event.data;
-      if (response.type === "success") {
-        resolve(response.pattern);
-        return;
-      }
-      reject(new Error(response.message));
-    });
-
-    worker.addEventListener("messageerror", () => {
-      worker.terminate();
-      reject(new Error("Pattern conversion worker message failed."));
-    });
-
-    worker.addEventListener("error", () => {
-      worker.terminate();
-      reject(new Error("Pattern conversion worker failed."));
-    });
-
-    const transferableRgbBytes = input.rgbBytes.slice(0);
-    worker.postMessage({ ...input, rgbBytes: transferableRgbBytes, requestId: crypto.randomUUID() }, [transferableRgbBytes]);
-  });
-}
-
-function convertInCurrentThread(input: BrowserConversionInput): PatternDocument {
+  const { handleConversionRequest } = await import("@/workers/conversion-worker");
   const response = handleConversionRequest({
     ...input,
-    requestId: "current-thread"
+    requestId: crypto.randomUUID()
   });
 
   if (response.type === "error") {
