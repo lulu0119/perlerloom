@@ -43,7 +43,7 @@ describe("Perlerloom editor shell", () => {
 
     const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
     expect(within(dialog).getByRole("checkbox", { name: /enable dithering/i })).not.toBeChecked();
-    expect(within(dialog).getByLabelText(/target colors/i)).toHaveValue(24);
+    expect(within(dialog).getByLabelText(/target colors/i)).toHaveValue("24");
   });
 
   it("shows an upload preview before generation and keeps generation explicit", async () => {
@@ -107,13 +107,16 @@ describe("Perlerloom editor shell", () => {
     await openGenerateImportDialog(user);
     const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
 
-    await user.selectOptions(within(dialog).getByLabelText(/downsampling method/i), "gridMode");
-    await user.selectOptions(within(dialog).getByLabelText(/match space/i), "rgb");
-    await user.selectOptions(within(dialog).getByLabelText(/cluster space/i), "rgb");
+    await user.click(within(dialog).getByRole("combobox", { name: /downsampling method/i }));
+    await user.click(await screen.findByRole("option", { name: /^grid mode$/i }));
+    await user.click(within(dialog).getByRole("combobox", { name: /match space/i }));
+    await user.click(await screen.findByRole("option", { name: /^rgb$/i }));
+    await user.click(within(dialog).getByRole("combobox", { name: /cluster space/i }));
+    await user.click(await screen.findByRole("option", { name: /^rgb$/i }));
 
-    expect(within(dialog).getByLabelText(/downsampling method/i)).toHaveValue("gridMode");
-    expect(within(dialog).getByLabelText(/match space/i)).toHaveValue("rgb");
-    expect(within(dialog).getByLabelText(/cluster space/i)).toHaveValue("rgb");
+    expect(within(dialog).getByRole("combobox", { name: /downsampling method/i })).toHaveTextContent(/grid mode/i);
+    expect(within(dialog).getByRole("combobox", { name: /match space/i })).toHaveTextContent(/rgb/i);
+    expect(within(dialog).getByRole("combobox", { name: /cluster space/i })).toHaveTextContent(/rgb/i);
   });
 
   it("changes the active toolbar tool", async () => {

@@ -29,6 +29,13 @@ import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from 
 
 type EditorTool = "pencil" | "eyedropper" | "paintBucket" | "hand" | "line";
 
+type ImportFormLayoutDefaults = {
+  resizeMode: ResizeMode;
+  targetWidth: string;
+  targetHeight: string;
+  scalePercent: string;
+};
+
 type HistoryEntry = {
   id: string;
   label: string;
@@ -82,13 +89,14 @@ const initialHistoryEntry: HistoryEntry = {
 };
 
 export function PerlerloomApp(): React.ReactElement {
-  const [settings, setSettings] = useState<PatternSettings>(initialSettings);
   const [pattern, setPattern] = useState<PatternDocument>(initialPattern);
   const [selectedSourceImage, setSelectedSourceImage] = useState<SelectedSourceImage | null>(null);
+  const [importSettings, setImportSettings] = useState<PatternSettings>(initialSettings);
   const [resizeMode, setResizeMode] = useState<ResizeMode>("original");
   const [targetWidthInput, setTargetWidthInput] = useState(String(initialPattern.width));
   const [targetHeightInput, setTargetHeightInput] = useState(String(initialPattern.height));
   const [scalePercentInput, setScalePercentInput] = useState("100");
+  const [targetColorCountInput, setTargetColorCountInput] = useState(String(initialSettings.targetColorCount));
   const [activeTool, setActiveTool] = useState<EditorTool>("pencil");
   const [activeColor, setActiveColor] = useState("H7");
   const [zoom, setZoom] = useState(1);
@@ -165,11 +173,11 @@ export function PerlerloomApp(): React.ReactElement {
         return { file, previewUrl, width: sourceWidth, height: sourceHeight };
       });
 
-      const suggestedSize = suggestTargetSize(sourceWidth, sourceHeight);
-      setTargetWidthInput(String(suggestedSize.width));
-      setTargetHeightInput(String(suggestedSize.height));
-      setScalePercentInput(String(suggestedSize.scalePercent));
-      setResizeMode(sourceWidth > maxPatternDimension || sourceHeight > maxPatternDimension ? "dimensions" : "original");
+      const layout = buildImportFormLayoutDefaults(pattern, { width: sourceWidth, height: sourceHeight });
+      setResizeMode(layout.resizeMode);
+      setTargetWidthInput(layout.targetWidth);
+      setTargetHeightInput(layout.targetHeight);
+      setScalePercentInput(layout.scalePercent);
       setMessage(
         sourceWidth > maxPatternDimension || sourceHeight > maxPatternDimension
           ? "Source is larger than 256 cells. Choose an explicit target size before generating."
@@ -188,9 +196,17 @@ export function PerlerloomApp(): React.ReactElement {
 
     const targetDimensions = getTargetDimensions(selectedSourceImage, resizeMode, targetWidthInput, targetHeightInput, scalePercentInput);
     if (targetDimensions === null) {
-      setMessage("Choose target dimensions from 1 to 256 cells.");
+      setMessage("Pattern size could not be computed. Check the fields and try again.");
       return;
     }
+
+    const trimmedColors = targetColorCountInput.trim();
+    const parsedColors = Number(trimmedColors);
+    const targetColorCount =
+      trimmedColors !== "" && Number.isInteger(parsedColors) && parsedColors >= 1 && parsedColors <= mardPalette.length
+        ? parsedColors
+        : importSettings.targetColorCount;
+    const settingsForConvert: PatternSettings = { ...importSettings, targetColorCount };
 
     try {
       setIsGenerating(true);
@@ -198,12 +214,14 @@ export function PerlerloomApp(): React.ReactElement {
       const image = await readImageFile(selectedSourceImage.file);
       const convertedPattern = await convertImageInWorker({
         ...image,
-        settings,
+        settings: settingsForConvert,
         targetWidth: targetDimensions.width,
         targetHeight: targetDimensions.height
       });
       const nextPattern = clonePattern(convertedPattern);
       setPattern(nextPattern);
+      setImportSettings(nextPattern.settings);
+      setTargetColorCountInput(String(nextPattern.settings.targetColorCount));
       setActiveColor(nextPattern.legend?.[0]?.code ?? "H7");
       resetHistory(nextPattern, "Generated pattern");
       setMessage("Pattern generated locally.");
@@ -446,33 +464,48 @@ export function PerlerloomApp(): React.ReactElement {
     setMessage(`Restored: ${entry.label}.`);
   }
 
-  function updateTargetColorCount(value: string): void {
-    const targetColorCount = Number(value);
-    if (Number.isInteger(targetColorCount) && targetColorCount >= 1 && targetColorCount <= mardPalette.length) {
-      setSettings((current) => ({ ...current, targetColorCount }));
+  function handleTargetColorCountInputChange(value: string): void {
+    if (value === "") {
+      setTargetColorCountInput("");
+      return;
     }
+    if (!/^\d+$/.test(value)) {
+      return;
+    }
+    setTargetColorCountInput(value);
+  }
+
+  function handleTargetColorCountInputBlur(): void {
+    const trimmed = targetColorCountInput.trim();
+    const parsed = Number(trimmed);
+    if (trimmed === "" || !Number.isInteger(parsed) || parsed < 1 || parsed > mardPalette.length) {
+      setTargetColorCountInput(String(importSettings.targetColorCount));
+      return;
+    }
+    setImportSettings((current) => ({ ...current, targetColorCount: parsed }));
+    setTargetColorCountInput(String(parsed));
   }
 
   function updateMatchingSpace(value: string): void {
     if (isMatchingSpace(value)) {
-      setSettings((current) => ({ ...current, matchingSpace: value }));
+      setImportSettings((current) => ({ ...current, matchingSpace: value }));
     }
   }
 
   function updateClusteringSpace(value: string): void {
     if (isClusteringSpace(value)) {
-      setSettings((current) => ({ ...current, clusteringSpace: value }));
+      setImportSettings((current) => ({ ...current, clusteringSpace: value }));
     }
   }
 
   function updateDownsamplingMode(value: string): void {
     if (isDownsamplingMode(value)) {
-      setSettings((current) => ({ ...current, downsamplingMode: value }));
+      setImportSettings((current) => ({ ...current, downsamplingMode: value }));
     }
   }
 
   function updateDitheringEnabled(checked: boolean): void {
-    setSettings((current) => ({ ...current, ditheringEnabled: checked }));
+    setImportSettings((current) => ({ ...current, ditheringEnabled: checked }));
   }
 
   const toolRailButtonClassName =
@@ -540,7 +573,16 @@ export function PerlerloomApp(): React.ReactElement {
             className={cn(toolRailButtonClassName, "border-amber-300 bg-amber-50 text-amber-950 hover:bg-amber-100")}
             title="New / Import"
             type="button"
-            onClick={() => setGenerateDialogOpen(true)}
+            onClick={() => {
+              setImportSettings({ ...pattern.settings });
+              setTargetColorCountInput(String(pattern.settings.targetColorCount));
+              const layout = buildImportFormLayoutDefaults(pattern, selectedSourceImage);
+              setResizeMode(layout.resizeMode);
+              setTargetWidthInput(layout.targetWidth);
+              setTargetHeightInput(layout.targetHeight);
+              setScalePercentInput(layout.scalePercent);
+              setGenerateDialogOpen(true);
+            }}
           >
             <ImagePlus className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -700,6 +742,7 @@ export function PerlerloomApp(): React.ReactElement {
       ) : null}
 
       <GenerateImportDialog
+        importSettings={importSettings}
         isGenerating={isGenerating}
         maxPatternDimension={maxPatternDimension}
         message={message}
@@ -707,7 +750,7 @@ export function PerlerloomApp(): React.ReactElement {
         resizeMode={resizeMode}
         scalePercentInput={scalePercentInput}
         selectedSourceImage={selectedSourceImage}
-        settings={settings}
+        targetColorCountInput={targetColorCountInput}
         targetHeightInput={targetHeightInput}
         targetWidthInput={targetWidthInput}
         onClusteringSpaceChange={updateClusteringSpace}
@@ -720,7 +763,8 @@ export function PerlerloomApp(): React.ReactElement {
         onOpenChange={setGenerateDialogOpen}
         onResizeModeChange={setResizeMode}
         onScalePercentInputChange={setScalePercentInput}
-        onTargetColorCountChange={updateTargetColorCount}
+        onTargetColorCountInputBlur={handleTargetColorCountInputBlur}
+        onTargetColorCountInputChange={handleTargetColorCountInputChange}
         onTargetHeightInputChange={setTargetHeightInput}
         onTargetWidthInputChange={setTargetWidthInput}
       />
@@ -935,6 +979,25 @@ function suggestTargetSize(width: number, height: number): { width: number; heig
     width: Math.max(1, Math.round(width * scale)),
     height: Math.max(1, Math.round(height * scale)),
     scalePercent: Math.max(1, Math.floor(scale * 100))
+  };
+}
+
+function buildImportFormLayoutDefaults(pattern: PatternDocument, image: Pick<SelectedSourceImage, "width" | "height"> | null): ImportFormLayoutDefaults {
+  if (image === null) {
+    return {
+      resizeMode: "original",
+      targetWidth: String(pattern.width),
+      targetHeight: String(pattern.height),
+      scalePercent: "100"
+    };
+  }
+  const suggested = suggestTargetSize(image.width, image.height);
+  const large = image.width > maxPatternDimension || image.height > maxPatternDimension;
+  return {
+    resizeMode: large ? "dimensions" : "original",
+    targetWidth: String(suggested.width),
+    targetHeight: String(suggested.height),
+    scalePercent: String(suggested.scalePercent)
   };
 }
 
