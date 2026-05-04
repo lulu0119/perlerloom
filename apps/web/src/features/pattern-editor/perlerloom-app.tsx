@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { Hand, ImagePlus, Layers, Minus, PaintBucket, Pencil, Save, Share2, Square, ZoomIn, ZoomOut, type LucideIcon } from "lucide-react";
+import { Hand, ImagePlus, Layers, Minus, PaintBucket, Pencil, Save, Share2, ZoomIn, ZoomOut, type LucideIcon } from "lucide-react";
 import {
   bucketFillPattern,
   buildLegend,
@@ -25,7 +25,7 @@ import { createExportMetadata } from "@/lib/pattern-storage";
 import { EditorSidePanels } from "./editor-side-panels";
 import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
 
-type EditorTool = "pencil" | "paintBucket" | "hand" | "rectangle" | "line";
+type EditorTool = "pencil" | "paintBucket" | "hand" | "line";
 
 type HistoryEntry = {
   id: string;
@@ -49,7 +49,6 @@ const toolLabels: Record<EditorTool, string> = {
   pencil: "Pencil",
   paintBucket: "Paint Bucket",
   hand: "Hand",
-  rectangle: "Rectangle Select",
   line: "Line"
 };
 
@@ -867,9 +866,6 @@ function getToolIcon(tool: EditorTool): LucideIcon {
   }
   if (tool === "hand") {
     return Hand;
-  }
-  if (tool === "rectangle") {
-    return Square;
   }
   if (tool === "line") {
     return Minus;
