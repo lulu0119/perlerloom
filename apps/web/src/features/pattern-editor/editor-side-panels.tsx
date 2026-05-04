@@ -67,7 +67,7 @@ export function EditorSidePanels({
                 <button
                   aria-label={`Select ${item.code}`}
                   aria-pressed={isActiveChip}
-                  className="flex min-h-9 min-w-0 flex-1 items-center justify-center border-r border-stone-200 px-2 font-mono text-xs font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
+                  className="flex min-h-9 w-9 shrink-0 items-center justify-center border-r border-stone-200 px-1 text-center font-mono text-xs font-bold tabular-nums tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
                   style={{ backgroundColor: swatchHex, color: codeOnSwatchColor }}
                   type="button"
                   onClick={() => onActiveColorChange(item.code)}
