@@ -2,25 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
-import {
-  ArrowLeftRight,
-  Hand,
-  ImageIcon,
-  Minus,
-  PaintBucket,
-  Pencil,
-  Redo2,
-  Save,
-  Share2,
-  Sparkles,
-  Square,
-  Trash2,
-  Undo2,
-  UploadCloud,
-  ZoomIn,
-  ZoomOut,
-  type LucideIcon
-} from "lucide-react";
+import { Hand, ImagePlus, Layers, Minus, PaintBucket, Pencil, Save, Share2, Square, ZoomIn, ZoomOut, type LucideIcon } from "lucide-react";
 import {
   bucketFillPattern,
   buildLegend,
@@ -40,16 +22,10 @@ import { cn } from "@perlerloom/ui";
 import QRCode from "qrcode";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
 import { createExportMetadata } from "@/lib/pattern-storage";
+import { EditorSidePanels } from "./editor-side-panels";
+import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
 
 type EditorTool = "pencil" | "paintBucket" | "hand" | "rectangle" | "line";
-type ResizeMode = "original" | "dimensions" | "scale";
-
-type SelectedSourceImage = {
-  file: File;
-  previewUrl: string;
-  width: number;
-  height: number;
-};
 
 type HistoryEntry = {
   id: string;
@@ -122,6 +98,8 @@ export function PerlerloomApp(): React.ReactElement {
   const [linePreviewPoint, setLinePreviewPoint] = useState<PatternPoint | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isAuthenticated] = useState(false);
+  const [generateDialogOpen, setGenerateDialogOpen] = useState(false);
+  const [mobileSidePanelOpen, setMobileSidePanelOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartScrollRef = useRef<HTMLDivElement>(null);
   const handPanRef = useRef<{ clientX: number; clientY: number; scrollLeft: number; scrollTop: number } | null>(null);
@@ -145,6 +123,19 @@ export function PerlerloomApp(): React.ReactElement {
       }
     };
   }, [selectedSourceImage]);
+
+  useEffect(() => {
+    if (!mobileSidePanelOpen) {
+      return;
+    }
+    function handleEscape(event: KeyboardEvent): void {
+      if (event.key === "Escape") {
+        setMobileSidePanelOpen(false);
+      }
+    }
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [mobileSidePanelOpen]);
 
   async function handleSelectedFile(file: File): Promise<void> {
     try {
@@ -203,6 +194,7 @@ export function PerlerloomApp(): React.ReactElement {
       setActiveColor(nextPattern.legend?.[0]?.code ?? "H7");
       resetHistory(nextPattern, "Generated pattern");
       setMessage("Pattern generated locally.");
+      setGenerateDialogOpen(false);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Image conversion failed.");
     } finally {
@@ -383,219 +375,139 @@ export function PerlerloomApp(): React.ReactElement {
     setSettings((current) => ({ ...current, ditheringEnabled: checked }));
   }
 
-  const toolButtonClassName = "inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm font-medium transition";
+  const toolRailButtonClassName =
+    "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border text-stone-700 transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800";
   const canvasCursorClassName = getCanvasCursorClassName(activeTool);
 
+  const sidePanelContent = (
+    <EditorSidePanels
+      activeColor={activeColor}
+      activeHistoryIndex={activeHistoryIndex}
+      getActiveLegendOutlineStyle={getActivePaletteMatchLegendSelectionOutline}
+      historyEntries={historyEntries}
+      legend={legend}
+      paletteByCode={paletteByCode}
+      onActiveColorChange={setActiveColor}
+      onApplyDelete={(fromCode) => applyPatternEdit("Delete", deletePatternColor(pattern, fromCode))}
+      onApplyReplace={(fromCode) => applyPatternEdit("Replace", replacePatternColor(pattern, fromCode, activeColor))}
+      onJumpToHistory={jumpToHistory}
+      onRedo={handleRedo}
+      onUndo={handleUndo}
+    />
+  );
+
   return (
-    <main className="min-h-screen bg-[#f8efe3] text-stone-950">
-      <section className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-5 py-6">
-        <header className="flex flex-col gap-3 rounded-[2rem] border border-amber-200 bg-white/85 p-5 shadow-sm md:flex-row md:items-end md:justify-between">
+    <main className="flex min-h-dvh flex-col overflow-hidden bg-[#f8efe3] text-stone-950">
+      <header className="shrink-0 border-b border-amber-200 bg-white/90 px-4 py-3 shadow-sm">
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-700">Perlerloom</p>
-            <h1 className="mt-2 text-4xl font-bold tracking-tight">Chart-first bead pattern studio</h1>
-            <p className="mt-2 max-w-3xl text-stone-600">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-amber-700">Perlerloom</p>
+            <h1 className="text-xl font-bold tracking-tight md:text-2xl">Chart-first bead pattern studio</h1>
+            <p className="mt-0.5 max-w-3xl text-xs text-stone-600 md:text-sm">
               Preview an image, choose an explicit size, generate a crisp bead chart, then edit it like a craft worksheet.
             </p>
           </div>
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
-            Local conversion is free. AI pixel-art cleanup is visible below, but requires sign-in and is not active in this MVP.
-          </div>
-        </header>
+          <p className="max-w-md rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-950 md:text-sm">
+            Local conversion is free. AI cleanup lives in the import flow; hosted accounts are not part of this MVP.
+          </p>
+        </div>
+      </header>
 
-        <div className="grid gap-5 xl:grid-cols-[340px_minmax(0,1fr)]">
-          <aside className="space-y-4 rounded-[2rem] border border-amber-200 bg-white/90 p-4 shadow-sm">
-            <section aria-label="Upload and preview" className="space-y-3">
-              <label
-                className="flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-[1.5rem] border-2 border-dashed border-amber-300 bg-amber-50/70 p-5 text-center transition hover:border-amber-500 hover:bg-amber-100/70"
-                onDragOver={(event) => event.preventDefault()}
-                onDrop={handleDrop}
+      <div className="flex min-h-0 flex-1 flex-col md:flex-row">
+        <aside
+          aria-label="Editor tools"
+          className="flex shrink-0 flex-row items-center gap-1 overflow-x-auto border-b border-amber-200 bg-white/95 px-2 py-1.5 md:w-14 md:flex-col md:items-center md:overflow-y-auto md:overflow-x-visible md:border-b-0 md:border-r md:px-0 md:py-2"
+        >
+          {(Object.keys(toolLabels) as EditorTool[]).map((tool) => {
+            const Icon = getToolIcon(tool);
+            return (
+              <button
+                aria-current={activeTool === tool ? "true" : undefined}
+                aria-label={toolLabels[tool]}
+                className={cn(toolRailButtonClassName, activeTool === tool ? "border-amber-700 bg-amber-100 text-amber-950" : "border-stone-200 bg-white hover:bg-stone-50 md:hover:bg-stone-50")}
+                key={tool}
+                title={toolLabels[tool]}
+                type="button"
+                onClick={() => setActiveTool(tool)}
               >
-                <UploadCloud className="h-9 w-9 text-amber-700" aria-hidden="true" />
-                <span className="mt-3 text-base font-semibold">Drop image here or click to upload</span>
-                <span className="mt-1 text-sm text-stone-600">PNG, JPEG, or another browser-supported image</span>
-                <input aria-label="Choose source image" className="sr-only" type="file" accept="image/*" onChange={handleFileInputChange} />
-              </label>
-
-              {selectedSourceImage !== null ? (
-                <div className="rounded-2xl border border-stone-200 bg-white p-3">
-                  <div className="relative h-40 overflow-hidden rounded-xl bg-stone-100">
-                    <Image alt="Selected source image" className="object-contain" fill sizes="320px" src={selectedSourceImage.previewUrl} unoptimized />
-                  </div>
-                  <p className="mt-2 text-sm font-medium text-stone-700">
-                    Source: {selectedSourceImage.width} x {selectedSourceImage.height} px
-                  </p>
-                </div>
-              ) : (
-                <div className="rounded-2xl border border-stone-200 bg-white p-4 text-sm text-stone-600">
-                  <ImageIcon className="mb-2 h-5 w-5 text-stone-500" aria-hidden="true" />
-                  Image preview appears here before generation.
-                </div>
-              )}
-            </section>
-
-            <section aria-label="Pattern size" className="space-y-3 rounded-2xl bg-stone-50 p-3">
-              <div>
-                <h2 className="text-base font-semibold">Pattern size</h2>
-                <p className="text-xs text-stone-600">Images up to 256 x 256 keep their source size by default. Larger images need an explicit target.</p>
-              </div>
-              <div className="grid grid-cols-3 gap-2 text-sm">
-                {(["original", "dimensions", "scale"] as ResizeMode[]).map((mode) => (
-                  <label className="rounded-xl border border-stone-200 bg-white px-3 py-2" key={mode}>
-                    <input className="mr-2" checked={resizeMode === mode} name="resize-mode" type="radio" onChange={() => setResizeMode(mode)} />
-                    {mode === "original" ? "Original" : mode === "dimensions" ? "Width/height" : "Scale"}
-                  </label>
-                ))}
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <label className="text-sm font-medium">
-                  Target width
-                  <input aria-label="Target width" className="mt-1 w-full rounded-xl border border-stone-300 p-2" max={maxPatternDimension} min={1} type="number" value={targetWidthInput} onChange={(event) => setTargetWidthInput(event.currentTarget.value)} />
-                </label>
-                <label className="text-sm font-medium">
-                  Target height
-                  <input aria-label="Target height" className="mt-1 w-full rounded-xl border border-stone-300 p-2" max={maxPatternDimension} min={1} type="number" value={targetHeightInput} onChange={(event) => setTargetHeightInput(event.currentTarget.value)} />
-                </label>
-              </div>
-              <label className="block text-sm font-medium">
-                Scale factor
-                <input aria-label="Scale factor" className="mt-1 w-full rounded-xl border border-stone-300 p-2" max={100} min={1} type="number" value={scalePercentInput} onChange={(event) => setScalePercentInput(event.currentTarget.value)} />
-              </label>
-              <label className="block text-sm font-medium">
-                Downsampling method
-                <select
-                  aria-label="Downsampling method"
-                  className="mt-1 w-full rounded-xl border border-stone-300 p-2"
-                  value={settings.downsamplingMode}
-                  onChange={(event) => {
-                    const selectedValue = event.currentTarget.value;
-                    updateDownsamplingMode(selectedValue);
-                  }}
-                >
-                  <option value="nearest">Nearest neighbor</option>
-                  <option value="gridMode">Grid mode</option>
-                </select>
-              </label>
-            </section>
-
-            <section aria-label="Preprocessing options" className="space-y-3 rounded-2xl bg-stone-50 p-3">
-              <div>
-                <h2 className="text-base font-semibold">Preprocessing</h2>
-                <p className="text-xs text-stone-600">Free local conversion is active now. Dithering starts off for cleaner bead charts.</p>
-              </div>
-              <label className="block text-sm font-medium">
-                Target colors
-                <input aria-label="Target colors" className="mt-1 w-full rounded-xl border border-stone-300 p-2" min={1} max={mardPalette.length} type="number" value={settings.targetColorCount} onChange={(event) => updateTargetColorCount(event.currentTarget.value)} />
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                <label className="block text-sm font-medium">
-                  Match space
-                  <select
-                    aria-label="Match space"
-                    className="mt-1 w-full rounded-xl border border-stone-300 p-2"
-                    value={settings.matchingSpace}
-                    onChange={(event) => {
-                      const selectedValue = event.currentTarget.value;
-                      updateMatchingSpace(selectedValue);
-                    }}
-                  >
-                    <option value="rgb">RGB</option>
-                    <option value="lab">Lab</option>
-                    <option value="hsl">HSL</option>
-                  </select>
-                </label>
-                <label className="block text-sm font-medium">
-                  Cluster space
-                  <select
-                    aria-label="Cluster space"
-                    className="mt-1 w-full rounded-xl border border-stone-300 p-2"
-                    value={settings.clusteringSpace}
-                    onChange={(event) => {
-                      const selectedValue = event.currentTarget.value;
-                      updateClusteringSpace(selectedValue);
-                    }}
-                  >
-                    <option value="rgb">RGB</option>
-                    <option value="lab">Lab</option>
-                  </select>
-                </label>
-              </div>
-              <label className="flex items-center gap-2 text-sm font-medium">
-                <input
-                  aria-label="Enable dithering"
-                  checked={settings.ditheringEnabled}
-                  type="checkbox"
-                  onChange={(event) => {
-                    const checked = event.currentTarget.checked;
-                    updateDitheringEnabled(checked);
-                  }}
-                />
-                Enable dithering
-              </label>
-              <button className="flex w-full items-center justify-center gap-2 rounded-full border border-stone-300 bg-stone-100 px-4 py-2 text-sm font-semibold text-stone-500" disabled type="button">
-                <Sparkles className="h-4 w-4" aria-hidden="true" />
-                AI pixel-art cleanup requires sign-in
+                <Icon className="h-5 w-5" aria-hidden="true" />
               </button>
-            </section>
+            );
+          })}
+          <div className="mx-1 hidden h-px w-8 shrink-0 bg-stone-200 md:my-1 md:block" role="presentation" />
+          <button
+            aria-label="New / Import"
+            className={cn(toolRailButtonClassName, "border-amber-300 bg-amber-50 text-amber-950 hover:bg-amber-100")}
+            title="New / Import"
+            type="button"
+            onClick={() => setGenerateDialogOpen(true)}
+          >
+            <ImagePlus className="h-5 w-5" aria-hidden="true" />
+          </button>
+        </aside>
 
-            <button className="flex w-full items-center justify-center gap-2 rounded-full bg-stone-950 px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-stone-300" disabled={selectedSourceImage === null || isGenerating} type="button" onClick={() => void handleGeneratePattern()}>
-              <Sparkles className="h-4 w-4" aria-hidden="true" />
-              {isGenerating ? "Generating..." : "Generate pattern"}
-            </button>
-          </aside>
-
-          <section className="min-w-0 rounded-[2rem] border border-amber-200 bg-white/95 p-4 shadow-sm">
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-700">Generated chart preview</p>
-                <p className="mt-1 text-sm text-stone-600">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-[#f1eadf] md:bg-[#f8efe3]">
+            <div className="flex shrink-0 flex-wrap items-center gap-2 border-b border-stone-200/80 bg-white/90 px-2 py-1.5">
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-700">Generated chart preview</p>
+                <p className="truncate text-xs text-stone-600 md:text-sm">
                   Active tool: {toolLabels[activeTool]} · Active color: <span className="font-bold">{activeColor}</span>
                 </p>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
-                {(Object.keys(toolLabels) as EditorTool[]).map((tool) => {
-                  const Icon = getToolIcon(tool);
-                  return (
-                    <button aria-label={toolLabels[tool]} className={cn(toolButtonClassName, activeTool === tool ? "border-amber-700 bg-amber-100 text-amber-950" : "border-stone-300 bg-white text-stone-700 hover:bg-stone-50")} key={tool} type="button" onClick={() => setActiveTool(tool)}>
-                      <Icon className="h-4 w-4" aria-hidden="true" />
-                      <span className="hidden sm:inline">{toolLabels[tool]}</span>
-                    </button>
-                  );
-                })}
-                <button className={cn(toolButtonClassName, "border-stone-300 bg-white")} type="button" onClick={handleUndo}>
-                  <Undo2 className="h-4 w-4" aria-hidden="true" />
-                  Undo
-                </button>
-                <button className={cn(toolButtonClassName, "border-stone-300 bg-white")} type="button" onClick={handleRedo}>
-                  <Redo2 className="h-4 w-4" aria-hidden="true" />
-                  Redo
-                </button>
-                <label className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-700">
-                  <span className="sr-only">Chart zoom</span>
-                  <ZoomOut className="h-4 w-4" aria-hidden="true" />
-                  <select
-                    aria-label="Chart zoom"
-                    className="bg-transparent text-sm font-semibold outline-none"
-                    value={String(zoom)}
-                    onChange={(event) => {
-                      const nextZoom = Number(event.currentTarget.value);
-                      if (Number.isFinite(nextZoom)) {
-                        setZoom(clampZoom(nextZoom));
-                      }
-                    }}
-                  >
-                    <option value="0.5">50%</option>
-                    <option value="0.75">75%</option>
-                    <option value="1">100%</option>
-                    <option value="1.25">125%</option>
-                    <option value="1.5">150%</option>
-                    <option value="2">200%</option>
-                  </select>
-                  <ZoomIn className="h-4 w-4" aria-hidden="true" />
-                </label>
-              </div>
+              <label className="inline-flex shrink-0 items-center gap-1 rounded-full border border-stone-300 bg-white px-2 py-1 text-xs font-medium text-stone-700">
+                <span className="sr-only">Chart zoom</span>
+                <ZoomOut className="h-3.5 w-3.5" aria-hidden="true" />
+                <select
+                  aria-label="Chart zoom"
+                  className="max-w-[4.5rem] bg-transparent text-xs font-semibold outline-none md:text-sm"
+                  value={String(zoom)}
+                  onChange={(event) => {
+                    const nextZoom = Number(event.currentTarget.value);
+                    if (Number.isFinite(nextZoom)) {
+                      setZoom(clampZoom(nextZoom));
+                    }
+                  }}
+                >
+                  <option value="0.5">50%</option>
+                  <option value="0.75">75%</option>
+                  <option value="1">100%</option>
+                  <option value="1.25">125%</option>
+                  <option value="1.5">150%</option>
+                  <option value="2">200%</option>
+                </select>
+                <ZoomIn className="h-3.5 w-3.5" aria-hidden="true" />
+              </label>
+              <button
+                aria-label="Save to cloud"
+                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-stone-950 px-2.5 py-1.5 text-xs font-semibold text-white md:px-3"
+                type="button"
+                onClick={handleSave}
+              >
+                <Save className="h-3.5 w-3.5" aria-hidden="true" />
+                <span className="hidden sm:inline">Save</span>
+              </button>
+              <button
+                aria-label="Create share QR"
+                className="inline-flex shrink-0 items-center gap-1 rounded-full border border-stone-300 bg-white px-2.5 py-1.5 text-xs font-semibold md:px-3"
+                type="button"
+                onClick={() => void handleCreateShare()}
+              >
+                <Share2 className="h-3.5 w-3.5" aria-hidden="true" />
+                <span className="hidden sm:inline">Share</span>
+              </button>
+              {shareQrDataUrl !== null ? (
+                <Image alt="Perlerloom share QR code" className="h-10 w-10 shrink-0 rounded-lg border border-stone-200 p-0.5 md:h-12 md:w-12" height={48} src={shareQrDataUrl} unoptimized width={48} />
+              ) : null}
             </div>
 
-            <div ref={chartScrollRef} className="max-h-[68vh] overflow-auto rounded-2xl border border-stone-300 bg-[#f1eadf] p-3">
+            {!generateDialogOpen ? (
+              <p className="line-clamp-2 border-b border-stone-200/80 bg-stone-100/90 px-3 py-1 text-xs text-stone-700 md:text-sm" role="status">
+                {message}
+              </p>
+            ) : null}
+
+            <div ref={chartScrollRef} className="min-h-0 flex-1 overflow-auto p-2 md:p-3">
               <canvas
                 aria-label="Editable bead pattern"
                 className={cn("block rounded-lg bg-white shadow-sm", canvasCursorClassName)}
@@ -608,84 +520,69 @@ export function PerlerloomApp(): React.ReactElement {
                 onPointerUp={handleCanvasPointerUp}
               />
             </div>
-
-            <div aria-label="Legend badges" className="mt-3 flex flex-wrap gap-2">
-              {legend.map((item) => {
-                const color = paletteByCode.get(item.code);
-                const isActiveChip = activeColor === item.code;
-                const legendOutline = getActivePaletteMatchLegendSelectionOutline();
-                const swatchHex = color?.hex ?? "#ffffff";
-                const codeOnSwatchColor = readableTextHexOnBackgroundHex(swatchHex);
-                return (
-                  <div
-                    className={cn(
-                      "flex min-h-9 min-w-0 items-stretch overflow-hidden rounded-full border border-stone-200 bg-white shadow-sm transition",
-                      "focus-within:ring-2 focus-within:ring-violet-800/30 focus-within:ring-offset-2 focus-within:ring-offset-white"
-                    )}
-                    key={item.code}
-                    style={isActiveChip ? legendOutline : undefined}
-                  >
-                    <button
-                      aria-label={`Select ${item.code}`}
-                      aria-pressed={isActiveChip}
-                      className="flex min-h-9 min-w-0 flex-1 items-center justify-center border-r border-stone-200 px-3 font-mono text-sm font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
-                      style={{ backgroundColor: swatchHex, color: codeOnSwatchColor }}
-                      type="button"
-                      onClick={() => setActiveColor(item.code)}
-                    >
-                      {item.code}
-                    </button>
-                    <button
-                      aria-label={`Replace ${item.code} with active color ${activeColor}`}
-                      className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center border-r border-stone-200 bg-white text-amber-800 transition hover:bg-amber-100/90 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
-                      title={`Replace ${item.code} with ${activeColor}`}
-                      type="button"
-                      onClick={() => applyPatternEdit("Replace", replacePatternColor(pattern, item.code, activeColor))}
-                    >
-                      <ArrowLeftRight className="h-4 w-4" aria-hidden="true" />
-                    </button>
-                    <button
-                      aria-label={`Delete ${item.code} from pattern`}
-                      className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center bg-white text-red-800 transition hover:bg-red-100/80 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
-                      title={`Delete ${item.code}`}
-                      type="button"
-                      onClick={() => applyPatternEdit("Delete", deletePatternColor(pattern, item.code))}
-                    >
-                      <Trash2 className="h-4 w-4" aria-hidden="true" />
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_260px]">
-              <p className="rounded-2xl bg-stone-100 px-3 py-2 text-sm text-stone-700">{message}</p>
-              <section aria-label="History timeline" className="rounded-2xl border border-stone-200 bg-white p-3">
-                <h2 className="mb-2 text-sm font-semibold">History</h2>
-                <div className="flex max-h-40 flex-col gap-1 overflow-auto">
-                  {historyEntries.map((entry, index) => (
-                    <button aria-current={index === activeHistoryIndex ? "step" : undefined} className={cn("rounded-xl px-3 py-2 text-left text-sm transition", index === activeHistoryIndex ? "bg-amber-100 font-semibold text-amber-950" : "bg-stone-50 text-stone-700 hover:bg-stone-100")} key={entry.id} type="button" onClick={() => jumpToHistory(index)}>
-                      {entry.label}
-                    </button>
-                  ))}
-                </div>
-              </section>
-            </div>
-
-            <div className="mt-3 flex flex-wrap gap-2">
-              <button className="inline-flex items-center gap-2 rounded-full bg-stone-950 px-4 py-2 text-sm font-semibold text-white" type="button" onClick={handleSave}>
-                <Save className="h-4 w-4" aria-hidden="true" />
-                Save to cloud
-              </button>
-              <button className="inline-flex items-center gap-2 rounded-full border border-stone-300 px-4 py-2 text-sm font-semibold" type="button" onClick={() => void handleCreateShare()}>
-                <Share2 className="h-4 w-4" aria-hidden="true" />
-                Create share QR
-              </button>
-              {shareQrDataUrl !== null ? <Image alt="Perlerloom share QR code" className="rounded-xl border border-stone-200 p-2" height={96} src={shareQrDataUrl} unoptimized width={96} /> : null}
-            </div>
-          </section>
+          </div>
         </div>
-      </section>
+
+        <aside className="hidden w-[300px] shrink-0 flex-col border-l border-amber-200 bg-white/95 p-3 md:flex" aria-label="Palette and history">
+          {sidePanelContent}
+        </aside>
+      </div>
+
+      <button
+        aria-expanded={mobileSidePanelOpen}
+        aria-haspopup="dialog"
+        aria-label="Open palette and history"
+        className="fixed bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full border border-amber-300 bg-amber-100 text-amber-950 shadow-lg md:hidden"
+        type="button"
+        onClick={() => setMobileSidePanelOpen(true)}
+      >
+        <Layers className="h-6 w-6" aria-hidden="true" />
+      </button>
+
+      {mobileSidePanelOpen ? (
+        <div className="fixed inset-0 z-40 md:hidden">
+          <button
+            aria-label="Dismiss palette and history"
+            className="absolute inset-0 bg-black/40"
+            type="button"
+            onClick={() => setMobileSidePanelOpen(false)}
+          />
+          <div
+            aria-label="Palette and history"
+            className="absolute bottom-0 left-0 right-0 flex max-h-[78dvh] flex-col rounded-t-2xl border border-stone-200 bg-white p-3 shadow-2xl"
+            role="dialog"
+          >
+            <div className="mx-auto mb-2 h-1 w-10 shrink-0 rounded-full bg-stone-300" role="presentation" />
+            {sidePanelContent}
+          </div>
+        </div>
+      ) : null}
+
+      <GenerateImportDialog
+        isGenerating={isGenerating}
+        maxPatternDimension={maxPatternDimension}
+        message={message}
+        open={generateDialogOpen}
+        resizeMode={resizeMode}
+        scalePercentInput={scalePercentInput}
+        selectedSourceImage={selectedSourceImage}
+        settings={settings}
+        targetHeightInput={targetHeightInput}
+        targetWidthInput={targetWidthInput}
+        onClusteringSpaceChange={updateClusteringSpace}
+        onDownsamplingModeChange={updateDownsamplingMode}
+        onDitheringEnabledChange={updateDitheringEnabled}
+        onDrop={handleDrop}
+        onFileInputChange={handleFileInputChange}
+        onGenerate={() => void handleGeneratePattern()}
+        onMatchingSpaceChange={updateMatchingSpace}
+        onOpenChange={setGenerateDialogOpen}
+        onResizeModeChange={setResizeMode}
+        onScalePercentInputChange={setScalePercentInput}
+        onTargetColorCountChange={updateTargetColorCount}
+        onTargetHeightInputChange={setTargetHeightInput}
+        onTargetWidthInputChange={setTargetWidthInput}
+      />
     </main>
   );
 }
@@ -712,7 +609,7 @@ function activePaletteMatchStrokeHexForCanvas(backgroundHex: string): string {
 function getActivePaletteMatchLegendSelectionOutline(): CSSProperties {
   return {
     outline: `${ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX}px solid ${ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX}`,
-    outlineOffset: "2px"
+    outlineOffset: "1px"
   };
 }
 

@@ -1,9 +1,13 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { PerlerloomApp } from "./perlerloom-app";
 
 const patternCanvasMockContexts: Array<{ font: string }> = [];
+
+async function openGenerateImportDialog(user: ReturnType<typeof userEvent.setup>): Promise<void> {
+  await user.click(screen.getByRole("button", { name: /^new \/ import$/i }));
+}
 
 describe("Perlerloom editor shell", () => {
   beforeEach(() => {
@@ -31,34 +35,44 @@ describe("Perlerloom editor shell", () => {
     });
   });
 
-  it("renders upload settings with dithering disabled by default", () => {
+  it("renders upload settings with dithering disabled by default", async () => {
+    const user = userEvent.setup();
     render(<PerlerloomApp />);
 
-    expect(screen.getByRole("checkbox", { name: /enable dithering/i })).not.toBeChecked();
-    expect(screen.getByLabelText(/target colors/i)).toHaveValue(24);
+    await openGenerateImportDialog(user);
+
+    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
+    expect(within(dialog).getByRole("checkbox", { name: /enable dithering/i })).not.toBeChecked();
+    expect(within(dialog).getByLabelText(/target colors/i)).toHaveValue(24);
   });
 
   it("shows an upload preview before generation and keeps generation explicit", async () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
-    expect(screen.getByText(/drop image here or click to upload/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /generate pattern/i })).toBeDisabled();
+    await openGenerateImportDialog(user);
+    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
 
-    await user.upload(screen.getByLabelText(/choose source image/i), new File(["demo"], "demo.png", { type: "image/png" }));
+    expect(within(dialog).getByText(/drop image here or click to upload/i)).toBeInTheDocument();
+    expect(within(dialog).getByRole("button", { name: /generate pattern/i })).toBeDisabled();
 
-    expect(await screen.findByAltText(/selected source image/i)).toBeInTheDocument();
-    expect(screen.getByText(/source: 2 x 1 px/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /generate pattern/i })).toBeEnabled();
-    expect(screen.getByText(/ready to generate/i)).toBeInTheDocument();
+    await user.upload(within(dialog).getByLabelText(/choose source image/i), new File(["demo"], "demo.png", { type: "image/png" }));
+
+    expect(await within(dialog).findByAltText(/selected source image/i)).toBeInTheDocument();
+    expect(within(dialog).getByText(/source: 2 × 1 px/i)).toBeInTheDocument();
+    expect(within(dialog).getByRole("button", { name: /generate pattern/i })).toBeEnabled();
+    expect(within(dialog).getByText(/ready to generate/i)).toBeInTheDocument();
   });
 
   it("generates the pattern only after the generate button is clicked", async () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
-    await user.upload(screen.getByLabelText(/choose source image/i), new File(["demo"], "demo.png", { type: "image/png" }));
-    await user.click(await screen.findByRole("button", { name: /generate pattern/i }));
+    await openGenerateImportDialog(user);
+    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
+
+    await user.upload(within(dialog).getByLabelText(/choose source image/i), new File(["demo"], "demo.png", { type: "image/png" }));
+    await user.click(await within(dialog).findByRole("button", { name: /generate pattern/i }));
 
     expect(await screen.findByText(/pattern generated locally/i)).toBeInTheDocument();
     expect(screen.getByText(/generated chart preview/i)).toBeInTheDocument();
@@ -74,26 +88,32 @@ describe("Perlerloom editor shell", () => {
     } as ImageBitmap);
     render(<PerlerloomApp />);
 
-    await user.upload(screen.getByLabelText(/choose source image/i), new File(["large"], "large.png", { type: "image/png" }));
+    await openGenerateImportDialog(user);
+    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
 
-    expect(await screen.findByText(/source: 1000 x 1000 px/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/target width/i)).toHaveValue(256);
-    expect(screen.getByLabelText(/target height/i)).toHaveValue(256);
-    expect(screen.getByLabelText(/scale factor/i)).toHaveValue(25);
-    expect(screen.getByText(/larger than 256 cells/i)).toBeInTheDocument();
+    await user.upload(within(dialog).getByLabelText(/choose source image/i), new File(["large"], "large.png", { type: "image/png" }));
+
+    expect(await within(dialog).findByText(/source: 1000 × 1000 px/i)).toBeInTheDocument();
+    expect(within(dialog).getByLabelText(/target width/i)).toHaveValue(256);
+    expect(within(dialog).getByLabelText(/target height/i)).toHaveValue(256);
+    expect(within(dialog).getByLabelText(/scale factor/i)).toHaveValue(25);
+    expect(within(dialog).getByText(/larger than 256 cells/i)).toBeInTheDocument();
   });
 
   it("updates conversion selects without reading a cleared event target", async () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
-    await user.selectOptions(screen.getByLabelText(/downsampling method/i), "gridMode");
-    await user.selectOptions(screen.getByLabelText(/match space/i), "rgb");
-    await user.selectOptions(screen.getByLabelText(/cluster space/i), "rgb");
+    await openGenerateImportDialog(user);
+    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
 
-    expect(screen.getByLabelText(/downsampling method/i)).toHaveValue("gridMode");
-    expect(screen.getByLabelText(/match space/i)).toHaveValue("rgb");
-    expect(screen.getByLabelText(/cluster space/i)).toHaveValue("rgb");
+    await user.selectOptions(within(dialog).getByLabelText(/downsampling method/i), "gridMode");
+    await user.selectOptions(within(dialog).getByLabelText(/match space/i), "rgb");
+    await user.selectOptions(within(dialog).getByLabelText(/cluster space/i), "rgb");
+
+    expect(within(dialog).getByLabelText(/downsampling method/i)).toHaveValue("gridMode");
+    expect(within(dialog).getByLabelText(/match space/i)).toHaveValue("rgb");
+    expect(within(dialog).getByLabelText(/cluster space/i)).toHaveValue("rgb");
   });
 
   it("changes the active toolbar tool", async () => {
