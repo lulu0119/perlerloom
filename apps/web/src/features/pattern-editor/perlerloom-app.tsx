@@ -23,6 +23,7 @@ import QRCode from "qrcode";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
 import { createExportMetadata } from "@/lib/pattern-storage";
 import { EditorSidePanels } from "./editor-side-panels";
+import { ChartToolHud } from "./chart-tool-hud";
 import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
 
 type EditorTool = "pencil" | "eyedropper" | "paintBucket" | "hand" | "line";
@@ -96,6 +97,7 @@ export function PerlerloomApp(): React.ReactElement {
   const [activeHistoryIndex, setActiveHistoryIndex] = useState(0);
   const [lineStartPoint, setLineStartPoint] = useState<PatternPoint | null>(null);
   const [linePreviewPoint, setLinePreviewPoint] = useState<PatternPoint | null>(null);
+  const [eyedropperHoverCell, setEyedropperHoverCell] = useState<PatternPoint | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isAuthenticated] = useState(false);
   const [generateDialogOpen, setGenerateDialogOpen] = useState(false);
@@ -139,6 +141,13 @@ export function PerlerloomApp(): React.ReactElement {
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
   }, [mobileSidePanelOpen]);
+
+  function selectActiveTool(nextTool: EditorTool): void {
+    setActiveTool(nextTool);
+    if (nextTool !== "eyedropper") {
+      setEyedropperHoverCell(null);
+    }
+  }
 
   async function handleSelectedFile(file: File): Promise<void> {
     try {
@@ -320,6 +329,25 @@ export function PerlerloomApp(): React.ReactElement {
         return clonePattern(next);
       });
     }
+
+    if (activeTool === "eyedropper") {
+      const canvas = event.currentTarget;
+      const point = canvasPointToPatternPoint(canvas, event.clientX, event.clientY, pattern, canvasLayout);
+      setEyedropperHoverCell((previous) => {
+        if (point === null && previous === null) {
+          return previous;
+        }
+        if (
+          point !== null &&
+          previous !== null &&
+          point.row === previous.row &&
+          point.column === previous.column
+        ) {
+          return previous;
+        }
+        return point;
+      });
+    }
   }
 
   function finishPencilStrokeIfActive(event: React.PointerEvent<HTMLCanvasElement>): void {
@@ -499,7 +527,7 @@ export function PerlerloomApp(): React.ReactElement {
                 key={tool}
                 title={toolLabels[tool]}
                 type="button"
-                onClick={() => setActiveTool(tool)}
+                onClick={() => selectActiveTool(tool)}
               >
                 <Icon className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -519,61 +547,75 @@ export function PerlerloomApp(): React.ReactElement {
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col">
           <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-[#f1eadf] md:bg-[#f8efe3]">
-            <div className="flex shrink-0 flex-wrap items-center gap-2 border-b border-stone-200/80 bg-white/90 px-2 py-1.5">
-              <div className="min-w-0 flex-1">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-700">Generated chart preview</p>
-                <p className="truncate text-xs text-stone-600 md:text-sm">
-                  Active tool: {toolLabels[activeTool]} · Active color: <span className="font-bold">{activeColor}</span>
-                </p>
-              </div>
-              <label className="inline-flex shrink-0 items-center gap-1 rounded-full border border-stone-300 bg-white px-2 py-1 text-xs font-medium text-stone-700">
-                <span className="sr-only">Chart zoom</span>
-                <ZoomOut className="h-3.5 w-3.5" aria-hidden="true" />
-                <select
-                  aria-label="Chart zoom"
-                  className="max-w-[4.5rem] bg-transparent text-xs font-semibold outline-none md:text-sm"
-                  value={String(zoom)}
-                  onChange={(event) => {
-                    const nextZoom = Number(event.currentTarget.value);
-                    if (Number.isFinite(nextZoom)) {
-                      setZoom(clampZoom(nextZoom));
-                    }
-                  }}
+            <div className="flex shrink-0 flex-col gap-1 border-b border-stone-200/80 bg-white/90 px-2 py-1.5">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-700">Generated chart preview</p>
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="min-w-0 flex-1">
+                  <ChartToolHud
+                    activeColor={activeColor}
+                    activeTool={activeTool}
+                    eyedropperHoverCell={eyedropperHoverCell}
+                    onActiveColorChange={setActiveColor}
+                    paletteByCode={paletteByCode}
+                    pattern={pattern}
+                  />
+                </div>
+                <label className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full border border-stone-300 bg-white px-2 text-xs font-medium text-stone-700">
+                  <span className="sr-only">Chart zoom</span>
+                  <ZoomOut className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  <select
+                    aria-label="Chart zoom"
+                    className="max-h-6 min-h-0 max-w-[4.5rem] shrink-0 cursor-pointer appearance-none border-0 bg-transparent py-0 text-xs font-semibold leading-none outline-none"
+                    value={String(zoom)}
+                    onChange={(event) => {
+                      const nextZoom = Number(event.currentTarget.value);
+                      if (Number.isFinite(nextZoom)) {
+                        setZoom(clampZoom(nextZoom));
+                      }
+                    }}
+                  >
+                    <option value="0.5">50%</option>
+                    <option value="0.75">75%</option>
+                    <option value="1">100%</option>
+                    <option value="1.25">125%</option>
+                    <option value="1.5">150%</option>
+                    <option value="2">200%</option>
+                  </select>
+                  <ZoomIn className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                </label>
+                <button
+                  aria-label="Save to cloud"
+                  className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full bg-stone-950 px-2.5 text-xs font-semibold text-white md:px-3"
+                  type="button"
+                  onClick={handleSave}
                 >
-                  <option value="0.5">50%</option>
-                  <option value="0.75">75%</option>
-                  <option value="1">100%</option>
-                  <option value="1.25">125%</option>
-                  <option value="1.5">150%</option>
-                  <option value="2">200%</option>
-                </select>
-                <ZoomIn className="h-3.5 w-3.5" aria-hidden="true" />
-              </label>
-              <button
-                aria-label="Save to cloud"
-                className="inline-flex shrink-0 items-center gap-1 rounded-full bg-stone-950 px-2.5 py-1.5 text-xs font-semibold text-white md:px-3"
-                type="button"
-                onClick={handleSave}
-              >
-                <Save className="h-3.5 w-3.5" aria-hidden="true" />
-                <span className="hidden sm:inline">Save</span>
-              </button>
-              <button
-                aria-label="Create share QR"
-                className="inline-flex shrink-0 items-center gap-1 rounded-full border border-stone-300 bg-white px-2.5 py-1.5 text-xs font-semibold md:px-3"
-                type="button"
-                onClick={() => void handleCreateShare()}
-              >
-                <Share2 className="h-3.5 w-3.5" aria-hidden="true" />
-                <span className="hidden sm:inline">Share</span>
-              </button>
-              {shareQrDataUrl !== null ? (
-                <Image alt="Perlerloom share QR code" className="h-10 w-10 shrink-0 rounded-lg border border-stone-200 p-0.5 md:h-12 md:w-12" height={48} src={shareQrDataUrl} unoptimized width={48} />
-              ) : null}
+                  <Save className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  <span className="hidden sm:inline">Save</span>
+                </button>
+                <button
+                  aria-label="Create share QR"
+                  className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full border border-stone-300 bg-white px-2.5 text-xs font-semibold md:px-3"
+                  type="button"
+                  onClick={() => void handleCreateShare()}
+                >
+                  <Share2 className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  <span className="hidden sm:inline">Share</span>
+                </button>
+                {shareQrDataUrl !== null ? (
+                  <Image
+                    alt="Perlerloom share QR code"
+                    className="h-8 w-8 shrink-0 rounded-lg border border-stone-200 p-0.5"
+                    height={48}
+                    src={shareQrDataUrl}
+                    unoptimized
+                    width={48}
+                  />
+                ) : null}
+              </div>
             </div>
 
             {!generateDialogOpen ? (
-              <p className="line-clamp-2 border-b border-stone-200/80 bg-stone-100/90 px-3 py-1 text-xs text-stone-700 md:text-sm" role="status">
+              <p className="line-clamp-2 border-b border-stone-200/80 bg-stone-100/90 px-2 py-1 text-xs text-stone-700 md:text-sm" role="status">
                 {message}
               </p>
             ) : null}
@@ -588,6 +630,9 @@ export function PerlerloomApp(): React.ReactElement {
                 onClick={handleCanvasClick}
                 onPointerDown={handleCanvasPointerDown}
                 onPointerMove={handleCanvasPointerMove}
+                onPointerLeave={() => {
+                  setEyedropperHoverCell(null);
+                }}
                 onPointerCancel={finishPencilStrokeIfActive}
                 onPointerUp={handleCanvasPointerUp}
                 onLostPointerCapture={finishPencilStrokeIfActive}

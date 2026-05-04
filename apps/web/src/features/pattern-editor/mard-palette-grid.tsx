@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { mardPalette, type BeadColor } from "@perlerloom/palettes";
 import { readableTextHexOnBackgroundHex } from "@perlerloom/core";
@@ -60,9 +60,17 @@ type MardPaletteGridProps = {
   activeColor: string;
   onSelectColor: (code: string) => void;
   className?: string;
+  /** Omit outer card chrome and heading (e.g. inside a menu). */
+  embedded?: boolean;
 };
 
-export function MardPaletteGrid({ activeColor, onSelectColor, className }: MardPaletteGridProps): React.ReactElement {
+export function MardPaletteGrid({
+  activeColor,
+  onSelectColor,
+  className,
+  embedded = false
+}: MardPaletteGridProps): React.ReactElement {
+  const panelIdPrefix = useId().replaceAll(":", "");
   const letterGroups = useMemo(() => buildMardPaletteLetterGroups(mardPalette), []);
   const [expandedPrefixes, setExpandedPrefixes] = useState<Set<string>>(() => new Set());
 
@@ -78,81 +86,101 @@ export function MardPaletteGrid({ activeColor, onSelectColor, className }: MardP
     });
   }
 
+  const scrollMaxClass = embedded ? "max-h-[min(70dvh,24rem)]" : "max-h-[min(52dvh,26rem)]";
+
+  const groupsList = (
+    <div className="flex flex-col">
+      {letterGroups.map(({ prefix, colors }) => {
+        const isExpanded = expandedPrefixes.has(prefix);
+        const firstColor = colors[0];
+        const panelId = `${panelIdPrefix}-mard-palette-group-${prefix}`;
+
+        return (
+          <div className="min-w-0" key={prefix}>
+            <button
+              aria-controls={panelId}
+              aria-expanded={isExpanded}
+              className="flex w-full items-center gap-2 py-1.5 pl-0.5 pr-1 text-left leading-snug transition hover:bg-stone-50 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
+              type="button"
+              onClick={() => togglePrefix(prefix)}
+            >
+              <ChevronRight
+                aria-hidden="true"
+                className={cn("h-4 w-4 shrink-0 text-stone-400 transition-transform", isExpanded && "rotate-90")}
+              />
+              <span className="font-mono text-sm font-bold tracking-wide text-stone-900">{prefix}</span>
+              <span className="text-[10px] font-medium tabular-nums text-stone-400">{colors.length}</span>
+              {firstColor !== undefined ? (
+                <span
+                  aria-hidden="true"
+                  className="ml-auto h-5 w-5 shrink-0 rounded-sm border border-stone-200/90"
+                  style={{ backgroundColor: firstColor.hex }}
+                  title={`First in group: ${firstColor.code}`}
+                />
+              ) : null}
+            </button>
+
+            {isExpanded ? (
+              <div className="pb-1.5 pl-0.5 pt-0.5" id={panelId}>
+                <div
+                  className="grid auto-rows-max gap-1"
+                  style={{
+                    gridTemplateColumns: "repeat(auto-fill, minmax(2.25rem, 1fr))"
+                  }}
+                >
+                  {colors.map((color) => {
+                    const isActive = activeColor === color.code;
+                    const labelColor = readableTextHexOnBackgroundHex(color.hex);
+                    return (
+                      <button
+                        aria-label={`Select palette color ${color.code}`}
+                        aria-pressed={isActive}
+                        className={cn(
+                          "flex aspect-square min-h-0 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md px-1 py-0.5 text-center font-mono text-xs font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-violet-800",
+                          drawingColorChromeBorderWidthClass,
+                          isActive ? drawingColorChromeBorderColorWhenActiveClass : drawingColorChromeBorderColorWhenIdleClass
+                        )}
+                        key={color.code}
+                        style={{
+                          backgroundColor: color.hex,
+                          color: labelColor
+                        }}
+                        type="button"
+                        onClick={() => onSelectColor(color.code)}
+                      >
+                        <span className="block min-w-0 max-w-full truncate">{color.code}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  const scrollArea = (
+    <div
+      className={cn(
+        "w-full min-h-0 overflow-y-auto overscroll-contain",
+        scrollMaxClass,
+        embedded && "px-1 pb-1 pt-0.5"
+      )}
+    >
+      {groupsList}
+    </div>
+  );
+
+  if (embedded) {
+    return <div className={cn("flex min-w-0 w-full shrink-0 flex-col", className)}>{scrollArea}</div>;
+  }
+
   return (
     <section aria-label="Mard palette" className={cn("flex w-full shrink-0 flex-col rounded-xl border border-stone-200 bg-white p-2", className)}>
       <h2 className="mb-1.5 shrink-0 text-xs font-semibold uppercase tracking-wide text-stone-500">Mard palette</h2>
-      <div className="w-full max-h-[min(52dvh,26rem)] min-h-0 overflow-y-auto overscroll-contain">
-        <div className="flex flex-col">
-          {letterGroups.map(({ prefix, colors }) => {
-            const isExpanded = expandedPrefixes.has(prefix);
-            const firstColor = colors[0];
-            const panelId = `mard-palette-group-${prefix}`;
-
-            return (
-              <div className="min-w-0" key={prefix}>
-                <button
-                  aria-controls={panelId}
-                  aria-expanded={isExpanded}
-                  className="flex w-full items-center gap-2 py-1.5 pl-0.5 pr-1 text-left leading-snug transition hover:bg-stone-50 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
-                  type="button"
-                  onClick={() => togglePrefix(prefix)}
-                >
-                  <ChevronRight
-                    aria-hidden="true"
-                    className={cn("h-4 w-4 shrink-0 text-stone-400 transition-transform", isExpanded && "rotate-90")}
-                  />
-                  <span className="font-mono text-sm font-bold tracking-wide text-stone-900">{prefix}</span>
-                  <span className="text-[10px] font-medium tabular-nums text-stone-400">{colors.length}</span>
-                  {firstColor !== undefined ? (
-                    <span
-                      aria-hidden="true"
-                      className="ml-auto h-5 w-5 shrink-0 rounded-sm border border-stone-200/90"
-                      style={{ backgroundColor: firstColor.hex }}
-                      title={`First in group: ${firstColor.code}`}
-                    />
-                  ) : null}
-                </button>
-
-                {isExpanded ? (
-                  <div className="pb-1.5 pl-0.5 pt-0.5" id={panelId}>
-                    <div
-                      className="grid auto-rows-max gap-1"
-                      style={{
-                        gridTemplateColumns: "repeat(auto-fill, minmax(2.25rem, 1fr))"
-                      }}
-                    >
-                      {colors.map((color) => {
-                        const isActive = activeColor === color.code;
-                        const labelColor = readableTextHexOnBackgroundHex(color.hex);
-                        return (
-                          <button
-                            aria-label={`Select palette color ${color.code}`}
-                            aria-pressed={isActive}
-                            className={cn(
-                              "flex aspect-square min-h-0 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md px-1 py-0.5 text-center font-mono text-xs font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-violet-800",
-                              drawingColorChromeBorderWidthClass,
-                              isActive ? drawingColorChromeBorderColorWhenActiveClass : drawingColorChromeBorderColorWhenIdleClass
-                            )}
-                            key={color.code}
-                            style={{
-                              backgroundColor: color.hex,
-                              color: labelColor
-                            }}
-                            type="button"
-                            onClick={() => onSelectColor(color.code)}
-                          >
-                            <span className="block min-w-0 max-w-full truncate">{color.code}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      {scrollArea}
     </section>
   );
 }

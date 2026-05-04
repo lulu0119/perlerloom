@@ -122,7 +122,8 @@ describe("Perlerloom editor shell", () => {
 
     await user.click(screen.getByRole("button", { name: /paint bucket/i }));
 
-    expect(screen.getByText(/active tool: paint bucket/i)).toBeInTheDocument();
+    expect(screen.getByTestId("chart-tool-hud")).toBeInTheDocument();
+    expect(screen.getByTestId("chart-drawing-color-select")).toBeInTheDocument();
   });
 
   it("includes the eyedropper tool in the rail", async () => {
@@ -131,7 +132,8 @@ describe("Perlerloom editor shell", () => {
 
     await user.click(screen.getByRole("button", { name: /^eyedropper$/i }));
 
-    expect(screen.getByText(/active tool: eyedropper/i)).toBeInTheDocument();
+    expect(screen.getByTestId("chart-tool-hud")).toBeInTheDocument();
+    expect(screen.getByTestId("chart-eyedropper-under-pointer")).toHaveTextContent(/move over a bead/i);
   });
 
   it("uses a tool-specific chart cursor", async () => {
@@ -151,7 +153,7 @@ describe("Perlerloom editor shell", () => {
     await user.click(screen.getByRole("button", { name: /^select h7$/i }));
 
     expect(legend).toBeInTheDocument();
-    expect(screen.getByText(/active tool:/i).closest("p")).toHaveTextContent(/active color:\s*h7/i);
+    expect(screen.getByTestId("chart-drawing-color-select")).toHaveTextContent("H7");
     expect(screen.getByRole("button", { name: /^select h7$/i }).closest("div.flex.min-h-9")).toHaveClass("rounded-full");
   });
 
