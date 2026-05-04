@@ -76,9 +76,9 @@ export function MardPaletteGrid({ activeColor, onSelectColor, getActiveLegendOut
   }
 
   return (
-    <section aria-label="Mard palette" className={cn("flex w-full shrink-0 flex-col", className)}>
-      <p className="mb-1.5 shrink-0 text-xs font-semibold uppercase tracking-wide text-stone-500">Mard palette</p>
-      <div className="w-full max-h-[min(52dvh,26rem)] overflow-y-auto overscroll-contain rounded-xl border border-stone-200 bg-white px-1.5 py-1">
+    <section aria-label="Mard palette" className={cn("flex w-full shrink-0 flex-col rounded-xl border border-stone-200 bg-white p-2", className)}>
+      <h2 className="mb-1.5 shrink-0 text-xs font-semibold uppercase tracking-wide text-stone-500">Mard palette</h2>
+      <div className="w-full max-h-[min(52dvh,26rem)] min-h-0 overflow-y-auto overscroll-contain">
         <div className="flex flex-col">
           {letterGroups.map(({ prefix, colors }) => {
             const isExpanded = expandedPrefixes.has(prefix);

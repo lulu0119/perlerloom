@@ -46,7 +46,7 @@ export function EditorSidePanels({
   return (
     <div className={cn("flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-hidden", className)}>
       <section aria-label="Legend badges" className="shrink-0 rounded-xl border border-stone-200 bg-stone-50/80 p-2">
-        <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-stone-500">Used in chart</p>
+        <h2 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-stone-500">Used in chart</h2>
         <div className="flex flex-wrap gap-1.5">
           {legend.map((item) => {
             const color = paletteByCode.get(item.code);
@@ -104,8 +104,8 @@ export function EditorSidePanels({
         onSelectColor={onActiveColorChange}
       />
 
-      <section aria-label="History timeline" className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden rounded-xl border border-stone-200 bg-white p-2">
-        <div className="flex items-center justify-between gap-2">
+      <section aria-label="History timeline" className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white p-2">
+        <div className="mb-1.5 flex shrink-0 items-center justify-between gap-2">
           <h2 className="text-xs font-semibold uppercase tracking-wide text-stone-500">History</h2>
           <div className="flex gap-1">
             <button
