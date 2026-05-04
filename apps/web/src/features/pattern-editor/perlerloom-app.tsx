@@ -613,7 +613,7 @@ export function PerlerloomApp(): React.ReactElement {
               {legend.map((item) => {
                 const color = paletteByCode.get(item.code);
                 const isActiveChip = activeColor === item.code;
-                const legendOutline = getActivePaletteMatchLegendSelectionOutline(canvasLayout.cellSize);
+                const legendOutline = getActivePaletteMatchLegendSelectionOutline();
                 const swatchHex = color?.hex ?? "#ffffff";
                 const codeOnSwatchColor = readableTextHexOnBackgroundHex(swatchHex);
                 return (
@@ -700,30 +700,18 @@ const PATTERN_CANVAS_HIDE_BEAD_CODES_WHEN_CELL_BELOW_PX = 10;
 
 /** Shared outline width for active palette match on canvas and selected legend pill. */
 const ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX = 2;
-/** When `cellSize` is below this, canvas match stroke is solid; at or above, dashed (legend follows the same rule; color is always black). */
-const ACTIVE_PALETTE_MATCH_DASH_WHEN_CELL_SIZE_AT_LEAST_PX = 20;
 /** Selected legend pill outline is always near-black (not per-bead contrast like the canvas). */
 const ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX = "#171717";
-
-function getActivePaletteMatchDashPattern(cellSize: number): number[] {
-  if (cellSize < ACTIVE_PALETTE_MATCH_DASH_WHEN_CELL_SIZE_AT_LEAST_PX) {
-    return [];
-  }
-  const dashLength = Math.max(4, Math.round(cellSize * 0.22));
-  const gapLength = Math.max(3, Math.round(cellSize * 0.14));
-  return [dashLength, gapLength];
-}
 
 /** Stroke color for active-match cells on canvas: same luminance rule as bead code labels. */
 function activePaletteMatchStrokeHexForCanvas(backgroundHex: string): string {
   return readableTextHexOnBackgroundHex(backgroundHex);
 }
 
-/** Legend selection outline: black, 2px; dashed vs solid follows same cell-size rule as canvas dash pattern. */
-function getActivePaletteMatchLegendSelectionOutline(cellSize: number): CSSProperties {
-  const useDash = cellSize >= ACTIVE_PALETTE_MATCH_DASH_WHEN_CELL_SIZE_AT_LEAST_PX;
+/** Legend selection outline: solid black, same width as canvas active-match stroke. */
+function getActivePaletteMatchLegendSelectionOutline(): CSSProperties {
   return {
-    outline: `${ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX}px ${useDash ? "dashed" : "solid"} ${ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX}`,
+    outline: `${ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX}px solid ${ACTIVE_PALETTE_MATCH_LEGEND_SELECTION_OUTLINE_HEX}`,
     outlineOffset: "2px"
   };
 }
@@ -784,10 +772,6 @@ function drawPatternCanvas(
   }
 
   context.lineWidth = ACTIVE_PALETTE_MATCH_OUTLINE_WIDTH_PX;
-  const dashPattern = getActivePaletteMatchDashPattern(layout.cellSize);
-  if (typeof context.setLineDash === "function") {
-    context.setLineDash(dashPattern);
-  }
   for (let row = 0; row < pattern.height; row += 1) {
     for (let column = 0; column < pattern.width; column += 1) {
       const index = row * pattern.width + column;
@@ -801,9 +785,6 @@ function drawPatternCanvas(
       const y = layout.headerSize + row * layout.cellSize;
       context.strokeRect(x + 1, y + 1, layout.cellSize - 2, layout.cellSize - 2);
     }
-  }
-  if (typeof context.setLineDash === "function") {
-    context.setLineDash([]);
   }
 
   if (layout.cellSize >= PATTERN_CANVAS_HIDE_BEAD_CODES_WHEN_CELL_BELOW_PX) {
