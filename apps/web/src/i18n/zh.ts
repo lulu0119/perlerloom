@@ -23,8 +23,6 @@ export const zh = {
     body: "导入照片以匹配拼豆颜色，或创建空白网格自行绘制。",
     importImage: "导入图片",
     createNewPattern: "新建图纸",
-    openLibrary: "浏览已保存图纸",
-    importPatternJson: "导入已保存的图纸",
   },
   status: {
     importPrompt: "选择图片并预览，然后生成图纸。",

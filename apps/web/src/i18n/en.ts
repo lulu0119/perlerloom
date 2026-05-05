@@ -23,8 +23,6 @@ export const en = {
     body: "Import a photo to match colors to beads, or create an empty grid and paint it yourself.",
     importImage: "Import image",
     createNewPattern: "Create new pattern",
-    openLibrary: "Browse saved charts",
-    importPatternJson: "Import a saved file",
   },
   status: {
     importPrompt: "Choose an image, preview it, then generate a chart.",

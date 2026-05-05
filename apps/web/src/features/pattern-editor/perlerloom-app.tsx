@@ -571,8 +571,6 @@ export function PerlerloomApp(): ReactElement {
         <EditorWelcome
           onCreateNewPattern={openNewPatternDialog}
           onImportImage={() => openImportDialog()}
-          onImportPatternJson={(file) => handleImportPatternJsonFile(file)}
-          onOpenLibrary={() => setLibraryDialogOpen(true)}
         />
       ) : null}
 
