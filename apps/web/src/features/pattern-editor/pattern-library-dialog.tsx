@@ -20,7 +20,8 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
+  cn
 } from "@perlerloom/ui";
 import { createCanvasLayout, drawPatternCanvas } from "@/features/pattern-editor/pattern-editor-utils";
 import type { PatternRecord } from "@/lib/pattern-storage";
@@ -179,16 +180,19 @@ export function PatternLibraryDialog({
           </Field>
         </div>
 
-        <div className="border-border min-h-0 flex-1 overflow-y-auto rounded-xl border bg-muted/40 p-2">
+        <div className="min-h-0 flex-1 overflow-y-auto">
           {filteredSorted.length === 0 ? (
             <p className="text-muted-foreground px-2 py-6 text-center text-sm">{t("library.emptyFiltered")}</p>
           ) : (
             <ul className="flex flex-col gap-2">
               {filteredSorted.map((record) => (
                 <li
-                  className={`border-border flex flex-col gap-3 rounded-lg border bg-white p-3 shadow-sm ${
-                    record.id === activePatternId ? "ring-2 ring-primary/40" : ""
-                  }`}
+                  className={cn(
+                    "flex flex-col gap-3 rounded-lg border bg-white p-3 shadow-sm",
+                    record.id === activePatternId
+                      ? "border-primary/45 bg-primary/5"
+                      : "border-border"
+                  )}
                   key={record.id}
                 >
                   <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start">
