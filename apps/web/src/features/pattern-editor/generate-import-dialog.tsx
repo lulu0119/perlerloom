@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import type { PatternSettings } from "@perlerloom/core";
 import {
   Button,
-  Checkbox,
   cn,
   Dialog,
   DialogContent,
@@ -55,7 +54,6 @@ type GenerateImportDialogProps = {
   onMatchingSpaceChange: (value: string) => void;
   onClusteringSpaceChange: (value: string) => void;
   onDownsamplingModeChange: (value: string) => void;
-  onDitheringEnabledChange: (checked: boolean) => void;
   maxPatternDimension: number;
   isGenerating: boolean;
   message: AppStatusMessage;
@@ -83,7 +81,6 @@ export function GenerateImportDialog({
   onMatchingSpaceChange,
   onClusteringSpaceChange,
   onDownsamplingModeChange,
-  onDitheringEnabledChange,
   maxPatternDimension,
   isGenerating,
   message,
@@ -340,16 +337,6 @@ export function GenerateImportDialog({
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  id="import-dithering"
-                  checked={importSettings.ditheringEnabled}
-                  onCheckedChange={(checked) => onDitheringEnabledChange(checked)}
-                />
-                <Label htmlFor="import-dithering" className="text-foreground cursor-pointer text-xs font-normal">
-                  {t("importDialog.enableDithering")}
-                </Label>
               </div>
             </section>
 

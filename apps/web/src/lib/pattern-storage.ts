@@ -150,9 +150,6 @@ export function validatePatternDocument(pattern: unknown): PatternDocument {
   if (typeof downsamplingMode !== "string" || !isDownsamplingMode(downsamplingMode)) {
     throw new Error("Pattern downsampling mode is invalid.");
   }
-  if (typeof settings.ditheringEnabled !== "boolean") {
-    throw new Error("Pattern dithering flag is invalid.");
-  }
 
   const normalized: PatternDocument = {
     version: 1,
@@ -164,8 +161,7 @@ export function validatePatternDocument(pattern: unknown): PatternDocument {
       targetColorCount,
       matchingSpace,
       clusteringSpace,
-      downsamplingMode,
-      ditheringEnabled: settings.ditheringEnabled
+      downsamplingMode
     }
   };
 

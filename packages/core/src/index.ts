@@ -22,7 +22,6 @@ export type PatternSettings = {
   matchingSpace: MatchingSpace;
   clusteringSpace: ClusteringSpace;
   downsamplingMode: DownsamplingMode;
-  ditheringEnabled: boolean;
 };
 
 export type PatternDocument = {
@@ -192,10 +191,9 @@ export function convertImageToPattern(input: ConvertImageInput): PatternDocument
   const targetWidth = input.targetWidth ?? input.width;
   const targetHeight = input.targetHeight ?? input.height;
   const sampledPixels = downsamplePixels(input.pixels, input.width, input.height, targetWidth, targetHeight, input.settings.downsamplingMode);
-  const processedPixels = input.settings.ditheringEnabled ? ditherPixels(sampledPixels, targetWidth, targetHeight) : sampledPixels;
-  const clusters = kMeansCluster(processedPixels, input.settings.targetColorCount, input.settings.clusteringSpace);
+  const clusters = kMeansCluster(sampledPixels, input.settings.targetColorCount, input.settings.clusteringSpace);
   const paletteVectors = buildPaletteVectors(input.palette, input.settings.matchingSpace);
-  const cells = processedPixels.map((pixel) => {
+  const cells = sampledPixels.map((pixel) => {
     const cluster = findNearestRgb(pixel, clusters, input.settings.clusteringSpace);
     return nearestPaletteCodeFromVectors(cluster, paletteVectors, input.settings.matchingSpace);
   });
@@ -483,59 +481,6 @@ function gridModePixel(
   }
 
   return [...counts.values()].sort((leftCount, rightCount) => rightCount.count - leftCount.count)[0].color;
-}
-
-function ditherPixels(pixels: RgbColor[], width: number, height: number): RgbColor[] {
-  const output = pixels.map((pixel) => ({ ...pixel }));
-
-  for (let row = 0; row < height; row += 1) {
-    for (let column = 0; column < width; column += 1) {
-      const index = row * width + column;
-      const oldPixel = output[index];
-      const newPixel = {
-        red: oldPixel.red < 128 ? 0 : 255,
-        green: oldPixel.green < 128 ? 0 : 255,
-        blue: oldPixel.blue < 128 ? 0 : 255
-      };
-      const error = {
-        red: oldPixel.red - newPixel.red,
-        green: oldPixel.green - newPixel.green,
-        blue: oldPixel.blue - newPixel.blue
-      };
-      output[index] = newPixel;
-      distributeError(output, width, height, column + 1, row, error, 7 / 16);
-      distributeError(output, width, height, column - 1, row + 1, error, 3 / 16);
-      distributeError(output, width, height, column, row + 1, error, 5 / 16);
-      distributeError(output, width, height, column + 1, row + 1, error, 1 / 16);
-    }
-  }
-
-  return output;
-}
-
-function distributeError(
-  pixels: RgbColor[],
-  width: number,
-  height: number,
-  column: number,
-  row: number,
-  error: RgbColor,
-  factor: number
-): void {
-  if (column < 0 || column >= width || row < 0 || row >= height) {
-    return;
-  }
-
-  const index = row * width + column;
-  pixels[index] = {
-    red: clampRgb(pixels[index].red + error.red * factor),
-    green: clampRgb(pixels[index].green + error.green * factor),
-    blue: clampRgb(pixels[index].blue + error.blue * factor)
-  };
-}
-
-function clampRgb(value: number): number {
-  return Math.max(0, Math.min(255, Math.round(value)));
 }
 
 function colorDistance(source: RgbColor, color: BeadColor, matchingSpace: MatchingSpace): number {

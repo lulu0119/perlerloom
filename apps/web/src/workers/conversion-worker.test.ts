@@ -13,8 +13,7 @@ describe("conversion worker contract", () => {
         targetColorCount: 2,
         matchingSpace: "rgb",
         clusteringSpace: "rgb",
-        downsamplingMode: "nearest",
-        ditheringEnabled: false
+        downsamplingMode: "nearest"
       }
     });
 
@@ -34,8 +33,7 @@ describe("conversion worker contract", () => {
         targetColorCount: 2,
         matchingSpace: "rgb",
         clusteringSpace: "rgb",
-        downsamplingMode: "nearest",
-        ditheringEnabled: false
+        downsamplingMode: "nearest"
       }
     });
 

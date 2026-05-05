@@ -89,13 +89,12 @@ export const en = {
     sectionPreprocessing: "Preprocessing options",
     preprocessingHeading: "Preprocessing",
     preprocessingIntro:
-      "Tune color count, match and cluster color space, downsampling, and optional dithering before generating.",
+      "Tune color count, match and cluster color space, and downsampling before generating.",
     targetColors: "Target colors",
     targetColorsHint:
       "This is how many k-means clusters are formed before each cluster center is snapped to the nearest bead color. The chart can end up with fewer distinct bead codes when several clusters map to the same palette entry.",
     matchSpace: "Match space",
     clusterSpace: "Cluster space",
-    enableDithering: "Enable dithering",
     generatePattern: "Generate pattern",
     generating: "Generating…"
   },

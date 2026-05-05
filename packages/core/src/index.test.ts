@@ -55,8 +55,7 @@ describe("image conversion", () => {
         targetColorCount: 2,
         matchingSpace: "rgb",
         clusteringSpace: "rgb",
-        downsamplingMode: "nearest",
-        ditheringEnabled: false
+        downsamplingMode: "nearest"
       }
     });
 
@@ -76,8 +75,7 @@ describe("image conversion", () => {
           targetColorCount: 1,
           matchingSpace: "rgb",
           clusteringSpace: "rgb",
-          downsamplingMode: "nearest",
-          ditheringEnabled: false
+          downsamplingMode: "nearest"
         }
       })
     ).toThrow(/target dimensions/i);
@@ -100,8 +98,7 @@ describe("image conversion", () => {
         targetColorCount: 1,
         matchingSpace: "rgb",
         clusteringSpace: "rgb",
-        downsamplingMode: "gridMode",
-        ditheringEnabled: false
+        downsamplingMode: "gridMode"
       }
     });
 
@@ -149,8 +146,7 @@ describe("pattern editing and history", () => {
       targetColorCount: 2,
       matchingSpace: "rgb" as const,
       clusteringSpace: "rgb" as const,
-      downsamplingMode: "nearest" as const,
-      ditheringEnabled: false
+      downsamplingMode: "nearest" as const
     }
   };
 

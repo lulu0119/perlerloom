@@ -67,8 +67,7 @@ const initialSettings: PatternSettings = {
   targetColorCount: 24,
   matchingSpace: "lab",
   clusteringSpace: "lab",
-  downsamplingMode: "nearest",
-  ditheringEnabled: false
+  downsamplingMode: "nearest"
 };
 
 const importSizingReferencePattern: PatternDocument = createBlankPattern(8, 8, initialSettings);
@@ -463,10 +462,6 @@ export function PerlerloomApp(): ReactElement {
     }
   }
 
-  function updateDitheringEnabled(checked: boolean): void {
-    setImportSettings((current) => ({ ...current, ditheringEnabled: checked }));
-  }
-
   function handleCreateBlankPattern(width: number, height: number): void {
     const blank = createBlankPattern(width, height, importSettings);
     const record = createPatternRecord(blank, t("library.defaultTitle"));
@@ -626,7 +621,6 @@ export function PerlerloomApp(): ReactElement {
         targetWidthInput={targetWidthInput}
         onClusteringSpaceChange={updateClusteringSpace}
         onDownsamplingModeChange={updateDownsamplingMode}
-        onDitheringEnabledChange={updateDitheringEnabled}
         onDrop={handleDrop}
         onFileInputChange={handleFileInputChange}
         onGenerate={() => void handleGeneratePattern()}

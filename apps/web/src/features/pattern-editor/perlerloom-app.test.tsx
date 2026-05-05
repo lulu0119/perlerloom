@@ -76,14 +76,13 @@ describe("Perlerloom editor shell", () => {
     expect(screen.getByRole("button", { name: /create new pattern/i })).toBeInTheDocument();
   });
 
-  it("renders upload settings with dithering disabled by default", async () => {
+  it("shows default target color count in the import dialog", async () => {
     const user = userEvent.setup();
     renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
 
     const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
-    expect(within(dialog).getByRole("checkbox", { name: /enable dithering/i })).not.toBeChecked();
     expect(within(dialog).getByLabelText(/target colors/i)).toHaveValue("24");
   });
 
@@ -217,6 +216,7 @@ describe("Perlerloom editor shell", () => {
     fireEvent.click(screen.getByLabelText(/editable bead pattern/i), { clientX: 85, clientY: 50 });
 
     const legend = await screen.findByLabelText(/legend badges/i);
+    expect(legend).toBeInTheDocument();
     expect(screen.getByTestId("chart-drawing-color-select")).toHaveTextContent("H7");
     const h7Swatch = within(mardPalette).getByRole("button", { name: /select palette color h7/i });
     expect(h7Swatch.className).toMatch(/rounded-md/);

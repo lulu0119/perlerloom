@@ -24,8 +24,7 @@ const validPayload: SavedPatternPayload = {
     targetColorCount: 2,
     matchingSpace: "rgb",
     clusteringSpace: "rgb",
-    downsamplingMode: "nearest",
-    ditheringEnabled: false
+    downsamplingMode: "nearest"
   },
   editorSettings: {
     textStyle: "blackWithWhiteOutline",
@@ -76,8 +75,7 @@ const sampleSettings = {
   targetColorCount: 24,
   matchingSpace: "lab" as const,
   clusteringSpace: "lab" as const,
-  downsamplingMode: "nearest" as const,
-  ditheringEnabled: false
+  downsamplingMode: "nearest" as const
 };
 
 function minimalPattern(): ReturnType<typeof createBlankPattern> {

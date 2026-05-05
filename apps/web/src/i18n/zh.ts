@@ -86,13 +86,12 @@ export const zh = {
     gridMode: "网格模式",
     sectionPreprocessing: "预处理选项",
     preprocessingHeading: "预处理",
-    preprocessingIntro: "在生成前调整颜色数量、匹配与聚类色彩空间、缩小采样以及可选抖动。",
+    preprocessingIntro: "在生成前调整颜色数量、匹配与聚类色彩空间，以及缩小采样。",
     targetColors: "目标颜色数",
     targetColorsHint:
       "这是 k-means 聚类的数量，每个聚类中心再吸附到最近的拼豆颜色。若多个聚类映射到同一调色板条目，最终图纸上不同色号可能更少。",
     matchSpace: "匹配色彩空间",
     clusterSpace: "聚类色彩空间",
-    enableDithering: "启用抖动",
     generatePattern: "生成图纸",
     generating: "正在生成…"
   },
