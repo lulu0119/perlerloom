@@ -209,12 +209,14 @@ describe("Perlerloom editor shell", () => {
 
     await enterEditorWithBlankPattern(user);
 
-    const legend = screen.getByLabelText(/legend badges/i);
     const mardPalette = screen.getByLabelText(/mard palette/i);
     await user.click(within(mardPalette).getByRole("button", { name: /^H\d/ }));
     await user.click(within(mardPalette).getByRole("button", { name: /select palette color h7/i }));
 
-    expect(legend).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /paint bucket/i }));
+    fireEvent.click(screen.getByLabelText(/editable bead pattern/i), { clientX: 85, clientY: 50 });
+
+    const legend = await screen.findByLabelText(/legend badges/i);
     expect(screen.getByTestId("chart-drawing-color-select")).toHaveTextContent("H7");
     const h7Swatch = within(mardPalette).getByRole("button", { name: /select palette color h7/i });
     expect(h7Swatch.className).toMatch(/rounded-md/);

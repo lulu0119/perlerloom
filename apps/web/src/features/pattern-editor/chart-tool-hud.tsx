@@ -114,6 +114,7 @@ export function ChartToolHud({
             <DropdownMenuTrigger
               type="button"
               data-testid="chart-drawing-color-select"
+              title={t("chartHud.chooseDrawingColor")}
               className="text-foreground inline-flex h-full min-h-0 w-full min-w-0 items-center gap-1 rounded-none border-0 bg-transparent px-1 text-left font-mono text-[11px] font-semibold leading-none shadow-none outline-none hover:bg-muted/90 focus-visible:z-10 focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:ring-offset-0"
             >
               <span

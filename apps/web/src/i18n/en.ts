@@ -128,18 +128,20 @@ export const en = {
     createNewPatternTooltip: "Start from an empty bead grid.",
     patternLibraryTooltip: "Open charts saved on this device.",
     exportImageTooltip: "Export a picture of your chart to share or print.",
-    exportFileTooltip:
-      "Download an editable file you can open again here. Your chart still auto-saves in this browser.",
+    exportFileTooltip: "Download an editable file you can open again here.",
     newImport: "New / Import",
     createNewPattern: "Create new pattern",
     generatedChartPreview: "Generated chart preview",
     magnificationControls: "Magnification controls",
     zoomOut: "Zoom out",
     zoomIn: "Zoom in",
+    zoomOutTooltip: "Shrink the chart preview (coarser cells, more area visible).",
+    zoomInTooltip: "Enlarge the chart preview (finer cells).",
     chartZoom: "Chart zoom",
     editableBeadPattern: "Editable bead pattern",
     paletteAndHistoryAside: "Palette and history",
     openPaletteAndHistory: "Open palette and history",
+    openPaletteAndHistoryTooltip: "Palette, colors used in the chart, and undo history.",
     dismissPaletteAndHistory: "Dismiss palette and history",
     paletteAndHistoryDialog: "Palette and history"
   },
@@ -151,7 +153,8 @@ export const en = {
     pencil: "While dragging, the pencil paints a single-bead path.",
     eraser: "While dragging, the eraser clears beads along the path.",
     bucket: "Flood fill matches the same color and touches edges.",
-    line: "Place the start, move, then release to draw a straight run."
+    line: "Place the start, move, then release to draw a straight run.",
+    chooseDrawingColor: "Choose the active bead color for pencil, fill, and line tools."
   },
   sidePanels: {
     legendAria: "Legend badges",
@@ -164,7 +167,9 @@ export const en = {
     legendReplace: "Replace {{fromCode}} with active color {{activeColor}}",
     legendReplaceTitle: "Replace {{fromCode}} with {{activeColor}}",
     legendDelete: "Delete {{fromCode}} from pattern",
-    legendDeleteTitle: "Delete {{fromCode}}"
+    legendDeleteTitle: "Delete {{fromCode}}",
+    undoTooltip: "Step back one edit in the timeline.",
+    redoTooltip: "Replay the next edit after an undo."
   },
   library: {
     dialogTitle: "Pattern library",

@@ -14,7 +14,7 @@ import {
   type PatternPoint
 } from "@perlerloom/core";
 import { mardPalette } from "@perlerloom/palettes";
-import { cn } from "@perlerloom/ui";
+import { cn, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@perlerloom/ui";
 import type { AppStatusMessage } from "./app-status-message";
 import { EditorSidePanels } from "./editor-side-panels";
 import { ChartToolHud } from "./chart-tool-hud";
@@ -370,7 +370,8 @@ export function PatternEditorWorkspace({
   );
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col md:flex-row">
+    <TooltipProvider>
+      <div className="flex min-h-0 flex-1 flex-col md:flex-row">
       <aside
         aria-label={t("workspace.editorToolsAside")}
         className="border-border flex shrink-0 flex-row items-center gap-1 overflow-x-auto border-b bg-white/95 px-2 py-1.5 md:w-14 md:flex-col md:items-center md:overflow-y-auto md:overflow-x-visible md:border-b-0 md:border-r md:px-0 md:py-2"
@@ -379,73 +380,96 @@ export function PatternEditorWorkspace({
           const Icon = getToolIcon(tool);
           const label = toolLabel(tool);
           return (
-            <button
-              aria-current={activeTool === tool ? "true" : undefined}
-              aria-label={label}
-              className={cn(
-                toolRailButtonClassName,
-                activeTool === tool
-                  ? "border-primary bg-accent text-accent-foreground"
-                  : "border-border bg-white hover:bg-muted md:hover:bg-muted"
-              )}
-              key={tool}
-              title={label}
-              type="button"
-              onClick={() => selectActiveTool(tool)}
-            >
-              <Icon className="h-5 w-5" aria-hidden="true" />
-            </button>
+            <Tooltip key={tool}>
+              <TooltipTrigger
+                aria-current={activeTool === tool ? "true" : undefined}
+                aria-label={label}
+                className={cn(
+                  toolRailButtonClassName,
+                  activeTool === tool
+                    ? "border-primary bg-accent text-accent-foreground"
+                    : "border-border bg-white hover:bg-muted md:hover:bg-muted"
+                )}
+                type="button"
+                onClick={() => selectActiveTool(tool)}
+              >
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </TooltipTrigger>
+              <TooltipContent side="right" align="center">
+                {label}
+              </TooltipContent>
+            </Tooltip>
           );
         })}
         <div className="bg-border mx-1 hidden h-px w-8 shrink-0 md:my-1 md:block" role="presentation" />
-        <button
-          aria-label={t("workspace.newImportTooltip")}
-          className={cn(
-            toolRailButtonClassName,
-            "border-primary/35 bg-accent text-accent-foreground hover:bg-accent/80"
-          )}
-          title={t("workspace.newImportTooltip")}
-          type="button"
-          onClick={onOpenImportDialog}
-        >
-          <ImagePlus className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          aria-label={t("workspace.createNewPatternTooltip")}
-          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
-          title={t("workspace.createNewPatternTooltip")}
-          type="button"
-          onClick={onOpenCreateNewPatternDialog}
-        >
-          <Blocks className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          aria-label={t("workspace.patternLibraryTooltip")}
-          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
-          title={t("workspace.patternLibraryTooltip")}
-          type="button"
-          onClick={onOpenLibrary}
-        >
-          <LibraryBig className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          aria-label={t("workspace.exportImageTooltip")}
-          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
-          title={t("workspace.exportImageTooltip")}
-          type="button"
-          onClick={onExportPng}
-        >
-          <ImageDown className="h-5 w-5" aria-hidden="true" />
-        </button>
-        <button
-          aria-label={t("workspace.exportFileTooltip")}
-          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
-          title={t("workspace.exportFileTooltip")}
-          type="button"
-          onClick={onExportJson}
-        >
-          <Download className="h-5 w-5" aria-hidden="true" />
-        </button>
+        <Tooltip>
+          <TooltipTrigger
+            aria-label={t("workspace.newImportTooltip")}
+            className={cn(
+              toolRailButtonClassName,
+              "border-primary/35 bg-accent text-accent-foreground hover:bg-accent/80"
+            )}
+            type="button"
+            onClick={onOpenImportDialog}
+          >
+            <ImagePlus className="h-5 w-5" aria-hidden="true" />
+          </TooltipTrigger>
+          <TooltipContent side="right" align="center">
+            {t("workspace.newImportTooltip")}
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger
+            aria-label={t("workspace.createNewPatternTooltip")}
+            className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+            type="button"
+            onClick={onOpenCreateNewPatternDialog}
+          >
+            <Blocks className="h-5 w-5" aria-hidden="true" />
+          </TooltipTrigger>
+          <TooltipContent side="right" align="center">
+            {t("workspace.createNewPatternTooltip")}
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger
+            aria-label={t("workspace.patternLibraryTooltip")}
+            className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+            type="button"
+            onClick={onOpenLibrary}
+          >
+            <LibraryBig className="h-5 w-5" aria-hidden="true" />
+          </TooltipTrigger>
+          <TooltipContent side="right" align="center">
+            {t("workspace.patternLibraryTooltip")}
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger
+            aria-label={t("workspace.exportImageTooltip")}
+            className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+            type="button"
+            onClick={onExportPng}
+          >
+            <ImageDown className="h-5 w-5" aria-hidden="true" />
+          </TooltipTrigger>
+          <TooltipContent side="right" align="center">
+            {t("workspace.exportImageTooltip")}
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger
+            aria-label={t("workspace.exportFileTooltip")}
+            className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+            type="button"
+            onClick={onExportJson}
+          >
+            <Download className="h-5 w-5" aria-hidden="true" />
+          </TooltipTrigger>
+          <TooltipContent side="right" align="center">
+            {t("workspace.exportFileTooltip")}
+          </TooltipContent>
+        </Tooltip>
       </aside>
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
@@ -468,15 +492,18 @@ export function PatternEditorWorkspace({
                 role="group"
                 aria-label={t("workspace.magnificationControls")}
               >
-                <button
-                  aria-label={t("workspace.zoomOut")}
-                  className="text-muted-foreground inline-flex shrink-0 items-center justify-center rounded-full p-1 transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
-                  disabled={snapZoomToChartStep(zoom) <= CHART_ZOOM_STEPS[0]!}
-                  type="button"
-                  onClick={() => setZoom((current) => stepChartZoom(current, -1))}
-                >
-                  <ZoomOut className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                </button>
+                <Tooltip>
+                  <TooltipTrigger
+                    aria-label={t("workspace.zoomOut")}
+                    className="text-muted-foreground inline-flex shrink-0 items-center justify-center rounded-full p-1 transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
+                    disabled={snapZoomToChartStep(zoom) <= CHART_ZOOM_STEPS[0]!}
+                    type="button"
+                    onClick={() => setZoom((current) => stepChartZoom(current, -1))}
+                  >
+                    <ZoomOut className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">{t("workspace.zoomOutTooltip")}</TooltipContent>
+                </Tooltip>
                 <select
                   aria-label={t("workspace.chartZoom")}
                   className="max-h-6 min-h-0 max-w-[4.5rem] shrink-0 cursor-pointer appearance-none border-0 bg-transparent py-0 text-xs font-semibold leading-none outline-none"
@@ -495,15 +522,18 @@ export function PatternEditorWorkspace({
                   <option value="1.5">150%</option>
                   <option value="2">200%</option>
                 </select>
-                <button
-                  aria-label={t("workspace.zoomIn")}
-                  className="text-muted-foreground inline-flex shrink-0 items-center justify-center rounded-full p-1 transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
-                  disabled={snapZoomToChartStep(zoom) >= CHART_ZOOM_STEPS[CHART_ZOOM_STEPS.length - 1]!}
-                  type="button"
-                  onClick={() => setZoom((current) => stepChartZoom(current, 1))}
-                >
-                  <ZoomIn className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                </button>
+                <Tooltip>
+                  <TooltipTrigger
+                    aria-label={t("workspace.zoomIn")}
+                    className="text-muted-foreground inline-flex shrink-0 items-center justify-center rounded-full p-1 transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
+                    disabled={snapZoomToChartStep(zoom) >= CHART_ZOOM_STEPS[CHART_ZOOM_STEPS.length - 1]!}
+                    type="button"
+                    onClick={() => setZoom((current) => stepChartZoom(current, 1))}
+                  >
+                    <ZoomIn className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">{t("workspace.zoomInTooltip")}</TooltipContent>
+                </Tooltip>
               </div>
             </div>
           </div>
@@ -548,16 +578,19 @@ export function PatternEditorWorkspace({
         {sidePanelContent}
       </aside>
 
-      <button
-        aria-expanded={mobileSidePanelOpen}
-        aria-haspopup="dialog"
-        aria-label={t("workspace.openPaletteAndHistory")}
-        className="border-primary/35 bg-accent text-accent-foreground fixed bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full border shadow-lg md:hidden"
-        type="button"
-        onClick={() => setMobileSidePanelOpen(true)}
-      >
-        <Layers className="h-6 w-6" aria-hidden="true" />
-      </button>
+      <Tooltip>
+        <TooltipTrigger
+          aria-expanded={mobileSidePanelOpen}
+          aria-haspopup="dialog"
+          aria-label={t("workspace.openPaletteAndHistory")}
+          className="border-primary/35 bg-accent text-accent-foreground fixed bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full border shadow-lg md:hidden"
+          type="button"
+          onClick={() => setMobileSidePanelOpen(true)}
+        >
+          <Layers className="h-6 w-6" aria-hidden="true" />
+        </TooltipTrigger>
+        <TooltipContent side="left">{t("workspace.openPaletteAndHistoryTooltip")}</TooltipContent>
+      </Tooltip>
 
       {mobileSidePanelOpen ? (
         <div className="fixed inset-0 z-40 md:hidden">
@@ -577,6 +610,7 @@ export function PatternEditorWorkspace({
           </div>
         </div>
       ) : null}
-    </div>
+      </div>
+    </TooltipProvider>
   );
 }

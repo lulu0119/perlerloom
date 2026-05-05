@@ -124,18 +124,20 @@ export const zh = {
     createNewPatternTooltip: "从空白拼豆网格开始绘制。",
     patternLibraryTooltip: "打开本机已保存的图纸。",
     exportImageTooltip: "导出可分享或打印的图纸图片。",
-    exportFileTooltip:
-      "下载可在本应用再次打开的编辑文件。图纸仍会在此浏览器中自动记录。",
+    exportFileTooltip: "下载可在本应用再次打开的编辑文件。",
     newImport: "新建 / 导入",
     createNewPattern: "新建图纸",
     generatedChartPreview: "生成的图纸预览",
     magnificationControls: "缩放控制",
     zoomOut: "缩小",
     zoomIn: "放大",
+    zoomOutTooltip: "缩小图纸预览（格子更粗，同屏可见范围更大）。",
+    zoomInTooltip: "放大图纸预览（格子更细）。",
     chartZoom: "图纸缩放",
     editableBeadPattern: "可编辑的拼豆图纸",
     paletteAndHistoryAside: "调色板与历史",
     openPaletteAndHistory: "打开调色板与历史",
+    openPaletteAndHistoryTooltip: "Mard 调色板、图纸中出现的颜色，以及撤销时间线。",
     dismissPaletteAndHistory: "关闭调色板与历史",
     paletteAndHistoryDialog: "调色板与历史"
   },
@@ -147,7 +149,8 @@ export const zh = {
     pencil: "拖动时铅笔会沿路径逐格绘制。",
     eraser: "拖动时橡皮会沿路径清除拼豆格。",
     bucket: "油漆桶填充相同颜色并接触边缘的区域。",
-    line: "按下起点，移动，松开以绘制直线。"
+    line: "按下起点，移动，松开以绘制直线。",
+    chooseDrawingColor: "为铅笔、油漆桶和直线工具选择当前绘制色号。"
   },
   library: {
     dialogTitle: "图纸库",
@@ -187,7 +190,9 @@ export const zh = {
     legendReplace: "用当前颜色 {{activeColor}} 替换 {{fromCode}}",
     legendReplaceTitle: "将 {{fromCode}} 替换为 {{activeColor}}",
     legendDelete: "从图纸中删除 {{fromCode}}",
-    legendDeleteTitle: "删除 {{fromCode}}"
+    legendDeleteTitle: "删除 {{fromCode}}",
+    undoTooltip: "在时间线上后退一步修改。",
+    redoTooltip: "在撤销之后重放下一步修改。"
   },
   mardPalette: {
     sectionLabel: "Mard 调色板",

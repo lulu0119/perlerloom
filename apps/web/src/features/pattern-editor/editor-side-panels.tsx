@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 import { ArrowLeftRight, Redo2, Trash2, Undo2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { readableTextHexOnBackgroundHex, type PatternLegendItem } from "@perlerloom/core";
-import { cn } from "@perlerloom/ui";
+import { cn, Tooltip, TooltipContent, TooltipTrigger } from "@perlerloom/ui";
 import {
   drawingColorChromeBorderColorWhenActiveClass,
   drawingColorChromeBorderColorWhenIdleClass,
@@ -64,35 +64,48 @@ export function EditorSidePanels({
                   )}
                   key={item.code}
                 >
-                  <button
-                    aria-label={t("sidePanels.legendSelect", { code: item.code, count: item.count })}
-                    aria-pressed={isActiveChip}
-                    className="border-border flex min-h-9 min-w-9 shrink-0 flex-col items-center justify-center gap-0 border-r px-1 py-0.5 text-center font-mono transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
-                    style={{ backgroundColor: swatchHex, color: codeOnSwatchColor }}
-                    type="button"
-                    onClick={() => onActiveColorChange(item.code)}
-                  >
-                    <span className="text-xs font-bold tabular-nums tracking-wide">{item.code}</span>
-                    <span className="text-[10px] font-semibold tabular-nums leading-none">{item.count}</span>
-                  </button>
-                  <button
-                    aria-label={t("sidePanels.legendReplace", { fromCode: item.code, activeColor })}
-                    className="border-border text-brand-accent hover:bg-accent/90 inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center border-r bg-white transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
-                    title={t("sidePanels.legendReplaceTitle", { fromCode: item.code, activeColor })}
-                    type="button"
-                    onClick={() => onApplyReplace(item.code)}
-                  >
-                    <ArrowLeftRight className="h-4 w-4" aria-hidden="true" />
-                  </button>
-                  <button
-                    aria-label={t("sidePanels.legendDelete", { fromCode: item.code })}
-                    className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center bg-white text-red-800 transition hover:bg-red-100/80 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
-                    title={t("sidePanels.legendDeleteTitle", { fromCode: item.code })}
-                    type="button"
-                    onClick={() => onApplyDelete(item.code)}
-                  >
-                    <Trash2 className="h-4 w-4" aria-hidden="true" />
-                  </button>
+                  <Tooltip>
+                    <TooltipTrigger
+                      aria-label={t("sidePanels.legendSelect", { code: item.code, count: item.count })}
+                      aria-pressed={isActiveChip}
+                      className="border-border flex min-h-9 min-w-9 shrink-0 flex-col items-center justify-center gap-0 border-r px-1 py-0.5 text-center font-mono transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+                      style={{ backgroundColor: swatchHex, color: codeOnSwatchColor }}
+                      type="button"
+                      onClick={() => onActiveColorChange(item.code)}
+                    >
+                      <span className="text-xs font-bold tabular-nums tracking-wide">{item.code}</span>
+                      <span className="text-[10px] font-semibold tabular-nums leading-none">{item.count}</span>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      {t("sidePanels.legendSelect", { code: item.code, count: item.count })}
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger
+                      aria-label={t("sidePanels.legendReplace", { fromCode: item.code, activeColor })}
+                      className="border-border text-brand-accent hover:bg-accent/90 inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center border-r bg-white transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+                      type="button"
+                      onClick={() => onApplyReplace(item.code)}
+                    >
+                      <ArrowLeftRight className="h-4 w-4" aria-hidden="true" />
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      {t("sidePanels.legendReplaceTitle", { fromCode: item.code, activeColor })}
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger
+                      aria-label={t("sidePanels.legendDelete", { fromCode: item.code })}
+                      className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center bg-white text-red-800 transition hover:bg-red-100/80 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+                      type="button"
+                      onClick={() => onApplyDelete(item.code)}
+                    >
+                      <Trash2 className="h-4 w-4" aria-hidden="true" />
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      {t("sidePanels.legendDeleteTitle", { fromCode: item.code })}
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
               );
             })}
@@ -106,22 +119,28 @@ export function EditorSidePanels({
         <div className="mb-1.5 flex shrink-0 items-center justify-between gap-2">
           <h2 className="text-muted-foreground text-xs font-semibold uppercase tracking-wide">{t("sidePanels.history")}</h2>
           <div className="flex gap-1">
-            <button
-              aria-label={t("sidePanels.undo")}
-              className="border-border bg-muted text-foreground rounded-lg border p-1.5 transition hover:bg-muted/80"
-              type="button"
-              onClick={onUndo}
-            >
-              <Undo2 className="h-4 w-4" aria-hidden="true" />
-            </button>
-            <button
-              aria-label={t("sidePanels.redo")}
-              className="border-border bg-muted text-foreground rounded-lg border p-1.5 transition hover:bg-muted/80"
-              type="button"
-              onClick={onRedo}
-            >
-              <Redo2 className="h-4 w-4" aria-hidden="true" />
-            </button>
+            <Tooltip>
+              <TooltipTrigger
+                aria-label={t("sidePanels.undo")}
+                className="border-border bg-muted text-foreground rounded-lg border p-1.5 transition hover:bg-muted/80"
+                type="button"
+                onClick={onUndo}
+              >
+                <Undo2 className="h-4 w-4" aria-hidden="true" />
+              </TooltipTrigger>
+              <TooltipContent side="bottom">{t("sidePanels.undoTooltip")}</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger
+                aria-label={t("sidePanels.redo")}
+                className="border-border bg-muted text-foreground rounded-lg border p-1.5 transition hover:bg-muted/80"
+                type="button"
+                onClick={onRedo}
+              >
+                <Redo2 className="h-4 w-4" aria-hidden="true" />
+              </TooltipTrigger>
+              <TooltipContent side="bottom">{t("sidePanels.redoTooltip")}</TooltipContent>
+            </Tooltip>
           </div>
         </div>
         <div className="flex flex-col gap-0.5">

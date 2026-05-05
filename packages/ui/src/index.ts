@@ -58,3 +58,4 @@ export {
   SelectValue
 } from "./components/select";
 export { Separator } from "./components/separator";
+export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./components/tooltip";
