@@ -1,12 +1,31 @@
+<p align="center">
+  <img src="./apps/web/public/android-chrome-192x192.png" width="96" alt="Perlerloom logo" />
+</p>
 
+<h1 align="center">Perlerloom</h1>
 
-# Perlerloom
+<p align="center">
+  Turn photos and pixel art into editable bead charts that are ready for real craft work.
+</p>
 
-Turn photos and pixel art into editable bead charts that are ready for real craft work.
+<p align="center">
+  <a href="./README.zh-CN.md">简体中文</a>
+  ·
+  <a href="#what-is-perlerloom">What is Perlerloom?</a>
+  ·
+  <a href="#why-use-it">Why use it?</a>
+  ·
+  <a href="#try-it-locally">Try it locally</a>
+  ·
+  <a href="#development">Development</a>
+</p>
 
-[简体中文](./README.zh-CN.md) · [What is it?](#what-is-perlerloom) · [Why use it?](#why-use-it) · [Try it locally](#try-it-locally) · [Development](#development)
-
-
+<p align="center">
+  <img alt="Next.js" src="https://img.shields.io/badge/Next.js-16-black" />
+  <img alt="React" src="https://img.shields.io/badge/React-19-61dafb" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-ready-3178c6" />
+  <img alt="Local-first image conversion" src="https://img.shields.io/badge/local--first-image%20conversion-f2b544" />
+</p>
 
 > [!NOTE]
 > Perlerloom runs the image-to-chart workflow in your browser. You can import an image, preview it, choose the final bead size, and generate a chart without uploading the image to a server.
