@@ -117,12 +117,12 @@ export function GenerateImportDialog({
       <DialogContent
         showCloseButton
         className={cn(
-          "flex max-h-[min(90dvh,40rem)] w-[calc(100%-1.5rem)] max-w-md flex-col gap-0 overflow-hidden rounded-t-2xl border-amber-200 bg-white p-0 text-stone-950 shadow-xl sm:rounded-2xl"
+          "flex max-h-[min(90dvh,40rem)] w-[calc(100%-1.5rem)] max-w-md flex-col gap-0 overflow-hidden rounded-t-2xl border-border bg-white p-0 text-foreground shadow-xl sm:rounded-2xl"
         )}
       >
-        <DialogHeader className="shrink-0 border-b border-amber-100 px-4 py-3 text-left">
-          <DialogTitle className="text-lg font-bold text-stone-950">New / Import</DialogTitle>
-          <DialogDescription className="text-xs text-stone-600">
+        <DialogHeader className="border-border shrink-0 border-b px-4 py-3 text-left">
+          <DialogTitle className="text-lg font-bold text-foreground">New / Import</DialogTitle>
+          <DialogDescription className="text-muted-foreground text-xs">
             Upload a source image, set size and preprocessing, then generate.
           </DialogDescription>
         </DialogHeader>
@@ -131,41 +131,41 @@ export function GenerateImportDialog({
           <section aria-label="Upload and preview" className="space-y-3">
             <Label
               ref={uploadLabelRef}
-              className="flex min-h-36 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-amber-300 bg-amber-50/70 p-4 text-center font-normal transition hover:border-amber-500 hover:bg-amber-100/70"
+              className="border-primary/40 bg-accent/70 hover:border-primary hover:bg-accent flex min-h-36 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-4 text-center font-normal transition"
               tabIndex={-1}
               onDragOver={(event) => event.preventDefault()}
               onDrop={onDrop}
             >
-              <UploadCloud className="h-8 w-8 text-amber-700" aria-hidden="true" />
-              <span className="mt-2 text-sm font-semibold text-stone-950">Drop image here or click to upload</span>
-              <span className="mt-1 text-xs text-stone-600">PNG, JPEG, or another browser-supported image</span>
+              <UploadCloud className="text-brand-accent h-8 w-8" aria-hidden="true" />
+              <span className="text-foreground mt-2 text-sm font-semibold">Drop image here or click to upload</span>
+              <span className="text-muted-foreground mt-1 text-xs">PNG, JPEG, or another browser-supported image</span>
               <input aria-label="Choose source image" className="sr-only" type="file" accept="image/*" onChange={onFileInputChange} />
             </Label>
 
             {selectedSourceImage !== null ? (
-              <div className="rounded-xl border border-stone-200 bg-white p-2">
-                <div className="relative h-32 overflow-hidden rounded-lg bg-stone-100">
+              <div className="border-border rounded-xl border bg-white p-2">
+                <div className="bg-muted relative h-32 overflow-hidden rounded-lg">
                   <Image alt="Selected source image" className="object-contain" fill sizes="280px" src={selectedSourceImage.previewUrl} unoptimized />
                 </div>
-                <p className="mt-2 text-xs font-medium text-stone-700">
+                <p className="text-foreground mt-2 text-xs font-medium">
                   Source: {selectedSourceImage.width} × {selectedSourceImage.height} px
                 </p>
-                <p className="mt-1 text-xs text-stone-500">
+                <p className="text-muted-foreground mt-1 text-xs">
                   Preview is the uploaded image only; the bead grid appears after you tap Generate pattern.
                 </p>
               </div>
             ) : (
-              <div className="rounded-xl border border-stone-200 bg-stone-50 p-3 text-xs text-stone-600">
-                <ImageIcon className="mb-1 h-4 w-4 text-stone-500" aria-hidden="true" />
+              <div className="border-border bg-muted rounded-xl border p-3 text-xs text-muted-foreground">
+                <ImageIcon className="text-muted-foreground mb-1 h-4 w-4" aria-hidden="true" />
                 Image preview appears here before generation.
               </div>
             )}
           </section>
 
           <div className="space-y-4">
-            <section aria-label="Pattern size" className="space-y-3 rounded-xl bg-stone-50 p-3">
-              <h3 className="text-sm font-semibold text-stone-950">Pattern size</h3>
-              <p className="text-xs text-stone-600">
+            <section aria-label="Pattern size" className="bg-muted space-y-3 rounded-xl p-3">
+              <h3 className="text-foreground text-sm font-semibold">Pattern size</h3>
+              <p className="text-muted-foreground text-xs">
                 Images up to {maxPatternDimension} × {maxPatternDimension} keep their source size by default. Larger images need an explicit target.
               </p>
               <RadioGroup
@@ -177,19 +177,19 @@ export function GenerateImportDialog({
                   <Label
                     key={mode}
                     className={cn(
-                      "flex cursor-pointer items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-2 py-1.5 text-xs font-normal text-stone-900",
-                      resizeMode === mode && "border-amber-400 bg-amber-50/90"
+                      "border-border bg-card text-foreground flex cursor-pointer items-center gap-1.5 rounded-lg border px-2 py-1.5 text-xs font-normal",
+                      resizeMode === mode && "border-primary bg-accent/90"
                     )}
                     htmlFor={`import-resize-${mode}`}
                   >
-                    <RadioGroupItem value={mode} id={`import-resize-${mode}`} className="border-stone-300" />
+                    <RadioGroupItem value={mode} id={`import-resize-${mode}`} className="border-input" />
                     <span>{label}</span>
                   </Label>
                 ))}
               </RadioGroup>
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
-                  <Label className="text-xs text-stone-900" htmlFor="import-target-width">
+                  <Label className="text-foreground text-xs" htmlFor="import-target-width">
                     Target width
                   </Label>
                   <Input
@@ -204,7 +204,7 @@ export function GenerateImportDialog({
                   />
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-xs text-stone-900" htmlFor="import-target-height">
+                  <Label className="text-foreground text-xs" htmlFor="import-target-height">
                     Target height
                   </Label>
                   <Input
@@ -220,7 +220,7 @@ export function GenerateImportDialog({
                 </div>
               </div>
               <div className="space-y-1">
-                <Label className="text-xs text-stone-900" htmlFor="import-scale-percent">
+                <Label className="text-foreground text-xs" htmlFor="import-scale-percent">
                   Scale factor
                 </Label>
                 <Input
@@ -235,7 +235,7 @@ export function GenerateImportDialog({
                 />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs text-stone-900" htmlFor="import-downsample-trigger">
+                <Label className="text-foreground text-xs" htmlFor="import-downsample-trigger">
                   Downsampling method
                 </Label>
                 <Select
@@ -259,13 +259,13 @@ export function GenerateImportDialog({
               </div>
             </section>
 
-            <section aria-label="Preprocessing options" className="space-y-3 rounded-xl bg-stone-50 p-3">
-              <h3 className="text-sm font-semibold text-stone-950">Preprocessing</h3>
-              <p className="text-xs text-stone-600">
+            <section aria-label="Preprocessing options" className="bg-muted space-y-3 rounded-xl p-3">
+              <h3 className="text-foreground text-sm font-semibold">Preprocessing</h3>
+              <p className="text-muted-foreground text-xs">
                 Tune color count, match and cluster color space, downsampling, and optional dithering before generating.
               </p>
               <div className="space-y-1">
-                <Label className="text-xs text-stone-900" htmlFor="import-target-colors">
+                <Label className="text-foreground text-xs" htmlFor="import-target-colors">
                   Target colors
                 </Label>
                 <Input
@@ -280,7 +280,7 @@ export function GenerateImportDialog({
                   onBlur={onTargetColorCountInputBlur}
                   onChange={(event) => onTargetColorCountInputChange(event.currentTarget.value)}
                 />
-                <p className="text-[11px] leading-snug text-stone-500" id="import-target-colors-hint">
+                <p className="text-muted-foreground text-[11px] leading-snug" id="import-target-colors-hint">
                   This is how many k-means clusters are formed before each cluster center is snapped to the nearest bead
                   color. The chart can end up with fewer distinct bead codes when several clusters map to the same
                   palette entry.
@@ -288,7 +288,7 @@ export function GenerateImportDialog({
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
-                  <Label className="text-xs text-stone-900" htmlFor="import-match-trigger">
+                  <Label className="text-foreground text-xs" htmlFor="import-match-trigger">
                     Match space
                   </Label>
                   <Select
@@ -316,7 +316,7 @@ export function GenerateImportDialog({
                   </Select>
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-xs text-stone-900" htmlFor="import-cluster-trigger">
+                  <Label className="text-foreground text-xs" htmlFor="import-cluster-trigger">
                     Cluster space
                   </Label>
                   <Select
@@ -343,7 +343,7 @@ export function GenerateImportDialog({
                   checked={importSettings.ditheringEnabled}
                   onCheckedChange={(checked) => onDitheringEnabledChange(checked)}
                 />
-                <Label htmlFor="import-dithering" className="cursor-pointer text-xs font-normal text-stone-900">
+                <Label htmlFor="import-dithering" className="text-foreground cursor-pointer text-xs font-normal">
                   Enable dithering
                 </Label>
               </div>
@@ -352,7 +352,9 @@ export function GenerateImportDialog({
             <p
               className={cn(
                 "rounded-xl px-3 py-2 text-xs",
-                message.includes("failed") || message.includes("before") ? "bg-amber-50 text-amber-950" : "bg-stone-100 text-stone-700"
+                message.includes("failed") || message.includes("before")
+                  ? "bg-accent text-accent-foreground"
+                  : "bg-muted text-muted-foreground"
               )}
               role="status"
             >
@@ -360,7 +362,7 @@ export function GenerateImportDialog({
             </p>
 
             <Button
-              className="h-auto w-full rounded-full bg-stone-950 py-2.5 text-sm font-semibold text-white hover:bg-stone-900 disabled:bg-stone-300"
+              className="h-auto w-full rounded-full py-2.5 text-sm font-semibold"
               disabled={selectedSourceImage === null || isGenerating}
               type="button"
               onClick={onGenerate}

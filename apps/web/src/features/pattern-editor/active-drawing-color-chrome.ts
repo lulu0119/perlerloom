@@ -4,6 +4,6 @@
  */
 export const drawingColorChromeBorderWidthClass = "border-2";
 
-export const drawingColorChromeBorderColorWhenActiveClass = "border-amber-800";
+export const drawingColorChromeBorderColorWhenActiveClass = "border-primary";
 
-export const drawingColorChromeBorderColorWhenIdleClass = "border-stone-200";
+export const drawingColorChromeBorderColorWhenIdleClass = "border-border";

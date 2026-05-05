@@ -98,20 +98,20 @@ export function MardPaletteGrid({
             <button
               aria-controls={panelId}
               aria-expanded={isExpanded}
-              className="flex w-full items-center gap-2 py-1.5 pl-0.5 pr-1 text-left leading-snug transition hover:bg-stone-50 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800"
+              className="hover:bg-muted flex w-full items-center gap-2 py-1.5 pl-0.5 pr-1 text-left leading-snug transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
               type="button"
               onClick={() => togglePrefix(prefix)}
             >
               <ChevronRight
                 aria-hidden="true"
-                className={cn("h-4 w-4 shrink-0 text-stone-400 transition-transform", isExpanded && "rotate-90")}
+                className={cn("text-muted-foreground h-4 w-4 shrink-0 transition-transform", isExpanded && "rotate-90")}
               />
-              <span className="font-mono text-sm font-bold tracking-wide text-stone-900">{prefix}</span>
-              <span className="text-[10px] font-medium tabular-nums text-stone-400">{colors.length}</span>
+              <span className="text-foreground font-mono text-sm font-bold tracking-wide">{prefix}</span>
+              <span className="text-muted-foreground text-[10px] font-medium tabular-nums">{colors.length}</span>
               {firstColor !== undefined ? (
                 <span
                   aria-hidden="true"
-                  className="ml-auto h-5 w-5 shrink-0 rounded-sm border border-stone-200/90"
+                  className="border-border ml-auto h-5 w-5 shrink-0 rounded-sm border"
                   style={{ backgroundColor: firstColor.hex }}
                   title={`First in group: ${firstColor.code}`}
                 />
@@ -134,7 +134,7 @@ export function MardPaletteGrid({
                         aria-label={`Select palette color ${color.code}`}
                         aria-pressed={isActive}
                         className={cn(
-                          "flex aspect-square min-h-0 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md px-1 py-0.5 text-center font-mono text-xs font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-violet-800",
+                          "flex aspect-square min-h-0 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md px-1 py-0.5 text-center font-mono text-xs font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring",
                           drawingColorChromeBorderWidthClass,
                           isActive ? drawingColorChromeBorderColorWhenActiveClass : drawingColorChromeBorderColorWhenIdleClass
                         )}
@@ -170,8 +170,8 @@ export function MardPaletteGrid({
   }
 
   return (
-    <section aria-label="Mard palette" className={cn("flex w-full shrink-0 flex-col rounded-xl border border-stone-200 bg-white p-2", className)}>
-      <h2 className="mb-1.5 shrink-0 text-xs font-semibold uppercase tracking-wide text-stone-500">Mard palette</h2>
+    <section aria-label="Mard palette" className={cn("border-border flex w-full shrink-0 flex-col rounded-xl border bg-white p-2", className)}>
+      <h2 className="text-muted-foreground mb-1.5 shrink-0 text-xs font-semibold uppercase tracking-wide">Mard palette</h2>
       {paletteBody}
     </section>
   );

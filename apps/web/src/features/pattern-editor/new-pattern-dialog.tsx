@@ -49,16 +49,16 @@ export function NewPatternDialog({ open, onOpenChange, maxDimension, onConfirm }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent showCloseButton className="max-w-md rounded-2xl border-amber-200 bg-white text-stone-950">
+      <DialogContent showCloseButton className="border-border max-w-md rounded-2xl border bg-white text-foreground">
         <DialogHeader>
-          <DialogTitle className="text-lg font-bold text-stone-950">New pattern</DialogTitle>
-          <DialogDescription className="text-xs text-stone-600">
+          <DialogTitle className="text-lg font-bold text-foreground">New pattern</DialogTitle>
+          <DialogDescription className="text-muted-foreground text-xs">
             Choose the grid size in beads. You can paint the empty grid with the pencil and other tools.
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-2 gap-3 py-2">
           <div className="space-y-1">
-            <Label className="text-xs text-stone-900" htmlFor={widthFieldId}>
+            <Label className="text-foreground text-xs" htmlFor={widthFieldId}>
               Width (beads)
             </Label>
             <Input
@@ -74,7 +74,7 @@ export function NewPatternDialog({ open, onOpenChange, maxDimension, onConfirm }
             />
           </div>
           <div className="space-y-1">
-            <Label className="text-xs text-stone-900" htmlFor={heightFieldId}>
+            <Label className="text-foreground text-xs" htmlFor={heightFieldId}>
               Height (beads)
             </Label>
             <Input
@@ -99,7 +99,7 @@ export function NewPatternDialog({ open, onOpenChange, maxDimension, onConfirm }
           <Button className="rounded-full" type="button" variant="outline" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button className="rounded-full bg-stone-950 text-white hover:bg-stone-900" type="button" onClick={handleConfirm}>
+          <Button className="rounded-full" type="button" onClick={handleConfirm}>
             Create grid
           </Button>
         </DialogFooter>

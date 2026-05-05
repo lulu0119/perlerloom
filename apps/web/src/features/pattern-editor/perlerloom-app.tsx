@@ -221,18 +221,18 @@ export function PerlerloomApp(): ReactElement {
   }, []);
 
   return (
-    <main className="flex min-h-0 flex-1 flex-col overflow-hidden bg-[#f8efe3] text-stone-950">
-      <header className="shrink-0 border-b border-amber-200 bg-white/90 px-4 py-3 shadow-sm">
+    <main className="bg-background text-foreground flex min-h-0 flex-1 flex-col overflow-hidden">
+      <header className="border-border shrink-0 border-b bg-white/90 px-4 py-3 shadow-sm">
         <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="font-sans text-lg font-semibold uppercase tracking-[0.22em] text-amber-700">
+            <h1 className="text-brand-accent font-sans text-lg font-semibold uppercase tracking-[0.22em]">
               Perlerloom
             </h1>
-            <p className="mt-1 max-w-3xl text-xs text-stone-600 md:text-sm">
+            <p className="text-muted-foreground mt-1 max-w-3xl text-xs md:text-sm">
               Preview an image, choose an explicit size, generate a crisp bead chart, then edit it like a craft worksheet.
             </p>
           </div>
-          <p className="max-w-md rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-950 md:text-sm">
+          <p className="border-border bg-accent text-accent-foreground max-w-md rounded-xl border px-3 py-2 text-xs md:text-sm">
             Everything runs in your browser: import an image, pick size and palette options, then edit the chart locally.
           </p>
         </div>

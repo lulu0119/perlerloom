@@ -19,7 +19,7 @@ type ChartToolHudProps = {
 };
 
 function ChartHudToolGlyph({ tool }: { tool: ChartHudTool }): ReactElement {
-  const className = "h-3.5 w-3.5 text-stone-600";
+  const className = "text-muted-foreground h-3.5 w-3.5";
   if (tool === "paintBucket") {
     return <PaintBucket className={className} aria-hidden />;
   }
@@ -63,17 +63,17 @@ export function ChartToolHud({
       <div className="flex min-w-0 items-center gap-1.5" data-testid="chart-eyedropper-under-pointer">
         <span aria-live="polite" className="flex min-w-0 items-center gap-1.5">
           {eyedropperHoverCell === null ? (
-            <span className="text-stone-500">Move over a bead to preview its color.</span>
+            <span className="text-muted-foreground">Move over a bead to preview its color.</span>
           ) : hoverCode === null ? (
-            <span className="text-stone-500">Empty cell — nothing to pick.</span>
+            <span className="text-muted-foreground">Empty cell — nothing to pick.</span>
           ) : (
             <>
               <span
                 aria-hidden
-                className="h-3.5 w-3.5 shrink-0 rounded border border-stone-200 shadow-inner"
+                className="border-border h-3.5 w-3.5 shrink-0 rounded border shadow-inner"
                 style={{ backgroundColor: hoverHex }}
               />
-              <span className="truncate font-mono font-semibold text-stone-800">{hoverCode}</span>
+              <span className="text-foreground truncate font-mono font-semibold">{hoverCode}</span>
             </>
           )}
         </span>
@@ -82,7 +82,7 @@ export function ChartToolHud({
   } else if (activeTool === "pencil") {
     centerSlot = (
       <span>
-        Pencil paints a <strong className="font-semibold text-stone-800">single bead</strong> path while you drag.
+        Pencil paints a <strong className="text-foreground font-semibold">single bead</strong> path while you drag.
       </span>
     );
   } else if (activeTool === "paintBucket") {
@@ -93,34 +93,34 @@ export function ChartToolHud({
 
   return (
     <div
-      className="flex h-8 min-h-8 max-h-8 min-w-0 divide-x divide-stone-200 overflow-hidden rounded-full border border-stone-300 bg-white"
+      className="border-border divide-border flex h-8 min-h-8 max-h-8 min-w-0 divide-x overflow-hidden rounded-full border bg-white"
       data-testid="chart-tool-hud"
       role="region"
       aria-label="Chart tool options"
     >
-      <div className="flex w-8 shrink-0 items-center justify-center bg-stone-50/80">
+      <div className="bg-muted/80 flex w-8 shrink-0 items-center justify-center">
         <ChartHudToolGlyph tool={activeTool} />
       </div>
       <div className="flex min-h-0 min-w-0 flex-1 items-center overflow-hidden px-2">
-        <div className="line-clamp-1 min-h-0 min-w-0 text-[11px] leading-tight text-stone-600 [&_strong]:font-semibold [&_strong]:text-stone-800">
+        <div className="text-muted-foreground line-clamp-1 min-h-0 min-w-0 text-[11px] leading-tight [&_strong]:font-semibold [&_strong]:text-foreground">
           {centerSlot}
         </div>
       </div>
       {showsDrawingColorSelect ? (
-        <div className="flex w-[7.5rem] shrink-0 items-stretch bg-stone-50/60 pl-0.5 pr-0.5">
+        <div className="bg-muted/60 flex w-[7.5rem] shrink-0 items-stretch pl-0.5 pr-0.5">
           <DropdownMenu open={colorMenuOpen} onOpenChange={setColorMenuOpen}>
             <DropdownMenuTrigger
               type="button"
               data-testid="chart-drawing-color-select"
-              className="inline-flex h-full min-h-0 w-full min-w-0 items-center gap-1 rounded-none border-0 bg-transparent px-1 text-left font-mono text-[11px] font-semibold leading-none text-stone-800 shadow-none outline-none hover:bg-stone-100/90 focus-visible:z-10 focus-visible:ring-1 focus-visible:ring-violet-800/40 focus-visible:ring-offset-0"
+              className="text-foreground inline-flex h-full min-h-0 w-full min-w-0 items-center gap-1 rounded-none border-0 bg-transparent px-1 text-left font-mono text-[11px] font-semibold leading-none shadow-none outline-none hover:bg-muted/90 focus-visible:z-10 focus-visible:ring-1 focus-visible:ring-ring/40 focus-visible:ring-offset-0"
             >
               <span
                 aria-hidden
-                className="h-3.5 w-3.5 shrink-0 rounded border border-stone-200/90 shadow-inner"
+                className="border-border h-3.5 w-3.5 shrink-0 rounded border shadow-inner"
                 style={{ backgroundColor: activeHex }}
               />
               <span className="min-w-0 flex-1 truncate">{activeColor}</span>
-              <ChevronDown className="h-3 w-3 shrink-0 text-stone-500" aria-hidden />
+              <ChevronDown className="text-muted-foreground h-3 w-3 shrink-0" aria-hidden />
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"

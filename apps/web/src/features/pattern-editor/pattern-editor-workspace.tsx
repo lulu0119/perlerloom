@@ -302,7 +302,7 @@ export function PatternEditorWorkspace({
   }
 
   const toolRailButtonClassName =
-    "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border text-stone-700 transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800";
+    "text-foreground flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring";
   const canvasCursorClassName = getCanvasCursorClassName(activeTool);
 
   const sidePanelContent = (
@@ -325,7 +325,7 @@ export function PatternEditorWorkspace({
     <div className="flex min-h-0 flex-1 flex-col md:flex-row">
       <aside
         aria-label="Editor tools"
-        className="flex shrink-0 flex-row items-center gap-1 overflow-x-auto border-b border-amber-200 bg-white/95 px-2 py-1.5 md:w-14 md:flex-col md:items-center md:overflow-y-auto md:overflow-x-visible md:border-b-0 md:border-r md:px-0 md:py-2"
+        className="border-border flex shrink-0 flex-row items-center gap-1 overflow-x-auto border-b bg-white/95 px-2 py-1.5 md:w-14 md:flex-col md:items-center md:overflow-y-auto md:overflow-x-visible md:border-b-0 md:border-r md:px-0 md:py-2"
       >
         {(Object.keys(toolLabels) as EditorTool[]).map((tool) => {
           const Icon = getToolIcon(tool);
@@ -333,7 +333,12 @@ export function PatternEditorWorkspace({
             <button
               aria-current={activeTool === tool ? "true" : undefined}
               aria-label={toolLabels[tool]}
-              className={cn(toolRailButtonClassName, activeTool === tool ? "border-amber-700 bg-amber-100 text-amber-950" : "border-stone-200 bg-white hover:bg-stone-50 md:hover:bg-stone-50")}
+              className={cn(
+                toolRailButtonClassName,
+                activeTool === tool
+                  ? "border-primary bg-accent text-accent-foreground"
+                  : "border-border bg-white hover:bg-muted md:hover:bg-muted"
+              )}
               key={tool}
               title={toolLabels[tool]}
               type="button"
@@ -343,10 +348,10 @@ export function PatternEditorWorkspace({
             </button>
           );
         })}
-        <div className="mx-1 hidden h-px w-8 shrink-0 bg-stone-200 md:my-1 md:block" role="presentation" />
+        <div className="bg-border mx-1 hidden h-px w-8 shrink-0 md:my-1 md:block" role="presentation" />
         <button
           aria-label="New / Import"
-          className={cn(toolRailButtonClassName, "border-amber-300 bg-amber-50 text-amber-950 hover:bg-amber-100")}
+          className={cn(toolRailButtonClassName, "border-primary/35 bg-accent text-accent-foreground hover:bg-accent/80")}
           title="New / Import"
           type="button"
           onClick={onOpenImportDialog}
@@ -355,7 +360,7 @@ export function PatternEditorWorkspace({
         </button>
         <button
           aria-label="Create new pattern"
-          className={cn(toolRailButtonClassName, "border-stone-200 bg-white text-stone-800 hover:bg-stone-50")}
+          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
           title="Create new pattern"
           type="button"
           onClick={onOpenCreateNewPatternDialog}
@@ -365,9 +370,9 @@ export function PatternEditorWorkspace({
       </aside>
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-[#f1eadf] md:bg-[#f8efe3]">
-          <div className="flex shrink-0 flex-col gap-1 border-b border-stone-200/80 bg-white/90 px-2 py-1.5">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-700">Generated chart preview</p>
+        <div className="bg-brand-surface-muted md:bg-background flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+          <div className="border-border flex shrink-0 flex-col gap-1 border-b bg-white/90 px-2 py-1.5">
+            <p className="text-brand-accent text-[10px] font-semibold uppercase tracking-[0.22em]">Generated chart preview</p>
             <div className="flex flex-wrap items-center gap-2">
               <div className="min-w-0 flex-1">
                 <ChartToolHud
@@ -380,13 +385,13 @@ export function PatternEditorWorkspace({
                 />
               </div>
               <div
-                className="inline-flex h-8 shrink-0 items-center gap-0.5 rounded-full border border-stone-300 bg-white px-1 text-xs font-medium text-stone-700"
+                className="border-border text-foreground inline-flex h-8 shrink-0 items-center gap-0.5 rounded-full border bg-white px-1 text-xs font-medium"
                 role="group"
                 aria-label="Magnification controls"
               >
                 <button
                   aria-label="Zoom out"
-                  className="inline-flex shrink-0 items-center justify-center rounded-full p-1 text-stone-600 transition hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="text-muted-foreground inline-flex shrink-0 items-center justify-center rounded-full p-1 transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
                   disabled={snapZoomToChartStep(zoom) <= CHART_ZOOM_STEPS[0]!}
                   type="button"
                   onClick={() => setZoom((current) => stepChartZoom(current, -1))}
@@ -413,7 +418,7 @@ export function PatternEditorWorkspace({
                 </select>
                 <button
                   aria-label="Zoom in"
-                  className="inline-flex shrink-0 items-center justify-center rounded-full p-1 text-stone-600 transition hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-violet-800 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="text-muted-foreground inline-flex shrink-0 items-center justify-center rounded-full p-1 transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
                   disabled={snapZoomToChartStep(zoom) >= CHART_ZOOM_STEPS[CHART_ZOOM_STEPS.length - 1]!}
                   type="button"
                   onClick={() => setZoom((current) => stepChartZoom(current, 1))}
@@ -424,7 +429,7 @@ export function PatternEditorWorkspace({
             </div>
           </div>
 
-          <p className="line-clamp-2 border-b border-stone-200/80 bg-stone-100/90 px-2 py-1 text-xs text-stone-700 md:text-sm" role="status">
+          <p className="border-border bg-muted/90 text-muted-foreground line-clamp-2 border-b px-2 py-1 text-xs md:text-sm" role="status">
             {statusMessage}
           </p>
 
@@ -450,7 +455,7 @@ export function PatternEditorWorkspace({
       </div>
 
       <aside
-        className="hidden min-h-0 w-[300px] shrink-0 flex-col overflow-y-auto overscroll-contain border-l border-amber-200 bg-white/95 p-3 md:flex"
+        className="border-border hidden min-h-0 w-[300px] shrink-0 flex-col overflow-y-auto overscroll-contain border-l bg-white/95 p-3 md:flex"
         aria-label="Palette and history"
       >
         {sidePanelContent}
@@ -460,7 +465,7 @@ export function PatternEditorWorkspace({
         aria-expanded={mobileSidePanelOpen}
         aria-haspopup="dialog"
         aria-label="Open palette and history"
-        className="fixed bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full border border-amber-300 bg-amber-100 text-amber-950 shadow-lg md:hidden"
+        className="border-primary/35 bg-accent text-accent-foreground fixed bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full border shadow-lg md:hidden"
         type="button"
         onClick={() => setMobileSidePanelOpen(true)}
       >
@@ -477,10 +482,10 @@ export function PatternEditorWorkspace({
           />
           <div
             aria-label="Palette and history"
-            className="absolute bottom-0 left-0 right-0 flex max-h-[78dvh] flex-col overflow-y-auto overscroll-contain rounded-t-2xl border border-stone-200 bg-white p-3 shadow-2xl"
+            className="border-border absolute bottom-0 left-0 right-0 flex max-h-[78dvh] flex-col overflow-y-auto overscroll-contain rounded-t-2xl border bg-white p-3 shadow-2xl"
             role="dialog"
           >
-            <div className="mx-auto mb-2 h-1 w-10 shrink-0 rounded-full bg-stone-300" role="presentation" />
+            <div className="bg-muted-foreground/30 mx-auto mb-2 h-1 w-10 shrink-0 rounded-full" role="presentation" />
             {sidePanelContent}
           </div>
         </div>
