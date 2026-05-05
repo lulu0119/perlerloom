@@ -67,6 +67,9 @@ describe("Perlerloom editor shell", () => {
     renderPerlerloomApp();
 
     expect(screen.queryByLabelText(/editable bead pattern/i)).not.toBeInTheDocument();
+    const logo = screen.getByRole("img", { name: /perlerloom logo/i });
+    expect(logo).toBeInTheDocument();
+    expect(logo.className).not.toMatch(/\brounded-/);
     expect(screen.getByRole("button", { name: /^import image$/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /create new pattern/i })).toBeInTheDocument();
   });

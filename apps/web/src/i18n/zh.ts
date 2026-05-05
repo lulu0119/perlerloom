@@ -12,6 +12,7 @@ export const zh = {
     close: "关闭"
   },
   header: {
+    logoAlt: "珀勒鲁姆标志",
     taglinePrimary:
       "预览图片、选择明确尺寸、生成清晰的拼豆图纸，然后像手工练习表一样编辑。"
   },

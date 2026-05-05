@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState, type ReactElement } from "react";
 import { createBlankPattern, type PatternDocument, type PatternSettings } from "@perlerloom/core";
 import { mardPalette } from "@perlerloom/palettes";
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
 import { ConversionWorkerFailure } from "@/lib/conversion-worker-failure";
@@ -244,9 +245,18 @@ export function PerlerloomApp(): ReactElement {
     <main className="bg-background text-foreground flex min-h-0 flex-1 flex-col overflow-hidden">
       <header className="border-border shrink-0 border-b bg-white/90 px-4 py-3 shadow-sm">
         <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-          <div className="min-w-0 flex-1">
-            <h1 className="text-brand-accent font-sans text-lg font-semibold uppercase tracking-[0.22em]">{t("meta.title")}</h1>
-            <p className="text-muted-foreground mt-1 max-w-3xl text-xs md:text-sm">{t("header.taglinePrimary")}</p>
+          <div className="flex min-w-0 flex-1 items-start gap-3">
+            <Image
+              src="/android-chrome-192x192.png"
+              alt={t("header.logoAlt")}
+              width={48}
+              height={48}
+              className="border-border h-12 w-12 shrink-0 border bg-white shadow-sm"
+            />
+            <div className="min-w-0">
+              <h1 className="text-brand-accent font-sans text-lg font-semibold uppercase tracking-[0.22em]">{t("meta.title")}</h1>
+              <p className="text-muted-foreground mt-1 max-w-3xl text-xs md:text-sm">{t("header.taglinePrimary")}</p>
+            </div>
           </div>
           <div className="flex shrink-0 flex-col items-stretch md:items-end">
             <LanguageSwitcher />

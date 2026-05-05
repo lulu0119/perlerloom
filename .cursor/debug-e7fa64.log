@@ -1,0 +1,2 @@
+{"sessionId":"e7fa64","runId":"pre-fix","hypothesisId":"H4","location":"apps/web/src/features/pattern-editor/generate-import-dialog.tsx:101","message":"GenerateImportDialog received open prop","data":{"open":false,"hasSelectedSourceImage":false},"timestamp":1777965347986}
+{"sessionId":"e7fa64","runId":"pre-fix","hypothesisId":"H4","location":"apps/web/src/features/pattern-editor/new-pattern-dialog.tsx:36","message":"NewPatternDialog received open prop","data":{"open":false},"timestamp":1777965347991}

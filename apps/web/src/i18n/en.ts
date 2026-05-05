@@ -12,6 +12,7 @@ export const en = {
     close: "Close"
   },
   header: {
+    logoAlt: "Perlerloom logo",
     taglinePrimary:
       "Preview an image, choose an explicit size, generate a crisp bead chart, then edit it like a craft worksheet."
   },
