@@ -14,17 +14,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const manifestPath = publicPath("/site.webmanifest");
+const iconMetadata = [
+  { url: publicPath("/favicon-32x32.png"), sizes: "32x32", type: "image/png" },
+  { url: publicPath("/favicon-16x16.png"), sizes: "16x16", type: "image/png" }
+];
+const appleIconMetadata = [{ url: publicPath("/apple-touch-icon.png"), sizes: "180x180", type: "image/png" }];
+
 export const metadata: Metadata = {
   title: "Perlerloom",
   description: "Generate and edit crisp bead patterns from uploaded images.",
-  manifest: publicPath("/site.webmanifest"),
+  manifest: manifestPath,
   icons: {
-    icon: [
-      { url: publicPath("/favicon.ico"), sizes: "any" },
-      { url: publicPath("/favicon-32x32.png"), sizes: "32x32", type: "image/png" },
-      { url: publicPath("/favicon-16x16.png"), sizes: "16x16", type: "image/png" }
-    ],
-    apple: [{ url: publicPath("/apple-touch-icon.png"), sizes: "180x180", type: "image/png" }]
+    icon: iconMetadata,
+    apple: appleIconMetadata
   }
 };
 

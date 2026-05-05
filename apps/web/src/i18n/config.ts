@@ -11,6 +11,7 @@ export const i18nInitialization = i18n
   .init({
     resources,
     fallbackLng: "en",
+    lng: "en",
     supportedLngs: ["en", "zh"],
     load: "languageOnly",
     nonExplicitSupportedLngs: true,

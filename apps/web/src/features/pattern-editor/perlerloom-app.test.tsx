@@ -277,6 +277,15 @@ describe("Perlerloom editor shell", () => {
     expect(screen.getByRole("heading", { level: 1, name: "珀勒鲁姆" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /导入图片/ })).toBeInTheDocument();
   });
+
+  it("keeps the initial browser render in English when Chinese is stored", async () => {
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, "zh-CN");
+
+    renderPerlerloomApp();
+
+    expect(screen.getByRole("heading", { level: 1, name: "Perlerloom" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Perlerloom logo" })).toBeInTheDocument();
+  });
 });
 
 function getCanvasContext(contextId: "2d", options?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | null;

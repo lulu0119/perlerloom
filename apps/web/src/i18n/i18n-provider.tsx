@@ -2,7 +2,7 @@
 
 import { I18nextProvider } from "react-i18next";
 import { useEffect } from "react";
-import i18n from "./config";
+import i18n, { LANGUAGE_STORAGE_KEY } from "./config";
 
 function syncDocumentToLanguage(): void {
   const language = i18n.language;
@@ -17,6 +17,11 @@ function syncDocumentToLanguage(): void {
 
 export function I18nProvider({ children }: Readonly<{ children: React.ReactNode }>): React.ReactElement {
   useEffect(() => {
+    const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    const preferredLanguage = storedLanguage ?? navigator.language;
+    if (preferredLanguage !== i18n.language) {
+      void i18n.changeLanguage(preferredLanguage);
+    }
     syncDocumentToLanguage();
     i18n.on("languageChanged", syncDocumentToLanguage);
     return () => {
