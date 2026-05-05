@@ -58,7 +58,7 @@ The goal is simple: help you move from inspiration to a usable bead chart faster
 - Editable bead grid with palette, legend, tools, and history
 - English and Chinese interface
 - Cloud save and share
-- Export-ready printable worksheets
+- Print-ready PNG export (grid, bead-code legend, header; from the editor and library)
 - AI-assisted pixel-art conversion
 
 ## Try It Locally
