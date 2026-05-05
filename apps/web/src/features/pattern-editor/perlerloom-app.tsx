@@ -1,10 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState, type ReactElement } from "react";
-import type { PatternDocument, PatternSettings } from "@perlerloom/core";
+import { createBlankPattern, type PatternDocument, type PatternSettings } from "@perlerloom/core";
 import { mardPalette } from "@perlerloom/palettes";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
-import { createBlankPattern } from "@/lib/create-blank-pattern";
 import { EditorWelcome } from "./editor-welcome";
 import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
 import { NewPatternDialog } from "./new-pattern-dialog";

@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import { ImagePlus, LayoutGrid } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@perlerloom/ui";
 
 type EditorWelcomeProps = {
   onImportImage: () => void;

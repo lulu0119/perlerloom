@@ -6,6 +6,11 @@ import {
   type RgbColor
 } from "@perlerloom/palettes";
 
+import { buildLegend, type PatternLegendItem } from "./build-legend";
+
+export type { PatternLegendItem };
+export { buildLegend };
+
 export type MatchingSpace = "rgb" | "lab" | "hsl";
 export type ClusteringSpace = "rgb" | "lab";
 export type DownsamplingMode = "nearest" | "gridMode";
@@ -18,11 +23,6 @@ export type PatternSettings = {
   clusteringSpace: ClusteringSpace;
   downsamplingMode: DownsamplingMode;
   ditheringEnabled: boolean;
-};
-
-export type PatternLegendItem = {
-  code: string;
-  count: number;
 };
 
 export type PatternDocument = {
@@ -403,19 +403,6 @@ export function redoPatternHistory(history: PatternHistory): { pattern: PatternD
   return { pattern: { ...next, history: nextHistory }, history: nextHistory };
 }
 
-export function buildLegend(cells: PatternCell[]): PatternLegendItem[] {
-  const counts = new Map<string, number>();
-  for (const cell of cells) {
-    if (cell !== null) {
-      counts.set(cell, (counts.get(cell) ?? 0) + 1);
-    }
-  }
-
-  return [...counts.entries()]
-    .map(([code, count]) => ({ code, count }))
-    .sort((left, right) => left.code.localeCompare(right.code, "en", { numeric: true }));
-}
-
 function validateConversionInput(input: ConvertImageInput): void {
   if (input.width < 1 || input.height < 1 || input.pixels.length !== input.width * input.height) {
     throw new Error("Image dimensions do not match pixel data.");
@@ -679,3 +666,5 @@ function pointToIndex(pattern: Pick<PatternDocument, "width">, point: PatternPoi
 function isPointInside(pattern: Pick<PatternDocument, "width" | "height">, point: PatternPoint): boolean {
   return point.column >= 0 && point.column < pattern.width && point.row >= 0 && point.row < pattern.height;
 }
+
+export { createBlankPattern } from "./create-blank-pattern";

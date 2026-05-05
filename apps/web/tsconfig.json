@@ -22,7 +22,9 @@
       "@/*": ["./src/*"],
       "@perlerloom/core": ["../../packages/core/src/index.ts"],
       "@perlerloom/palettes": ["../../packages/palettes/src/index.ts"],
-      "@perlerloom/ui": ["../../packages/ui/src/index.ts"]
+      "@perlerloom/ui": ["../../packages/ui/src/index.ts"],
+      "@perlerloom/ui/components": ["../../packages/ui/src/components"],
+      "@perlerloom/ui/components/*": ["../../packages/ui/src/components/*"]
     }
   },
   "include": [

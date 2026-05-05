@@ -4,26 +4,25 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ImageIcon, Layers, UploadCloud } from "lucide-react";
 import type { PatternSettings } from "@perlerloom/core";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
+  Button,
+  Checkbox,
+  cn,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
+  DialogTitle,
+  Input,
+  Label,
+  RadioGroup,
+  RadioGroupItem,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+} from "@perlerloom/ui";
 
 export type ResizeMode = "original" | "dimensions" | "scale";
 

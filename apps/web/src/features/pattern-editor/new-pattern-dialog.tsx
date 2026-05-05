@@ -2,17 +2,17 @@
 
 import { useId, useState } from "react";
 import type { ReactElement } from "react";
-import { Button } from "@/components/ui/button";
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+  DialogTitle,
+  Input,
+  Label
+} from "@perlerloom/ui";
 
 const defaultWidth = 8;
 const defaultHeight = 8;

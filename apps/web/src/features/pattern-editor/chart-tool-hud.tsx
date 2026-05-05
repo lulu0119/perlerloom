@@ -4,7 +4,7 @@ import { ChevronDown, Hand, Minus, PaintBucket, Pencil, Pipette } from "lucide-r
 import type { PatternDocument, PatternPoint } from "@perlerloom/core";
 import type { ReactElement, ReactNode } from "react";
 import { useState } from "react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@perlerloom/ui";
 import { MardPaletteGrid } from "./mard-palette-grid";
 
 export type ChartHudTool = "pencil" | "eyedropper" | "paintBucket" | "hand" | "line";

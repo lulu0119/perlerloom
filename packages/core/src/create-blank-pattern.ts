@@ -1,4 +1,5 @@
-import { buildLegend, type PatternCell, type PatternDocument, type PatternSettings } from "@perlerloom/core";
+import { buildLegend } from "./build-legend";
+import type { PatternCell, PatternDocument, PatternSettings } from "./index";
 
 export function createBlankPattern(width: number, height: number, settings: PatternSettings): PatternDocument {
   const cells: PatternCell[] = Array.from({ length: width * height }, () => null);
