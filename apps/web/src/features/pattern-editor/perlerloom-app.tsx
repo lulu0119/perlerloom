@@ -5,6 +5,7 @@ import { createBlankPattern, type PatternDocument, type PatternSettings } from "
 import { mardPalette } from "@perlerloom/palettes";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { publicPath } from "../../../base-path";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
 import { ConversionWorkerFailure } from "@/lib/conversion-worker-failure";
 import { EditorWelcome } from "./editor-welcome";
@@ -247,7 +248,7 @@ export function PerlerloomApp(): ReactElement {
         <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
           <div className="flex min-w-0 flex-1 items-start gap-3">
             <Image
-              src="/android-chrome-192x192.png"
+              src={publicPath("/android-chrome-192x192.png")}
               alt={t("header.logoAlt")}
               width={48}
               height={48}
