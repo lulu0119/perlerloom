@@ -46,56 +46,58 @@ export function EditorSidePanels({
 
   return (
     <div className={cn("flex min-h-0 min-w-0 flex-1 flex-col gap-3", className)}>
-      <section aria-label={t("sidePanels.legendAria")} className="border-border bg-muted/80 shrink-0 rounded-xl border p-2">
-        <h2 className="text-muted-foreground mb-1.5 text-xs font-semibold uppercase tracking-wide">{t("sidePanels.usedInChart")}</h2>
-        <div className="flex flex-wrap gap-1.5">
-          {legend.map((item) => {
-            const color = paletteByCode.get(item.code);
-            const isActiveChip = activeColor === item.code;
-            const swatchHex = color?.hex ?? "#ffffff";
-            const codeOnSwatchColor = readableTextHexOnBackgroundHex(swatchHex);
-            return (
-              <div
-                className={cn(
-                  "flex min-h-9 min-w-0 items-stretch overflow-hidden rounded-full bg-white shadow-sm transition",
-                  drawingColorChromeBorderWidthClass,
-                  isActiveChip ? drawingColorChromeBorderColorWhenActiveClass : drawingColorChromeBorderColorWhenIdleClass
-                )}
-                key={item.code}
-              >
-                <button
-                  aria-label={t("sidePanels.legendSelect", { code: item.code })}
-                  aria-pressed={isActiveChip}
-                  className="border-border flex min-h-9 w-9 shrink-0 items-center justify-center border-r px-1 text-center font-mono text-xs font-bold tabular-nums tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
-                  style={{ backgroundColor: swatchHex, color: codeOnSwatchColor }}
-                  type="button"
-                  onClick={() => onActiveColorChange(item.code)}
+      {legend.length > 0 ? (
+        <section aria-label={t("sidePanels.legendAria")} className="border-border bg-muted/80 shrink-0 rounded-xl border p-2">
+          <h2 className="text-muted-foreground mb-1.5 text-xs font-semibold uppercase tracking-wide">{t("sidePanels.usedInChart")}</h2>
+          <div className="flex flex-wrap gap-1.5">
+            {legend.map((item) => {
+              const color = paletteByCode.get(item.code);
+              const isActiveChip = activeColor === item.code;
+              const swatchHex = color?.hex ?? "#ffffff";
+              const codeOnSwatchColor = readableTextHexOnBackgroundHex(swatchHex);
+              return (
+                <div
+                  className={cn(
+                    "flex min-h-9 min-w-0 items-stretch overflow-hidden rounded-full bg-white shadow-sm transition",
+                    drawingColorChromeBorderWidthClass,
+                    isActiveChip ? drawingColorChromeBorderColorWhenActiveClass : drawingColorChromeBorderColorWhenIdleClass
+                  )}
+                  key={item.code}
                 >
-                  {item.code}
-                </button>
-                <button
-                  aria-label={t("sidePanels.legendReplace", { fromCode: item.code, activeColor })}
-                  className="border-border text-brand-accent hover:bg-accent/90 inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center border-r bg-white transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
-                  title={t("sidePanels.legendReplaceTitle", { fromCode: item.code, activeColor })}
-                  type="button"
-                  onClick={() => onApplyReplace(item.code)}
-                >
-                  <ArrowLeftRight className="h-4 w-4" aria-hidden="true" />
-                </button>
-                <button
-                  aria-label={t("sidePanels.legendDelete", { fromCode: item.code })}
-                  className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center bg-white text-red-800 transition hover:bg-red-100/80 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
-                  title={t("sidePanels.legendDeleteTitle", { fromCode: item.code })}
-                  type="button"
-                  onClick={() => onApplyDelete(item.code)}
-                >
-                  <Trash2 className="h-4 w-4" aria-hidden="true" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+                  <button
+                    aria-label={t("sidePanels.legendSelect", { code: item.code })}
+                    aria-pressed={isActiveChip}
+                    className="border-border flex min-h-9 w-9 shrink-0 items-center justify-center border-r px-1 text-center font-mono text-xs font-bold tabular-nums tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+                    style={{ backgroundColor: swatchHex, color: codeOnSwatchColor }}
+                    type="button"
+                    onClick={() => onActiveColorChange(item.code)}
+                  >
+                    {item.code}
+                  </button>
+                  <button
+                    aria-label={t("sidePanels.legendReplace", { fromCode: item.code, activeColor })}
+                    className="border-border text-brand-accent hover:bg-accent/90 inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center border-r bg-white transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+                    title={t("sidePanels.legendReplaceTitle", { fromCode: item.code, activeColor })}
+                    type="button"
+                    onClick={() => onApplyReplace(item.code)}
+                  >
+                    <ArrowLeftRight className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                  <button
+                    aria-label={t("sidePanels.legendDelete", { fromCode: item.code })}
+                    className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center bg-white text-red-800 transition hover:bg-red-100/80 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+                    title={t("sidePanels.legendDeleteTitle", { fromCode: item.code })}
+                    type="button"
+                    onClick={() => onApplyDelete(item.code)}
+                  >
+                    <Trash2 className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
 
       <MardPaletteGrid activeColor={activeColor} className="w-full shrink-0" onSelectColor={onActiveColorChange} />
 
