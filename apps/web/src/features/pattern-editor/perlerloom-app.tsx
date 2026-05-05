@@ -541,9 +541,9 @@ export function PerlerloomApp(): ReactElement {
             <Image
               src={publicPath("/android-chrome-192x192.png")}
               alt={t("header.logoAlt")}
-              width={48}
-              height={48}
-              className="border-border h-12 w-12 shrink-0 border bg-white shadow-sm"
+              width={52}
+              height={52}
+              className="h-[52px] w-[52px] shrink-0"
             />
             <div className="min-w-0">
               <h1 className="text-brand-accent font-sans text-lg font-semibold uppercase tracking-[0.22em]">{t("meta.title")}</h1>
