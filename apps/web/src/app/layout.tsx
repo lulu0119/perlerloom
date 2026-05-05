@@ -23,7 +23,8 @@ const appleIconMetadata = [{ url: publicPath("/apple-touch-icon.png"), sizes: "1
 
 export const metadata: Metadata = {
   title: "Perlerloom",
-  description: "Generate and edit crisp bead patterns from uploaded images.",
+  description:
+    "Turn photos into bead charts or start from a blank grid—match MIDI bead colors, edit on a worksheet-style canvas, and save charts locally in your browser.",
   manifest: manifestPath,
   icons: {
     icon: iconMetadata,

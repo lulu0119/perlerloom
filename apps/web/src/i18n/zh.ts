@@ -1,7 +1,8 @@
 export const zh = {
   meta: {
     title: "珀勒鲁姆",
-    description: "从上传图片生成并编辑清晰的拼豆图纸。"
+    description:
+      "照片可一键转成拼豆图纸，也可从空白网格起稿——\n对齐调色色号、在练习表式图纸上修改，\n图纸保存在本机浏览器。"
   },
   languageSwitcher: {
     ariaLabel: "语言",

@@ -12,7 +12,10 @@ function syncDocumentToLanguage(): void {
   document.title = i18n.t("meta.title");
   const metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription !== null) {
-    metaDescription.setAttribute("content", i18n.t("meta.description"));
+    metaDescription.setAttribute(
+      "content",
+      i18n.t("meta.description").replace(/\s*\n\s*/gu, " ").replace(/\s+/gu, " ").trim()
+    );
   }
 }
 

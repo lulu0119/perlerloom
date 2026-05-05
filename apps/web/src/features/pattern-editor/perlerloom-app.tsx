@@ -6,7 +6,7 @@ import { mardPalette } from "@perlerloom/palettes";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { Button } from "@perlerloom/ui";
-import { publicPath } from "../../../base-path";
+import { computePublicBasePath, publicPath } from "../../../base-path";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
 import { ConversionWorkerFailure } from "@/lib/conversion-worker-failure";
 import { renderPatternExportToPngBlob } from "@/lib/pattern-export-image";
@@ -235,13 +235,19 @@ export function PerlerloomApp(): ReactElement {
         return;
       }
       try {
-        const blob = await renderPatternExportToPngBlob(record.pattern, paletteMapForExport);
+        const siteUrl = `${window.location.origin}${computePublicBasePath()}`.replace(/\/$/u, "") || window.location.origin;
+        const blob = await renderPatternExportToPngBlob(record.pattern, paletteMapForExport, {
+          siteTitle: t("meta.title"),
+          siteUrl,
+          siteDescription: t("meta.description"),
+          logoSrc: publicPath("/android-chrome-192x192.png")
+        });
         triggerBrowserDownload(blob, `${patternDownloadBasename(record.title)}.png`);
       } catch {
         setMessage({ tone: "accent", key: "status.exportPngFailed" });
       }
     },
-    [library.patterns, paletteMapForExport]
+    [library.patterns, paletteMapForExport, t]
   );
 
   const handleImportPatternJsonFile = useCallback(

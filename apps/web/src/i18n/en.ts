@@ -1,7 +1,8 @@
 export const en = {
   meta: {
     title: "Perlerloom",
-    description: "Generate and edit crisp bead patterns from uploaded images."
+    description:
+      "Turn photos into bead charts or start from a blank grid—match MIDI bead colors, edit on a worksheet-style canvas,\nand save charts locally in your browser."
   },
   languageSwitcher: {
     ariaLabel: "Language",
