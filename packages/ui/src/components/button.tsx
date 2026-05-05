@@ -1,3 +1,8 @@
+/**
+ * UI derived from shadcn/ui (https://ui.shadcn.com/) generator output (MIT).
+ * Project license: GNU Affero General Public License v3.0 or later (see LICENSE).
+ */
+
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 

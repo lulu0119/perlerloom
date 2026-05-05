@@ -1,3 +1,8 @@
+/**
+ * UI derived from shadcn/ui (https://ui.shadcn.com/) generator output (MIT).
+ * Project license: GNU Affero General Public License v3.0 or later (see LICENSE).
+ */
+
 "use client";
 
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
