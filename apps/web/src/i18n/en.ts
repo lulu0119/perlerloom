@@ -47,6 +47,7 @@ export const en = {
   history: {
     generatedPattern: "Generated pattern",
     pencilStroke: "Pencil stroke",
+    eraserStroke: "Eraser stroke",
     bucketFill: "Bucket fill",
     line: "Line",
     replace: "Replace",
@@ -108,6 +109,7 @@ export const en = {
   workspace: {
     tools: {
       pencil: "Pencil",
+      eraser: "Eraser",
       eyedropper: "Eyedropper",
       paintBucket: "Paint bucket",
       hand: "Hand",
@@ -133,6 +135,7 @@ export const en = {
     eyedropperIdle: "Move over a bead to preview its color.",
     eyedropperEmpty: "Empty cell — nothing to pick.",
     pencil: "While dragging, the pencil paints a single-bead path.",
+    eraser: "While dragging, the eraser clears beads along the path.",
     bucket: "Flood fill matches the same color and touches edges.",
     line: "Place the start, move, then release to draw a straight run."
   },

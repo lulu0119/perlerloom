@@ -320,7 +320,7 @@ export function drawPatternLine(
   pattern: PatternDocument,
   startPoint: PatternPoint,
   endPoint: PatternPoint,
-  targetCode: string,
+  targetCode: PatternCell,
   existingHistory?: PatternHistory
 ): PatternDocument {
   const cells = [...pattern.cells];

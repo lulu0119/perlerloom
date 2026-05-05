@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Hand, Minus, PaintBucket, Pencil, Pipette } from "lucide-react";
+import { ChevronDown, Eraser, Hand, Minus, PaintBucket, Pencil, Pipette } from "lucide-react";
 import type { PatternDocument, PatternPoint } from "@perlerloom/core";
 import type { ReactElement, ReactNode } from "react";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@perlerloom/ui";
 import { MardPaletteGrid } from "./mard-palette-grid";
 
-export type ChartHudTool = "pencil" | "eyedropper" | "paintBucket" | "hand" | "line";
+export type ChartHudTool = "pencil" | "eraser" | "eyedropper" | "paintBucket" | "hand" | "line";
 
 type ChartToolHudProps = {
   activeTool: ChartHudTool;
@@ -23,6 +23,9 @@ function ChartHudToolGlyph({ tool }: { tool: ChartHudTool }): ReactElement {
   const className = "text-muted-foreground h-3.5 w-3.5";
   if (tool === "paintBucket") {
     return <PaintBucket className={className} aria-hidden />;
+  }
+  if (tool === "eraser") {
+    return <Eraser className={className} aria-hidden />;
   }
   if (tool === "eyedropper") {
     return <Pipette className={className} aria-hidden />;
@@ -47,7 +50,7 @@ export function ChartToolHud({
   const { t } = useTranslation();
   const [colorMenuOpen, setColorMenuOpen] = useState(false);
   const isHand = activeTool === "hand";
-  const showsDrawingColorSelect = !isHand;
+  const showsDrawingColorSelect = !isHand && activeTool !== "eraser";
 
   const activeHex = paletteByCode.get(activeColor)?.hex ?? "#e7e5e4";
 
@@ -82,6 +85,8 @@ export function ChartToolHud({
     );
   } else if (activeTool === "pencil") {
     centerSlot = <span>{t("chartHud.pencil")}</span>;
+  } else if (activeTool === "eraser") {
+    centerSlot = <span>{t("chartHud.eraser")}</span>;
   } else if (activeTool === "paintBucket") {
     centerSlot = <span>{t("chartHud.bucket")}</span>;
   } else {

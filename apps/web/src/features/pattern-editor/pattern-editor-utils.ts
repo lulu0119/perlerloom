@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Hand, Minus, PaintBucket, Pencil, Pipette } from "lucide-react";
+import { Eraser, Hand, Minus, PaintBucket, Pencil, Pipette } from "lucide-react";
 import {
   readableTextHexOnBackgroundHex,
   type ClusteringSpace,
@@ -11,7 +11,7 @@ import {
 import { majorGridLineCellIndices } from "@/lib/major-grid-line-indices";
 import type { ResizeMode, SelectedSourceImage } from "./generate-import-dialog";
 
-export type EditorTool = "pencil" | "eyedropper" | "paintBucket" | "hand" | "line";
+export type EditorTool = "pencil" | "eraser" | "eyedropper" | "paintBucket" | "hand" | "line";
 
 export type ImportFormLayoutDefaults = {
   resizeMode: ResizeMode;
@@ -23,6 +23,7 @@ export type ImportFormLayoutDefaults = {
 export type HistoryLabelKey =
   | "history.generatedPattern"
   | "history.pencilStroke"
+  | "history.eraserStroke"
   | "history.bucketFill"
   | "history.line"
   | "history.replace"
@@ -85,6 +86,9 @@ export function isDownsamplingMode(value: string): value is DownsamplingMode {
 export function getToolIcon(tool: EditorTool): LucideIcon {
   if (tool === "paintBucket") {
     return PaintBucket;
+  }
+  if (tool === "eraser") {
+    return Eraser;
   }
   if (tool === "eyedropper") {
     return Pipette;

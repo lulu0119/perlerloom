@@ -179,6 +179,12 @@ describe("pattern editing and history", () => {
     expect(drawPatternLine(pattern, { column: 0, row: 0 }, { column: 2, row: 2 }, "A1").cells[8]).toBe("A1");
   });
 
+  it("clears cells along a line when target is null", () => {
+    const erased = drawPatternLine(pattern, { column: 0, row: 0 }, { column: 2, row: 0 }, null);
+    expect(erased.cells.slice(0, 3)).toEqual([null, null, null]);
+    expect(requireLegend(erased).find((item) => item.code === "H7")?.count).toBe(3);
+  });
+
   it("selects rectangular cells", () => {
     expect(selectPatternRectangle(pattern, { column: 1, row: 1 }, { column: 2, row: 2 })).toEqual([4, 5, 7, 8]);
   });

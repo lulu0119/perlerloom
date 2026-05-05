@@ -46,6 +46,7 @@ export const zh = {
   history: {
     generatedPattern: "生成的图纸",
     pencilStroke: "铅笔笔划",
+    eraserStroke: "橡皮笔划",
     bucketFill: "油漆桶填充",
     line: "直线",
     replace: "替换",
@@ -104,6 +105,7 @@ export const zh = {
   workspace: {
     tools: {
       pencil: "铅笔",
+      eraser: "橡皮",
       eyedropper: "吸管",
       paintBucket: "油漆桶",
       hand: "抓手",
@@ -129,6 +131,7 @@ export const zh = {
     eyedropperIdle: "移动到拼豆格上以预览颜色。",
     eyedropperEmpty: "空格 — 无可吸取内容。",
     pencil: "拖动时铅笔会沿路径逐格绘制。",
+    eraser: "拖动时橡皮会沿路径清除拼豆格。",
     bucket: "油漆桶填充相同颜色并接触边缘的区域。",
     line: "按下起点，移动，松开以绘制直线。"
   },

@@ -180,6 +180,17 @@ describe("Perlerloom editor shell", () => {
     expect(screen.getByTestId("chart-eyedropper-under-pointer")).toHaveTextContent(/move over a bead/i);
   });
 
+  it("includes the eraser tool and hides drawing color select while active", async () => {
+    const user = userEvent.setup();
+    renderPerlerloomApp();
+
+    await enterEditorWithBlankPattern(user);
+    await user.click(screen.getByRole("button", { name: /^eraser$/i }));
+
+    expect(screen.getByTestId("chart-tool-hud")).toBeInTheDocument();
+    expect(screen.queryByTestId("chart-drawing-color-select")).not.toBeInTheDocument();
+  });
+
   it("uses a tool-specific chart cursor", async () => {
     const user = userEvent.setup();
     renderPerlerloomApp();

@@ -36,7 +36,7 @@ import {
   type HistoryLabelKey
 } from "./pattern-editor-utils";
 
-const editorTools: EditorTool[] = ["pencil", "eyedropper", "paintBucket", "hand", "line"];
+const editorTools: EditorTool[] = ["pencil", "eraser", "eyedropper", "paintBucket", "hand", "line"];
 
 export type PatternEditorWorkspaceProps = {
   pattern: PatternDocument;
@@ -70,9 +70,10 @@ export function PatternEditorWorkspace({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartScrollRef = useRef<HTMLDivElement>(null);
   const handPanRef = useRef<{ clientX: number; clientY: number; scrollLeft: number; scrollTop: number } | null>(null);
-  const pencilStrokeActiveRef = useRef(false);
-  const pencilLastCellRef = useRef<PatternPoint | null>(null);
-  const pencilStrokeLatestRef = useRef<PatternDocument | null>(null);
+  const chartDragStrokeActiveRef = useRef(false);
+  const chartDragStrokeToolRef = useRef<"pencil" | "eraser" | null>(null);
+  const chartDragStrokeLastCellRef = useRef<PatternPoint | null>(null);
+  const chartDragStrokeLatestRef = useRef<PatternDocument | null>(null);
 
   const paletteByCode = useMemo(() => new Map(mardPalette.map((color) => [color.code, color])), []);
   const legend = pattern.legend ?? buildLegend(pattern.cells);
@@ -147,7 +148,7 @@ export function PatternEditorWorkspace({
       return;
     }
 
-    if (activeTool === "pencil") {
+    if (activeTool === "pencil" || activeTool === "eraser") {
       if (event.button !== 0) {
         return;
       }
@@ -155,12 +156,15 @@ export function PatternEditorWorkspace({
       if (point === null) {
         return;
       }
-      pencilStrokeActiveRef.current = true;
-      pencilLastCellRef.current = point;
+      const strokeTool = activeTool;
+      chartDragStrokeActiveRef.current = true;
+      chartDragStrokeToolRef.current = strokeTool;
+      chartDragStrokeLastCellRef.current = point;
       event.currentTarget.setPointerCapture(event.pointerId);
+      const targetCode = strokeTool === "eraser" ? null : activeColor;
       onPatternChange((currentPattern) => {
-        const next = drawPatternLine(currentPattern, point, point, activeColor);
-        pencilStrokeLatestRef.current = next;
+        const next = drawPatternLine(currentPattern, point, point, targetCode);
+        chartDragStrokeLatestRef.current = next;
         return clonePattern(next);
       });
       return;
@@ -188,22 +192,27 @@ export function PatternEditorWorkspace({
       setLinePreviewPoint(canvasPointToPatternPoint(event.currentTarget, event.clientX, event.clientY, pattern, canvasLayout));
     }
 
-    if (activeTool === "pencil" && pencilStrokeActiveRef.current) {
+    const strokeTool = chartDragStrokeToolRef.current;
+    if (
+      chartDragStrokeActiveRef.current &&
+      (strokeTool === "pencil" || strokeTool === "eraser")
+    ) {
       const canvas = event.currentTarget;
       const clientX = event.clientX;
       const clientY = event.clientY;
+      const targetCode = strokeTool === "eraser" ? null : activeColor;
       onPatternChange((currentPattern) => {
         const current = canvasPointToPatternPoint(canvas, clientX, clientY, currentPattern, canvasLayout);
-        const last = pencilLastCellRef.current;
+        const last = chartDragStrokeLastCellRef.current;
         if (current === null || last === null) {
           return currentPattern;
         }
         if (current.column === last.column && current.row === last.row) {
           return currentPattern;
         }
-        const next = drawPatternLine(currentPattern, last, current, activeColor);
-        pencilLastCellRef.current = current;
-        pencilStrokeLatestRef.current = next;
+        const next = drawPatternLine(currentPattern, last, current, targetCode);
+        chartDragStrokeLastCellRef.current = current;
+        chartDragStrokeLatestRef.current = next;
         return clonePattern(next);
       });
     }
@@ -228,26 +237,30 @@ export function PatternEditorWorkspace({
     }
   }
 
-  function finishPencilStrokeIfActive(event: React.PointerEvent<HTMLCanvasElement>): void {
-    if (!pencilStrokeActiveRef.current) {
+  function finishChartDragStrokeIfActive(event: React.PointerEvent<HTMLCanvasElement>): void {
+    if (!chartDragStrokeActiveRef.current) {
       return;
     }
-    pencilStrokeActiveRef.current = false;
-    pencilLastCellRef.current = null;
+    chartDragStrokeActiveRef.current = false;
+    chartDragStrokeLastCellRef.current = null;
+    const strokeTool = chartDragStrokeToolRef.current;
+    chartDragStrokeToolRef.current = null;
     try {
       event.currentTarget.releasePointerCapture(event.pointerId);
     } catch {
       /* pointer capture may already be released */
     }
-    const snapshot = pencilStrokeLatestRef.current;
-    pencilStrokeLatestRef.current = null;
+    const snapshot = chartDragStrokeLatestRef.current;
+    chartDragStrokeLatestRef.current = null;
     if (snapshot !== null) {
-      appendHistory("history.pencilStroke", clonePattern(snapshot));
+      const labelKey: HistoryLabelKey =
+        strokeTool === "eraser" ? "history.eraserStroke" : "history.pencilStroke";
+      appendHistory(labelKey, clonePattern(snapshot));
     }
   }
 
   function handleCanvasPointerUp(event: React.PointerEvent<HTMLCanvasElement>): void {
-    finishPencilStrokeIfActive(event);
+    finishChartDragStrokeIfActive(event);
 
     if (activeTool === "hand") {
       handPanRef.current = null;
@@ -461,9 +474,9 @@ export function PatternEditorWorkspace({
               onPointerLeave={() => {
                 setEyedropperHoverCell(null);
               }}
-              onPointerCancel={finishPencilStrokeIfActive}
+              onPointerCancel={finishChartDragStrokeIfActive}
               onPointerUp={handleCanvasPointerUp}
-              onLostPointerCapture={finishPencilStrokeIfActive}
+              onLostPointerCapture={finishChartDragStrokeIfActive}
             />
           </div>
         </div>
