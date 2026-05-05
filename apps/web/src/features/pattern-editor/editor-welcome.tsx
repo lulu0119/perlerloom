@@ -11,7 +11,7 @@ type EditorWelcomeProps = {
 
 export function EditorWelcome({ onImportImage, onCreateNewPattern }: EditorWelcomeProps): ReactElement {
   return (
-    <div className="bg-brand-surface-muted md:bg-background flex min-h-0 flex-1 flex-col items-center justify-center gap-6 px-4 py-10">
+    <div className="bg-brand-surface-muted flex min-h-0 flex-1 flex-col items-center justify-center gap-6 px-4 py-10">
       <div className="max-w-md text-center">
         <h2 className="text-foreground font-sans text-xl font-semibold md:text-2xl">Start a bead chart</h2>
         <p className="text-muted-foreground mt-2 text-sm md:text-base">
