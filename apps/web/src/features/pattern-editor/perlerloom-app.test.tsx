@@ -6,7 +6,19 @@ import { PerlerloomApp } from "./perlerloom-app";
 const patternCanvasMockContexts: Array<{ font: string }> = [];
 
 async function openGenerateImportDialog(user: ReturnType<typeof userEvent.setup>): Promise<void> {
-  await user.click(screen.getByRole("button", { name: /^new \/ import$/i }));
+  const importImage = screen.queryByRole("button", { name: /^import image$/i });
+  if (importImage !== null) {
+    await user.click(importImage);
+  } else {
+    await user.click(screen.getByRole("button", { name: /^new \/ import$/i }));
+  }
+}
+
+async function enterEditorWithBlankPattern(user: ReturnType<typeof userEvent.setup>): Promise<void> {
+  await user.click(screen.getByRole("button", { name: /create new pattern/i }));
+  const newDialog = await screen.findByRole("dialog", { name: /new pattern/i });
+  await user.click(within(newDialog).getByRole("button", { name: /create grid/i }));
+  await screen.findByLabelText(/editable bead pattern/i);
 }
 
 describe("Perlerloom editor shell", () => {
@@ -33,6 +45,14 @@ describe("Perlerloom editor shell", () => {
       configurable: true,
       value: vi.fn(getCanvasContext)
     });
+  });
+
+  it("starts with a welcome empty state and no canvas until a pattern exists", () => {
+    render(<PerlerloomApp />);
+
+    expect(screen.queryByLabelText(/editable bead pattern/i)).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /^import image$/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /create new pattern/i })).toBeInTheDocument();
   });
 
   it("renders upload settings with dithering disabled by default", async () => {
@@ -123,6 +143,7 @@ describe("Perlerloom editor shell", () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
+    await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /paint bucket/i }));
 
     expect(screen.getByTestId("chart-tool-hud")).toBeInTheDocument();
@@ -133,6 +154,7 @@ describe("Perlerloom editor shell", () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
+    await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /^eyedropper$/i }));
 
     expect(screen.getByTestId("chart-tool-hud")).toBeInTheDocument();
@@ -143,6 +165,7 @@ describe("Perlerloom editor shell", () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
+    await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /hand/i }));
 
     expect(screen.getByLabelText(/editable bead pattern/i)).toHaveClass("cursor-grab");
@@ -152,18 +175,24 @@ describe("Perlerloom editor shell", () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
+    await enterEditorWithBlankPattern(user);
+
     const legend = screen.getByLabelText(/legend badges/i);
-    await user.click(screen.getByRole("button", { name: /^select h7$/i }));
+    const mardPalette = screen.getByLabelText(/mard palette/i);
+    await user.click(within(mardPalette).getByRole("button", { name: /^H\d/ }));
+    await user.click(within(mardPalette).getByRole("button", { name: /select palette color h7/i }));
 
     expect(legend).toBeInTheDocument();
     expect(screen.getByTestId("chart-drawing-color-select")).toHaveTextContent("H7");
-    expect(screen.getByRole("button", { name: /^select h7$/i }).closest("div.flex.min-h-9")).toHaveClass("rounded-full");
+    const h7Swatch = within(mardPalette).getByRole("button", { name: /select palette color h7/i });
+    expect(h7Swatch.className).toMatch(/rounded-md/);
   });
 
   it("records edit history and can jump to a previous snapshot", async () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
+    await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /paint bucket/i }));
     fireEvent.click(screen.getByLabelText(/editable bead pattern/i), { clientX: 85, clientY: 50 });
 
@@ -177,6 +206,7 @@ describe("Perlerloom editor shell", () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
+    await enterEditorWithBlankPattern(user);
     await waitFor(() => expect(patternCanvasMockContexts.length).toBeGreaterThan(0));
     const fontAfterDefaultZoom = patternCanvasMockContexts.at(-1)!.font;
     const defaultSizeMatch = /(\d+)px\b/.exec(fontAfterDefaultZoom);
@@ -197,6 +227,7 @@ describe("Perlerloom editor shell", () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);
 
+    await enterEditorWithBlankPattern(user);
     await waitFor(() => expect(patternCanvasMockContexts.length).toBeGreaterThan(0));
     const fontAt100 = patternCanvasMockContexts.at(-1)!.font;
 
