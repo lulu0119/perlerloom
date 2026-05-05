@@ -270,6 +270,7 @@ export function GenerateImportDialog({
                   Target colors
                 </Label>
                 <Input
+                  aria-describedby="import-target-colors-hint"
                   aria-label="Target colors"
                   autoComplete="off"
                   className="text-sm"
@@ -280,6 +281,11 @@ export function GenerateImportDialog({
                   onBlur={onTargetColorCountInputBlur}
                   onChange={(event) => onTargetColorCountInputChange(event.currentTarget.value)}
                 />
+                <p className="text-[11px] leading-snug text-stone-500" id="import-target-colors-hint">
+                  This is how many k-means clusters are formed before each cluster center is snapped to the nearest bead
+                  color. The chart can end up with fewer distinct bead codes when several clusters map to the same
+                  palette entry.
+                </p>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
