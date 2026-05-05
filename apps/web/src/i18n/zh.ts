@@ -182,7 +182,7 @@ export const zh = {
     history: "历史",
     undo: "撤销",
     redo: "重做",
-    legendSelect: "选择 {{code}}",
+    legendSelect: "选择 {{code}}，图纸中共 {{count}} 颗",
     legendReplace: "用当前颜色 {{activeColor}} 替换 {{fromCode}}",
     legendReplaceTitle: "将 {{fromCode}} 替换为 {{activeColor}}",
     legendDelete: "从图纸中删除 {{fromCode}}",

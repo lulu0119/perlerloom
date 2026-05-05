@@ -65,14 +65,15 @@ export function EditorSidePanels({
                   key={item.code}
                 >
                   <button
-                    aria-label={t("sidePanels.legendSelect", { code: item.code })}
+                    aria-label={t("sidePanels.legendSelect", { code: item.code, count: item.count })}
                     aria-pressed={isActiveChip}
-                    className="border-border flex min-h-9 w-9 shrink-0 items-center justify-center border-r px-1 text-center font-mono text-xs font-bold tabular-nums tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+                    className="border-border flex min-h-9 min-w-9 shrink-0 flex-col items-center justify-center gap-0 border-r px-1 py-0.5 text-center font-mono transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
                     style={{ backgroundColor: swatchHex, color: codeOnSwatchColor }}
                     type="button"
                     onClick={() => onActiveColorChange(item.code)}
                   >
-                    {item.code}
+                    <span className="text-xs font-bold tabular-nums tracking-wide">{item.code}</span>
+                    <span className="text-[10px] font-semibold tabular-nums leading-none">{item.count}</span>
                   </button>
                   <button
                     aria-label={t("sidePanels.legendReplace", { fromCode: item.code, activeColor })}

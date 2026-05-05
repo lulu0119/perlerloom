@@ -159,7 +159,7 @@ export const en = {
     history: "History",
     undo: "Undo",
     redo: "Redo",
-    legendSelect: "Select {{code}}",
+    legendSelect: "Select {{code}}, {{count}} beads in chart",
     legendReplace: "Replace {{fromCode}} with active color {{activeColor}}",
     legendReplaceTitle: "Replace {{fromCode}} with {{activeColor}}",
     legendDelete: "Delete {{fromCode}} from pattern",
