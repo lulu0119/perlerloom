@@ -80,6 +80,8 @@ export function PatternEditorWorkspace({
         }))
       : [{ id: createHistoryEntryId(), labelKey: "history.generatedPattern", pattern: clonePattern(pattern) }]
   );
+  const historyEntriesRef = useRef(historyEntries);
+  historyEntriesRef.current = historyEntries;
   const [activeHistoryIndex, setActiveHistoryIndex] = useState(initialActiveHistoryIndex ?? 0);
   const activeHistoryIndexRef = useRef(activeHistoryIndex);
 
@@ -321,13 +323,14 @@ export function PatternEditorWorkspace({
   }
 
   function appendHistory(labelKey: HistoryLabelKey, nextPattern: PatternDocument): void {
-    setHistoryEntries((currentEntries) => {
-      const activeEntries = currentEntries.slice(0, activeHistoryIndexRef.current + 1);
-      const nextEntries = [...activeEntries, { id: createHistoryEntryId(), labelKey, pattern: clonePattern(nextPattern) }].slice(-maxHistoryEntries);
-      const nextIndex = nextEntries.length - 1;
-      setActiveHistoryIndex(nextIndex);
+    const activeEntries = historyEntriesRef.current.slice(0, activeHistoryIndexRef.current + 1);
+    const nextEntries = [...activeEntries, { id: createHistoryEntryId(), labelKey, pattern: clonePattern(nextPattern) }].slice(-maxHistoryEntries);
+    const nextIndex = nextEntries.length - 1;
+    historyEntriesRef.current = nextEntries;
+    setHistoryEntries(nextEntries);
+    setActiveHistoryIndex(nextIndex);
+    queueMicrotask(() => {
       onHistoryStateChange?.(nextEntries, nextIndex);
-      return nextEntries;
     });
   }
 
