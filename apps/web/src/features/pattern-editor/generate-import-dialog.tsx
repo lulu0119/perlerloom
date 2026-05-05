@@ -3,7 +3,7 @@
 import type { ReactElement } from "react";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { ImageIcon, Layers, UploadCloud } from "lucide-react";
+import { ImageIcon, ImagePlus, Layers } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { PatternSettings } from "@perlerloom/core";
 import {
@@ -139,7 +139,7 @@ export function GenerateImportDialog({
               onDragOver={(event) => event.preventDefault()}
               onDrop={onDrop}
             >
-              <UploadCloud className="text-brand-accent h-8 w-8" aria-hidden="true" />
+              <ImagePlus className="text-brand-accent h-8 w-8" aria-hidden="true" />
               <span className="text-foreground mt-2 text-sm font-semibold">{t("importDialog.dropHint")}</span>
               <span className="text-muted-foreground mt-1 text-xs">{t("importDialog.formatsHint")}</span>
               <input aria-label={t("importDialog.chooseSourceImage")} className="sr-only" type="file" accept="image/*" onChange={onFileInputChange} />

@@ -2,6 +2,7 @@
 
 import type { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
+import { LANGUAGE_STORAGE_KEY } from "@/i18n/config";
 import {
   Select,
   SelectContent,
@@ -20,6 +21,7 @@ export function LanguageSwitcher(): ReactElement {
       value={resolvedLanguage.startsWith("zh") ? "zh" : "en"}
       onValueChange={(value) => {
         if (value === "en" || value === "zh") {
+          window.localStorage.setItem(LANGUAGE_STORAGE_KEY, value);
           void i18n.changeLanguage(value);
         }
       }}

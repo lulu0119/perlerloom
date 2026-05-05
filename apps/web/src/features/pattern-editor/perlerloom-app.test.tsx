@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { I18nextProvider } from "react-i18next";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import i18n, { i18nInitialization, LANGUAGE_STORAGE_KEY } from "@/i18n/config";
+import { PATTERN_LIBRARY_STORAGE_KEY } from "@/lib/pattern-storage";
 import { PerlerloomApp } from "./perlerloom-app";
 
 const patternCanvasMockContexts: Array<{ font: string }> = [];
@@ -38,6 +39,7 @@ describe("Perlerloom editor shell", () => {
 
   beforeEach(async () => {
     localStorage.removeItem(LANGUAGE_STORAGE_KEY);
+    localStorage.removeItem(PATTERN_LIBRARY_STORAGE_KEY);
     await i18n.changeLanguage("en");
     patternCanvasMockContexts.length = 0;
     vi.stubGlobal(
@@ -270,6 +272,18 @@ describe("Perlerloom editor shell", () => {
     await user.click(screen.getByRole("button", { name: /^zoom in$/i }));
     await waitFor(() => {
       expect(patternCanvasMockContexts.at(-1)!.font).not.toEqual(fontAfterZoomOut);
+    });
+  });
+
+  it("persists the pattern library to localStorage after creating a blank chart", async () => {
+    const user = userEvent.setup();
+    renderPerlerloomApp();
+    await enterEditorWithBlankPattern(user);
+    await waitFor(() => {
+      const raw = localStorage.getItem(PATTERN_LIBRARY_STORAGE_KEY);
+      expect(raw).not.toBeNull();
+      expect(raw!).toContain('"patterns"');
+      expect(raw!).toContain('"activePatternId"');
     });
   });
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactElement } from "react";
-import { ImagePlus, LayoutGrid, Layers, ZoomIn, ZoomOut } from "lucide-react";
+import { Blocks, Download, ImageDown, ImagePlus, Layers, LibraryBig, ZoomIn, ZoomOut } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
   bucketFillPattern,
@@ -41,8 +41,15 @@ const editorTools: EditorTool[] = ["pencil", "eraser", "eyedropper", "paintBucke
 export type PatternEditorWorkspaceProps = {
   pattern: PatternDocument;
   onPatternChange: (next: PatternDocument | ((previous: PatternDocument) => PatternDocument)) => void;
+  /** When omitted, the workspace seeds history from the current pattern only. */
+  initialHistoryEntries?: HistoryEntry[];
+  initialActiveHistoryIndex?: number;
+  onHistoryStateChange?: (entries: HistoryEntry[], activeHistoryIndex: number) => void;
   onOpenImportDialog: () => void;
   onOpenCreateNewPatternDialog: () => void;
+  onOpenLibrary: () => void;
+  onExportPng: () => void;
+  onExportJson: () => void;
   statusMessage: AppStatusMessage;
   onStatusMessageChange: (message: AppStatusMessage) => void;
 };
@@ -50,8 +57,14 @@ export type PatternEditorWorkspaceProps = {
 export function PatternEditorWorkspace({
   pattern,
   onPatternChange,
+  initialHistoryEntries,
+  initialActiveHistoryIndex,
+  onHistoryStateChange,
   onOpenImportDialog,
   onOpenCreateNewPatternDialog,
+  onOpenLibrary,
+  onExportPng,
+  onExportJson,
   statusMessage,
   onStatusMessageChange
 }: PatternEditorWorkspaceProps): ReactElement {
@@ -59,10 +72,20 @@ export function PatternEditorWorkspace({
   const [activeTool, setActiveTool] = useState<EditorTool>("pencil");
   const [activeColor, setActiveColor] = useState("H7");
   const [zoom, setZoom] = useState(1);
-  const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>(() => [
-    { id: createHistoryEntryId(), labelKey: "history.generatedPattern", pattern: clonePattern(pattern) }
-  ]);
-  const [activeHistoryIndex, setActiveHistoryIndex] = useState(0);
+  const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>(() =>
+    initialHistoryEntries !== undefined
+      ? initialHistoryEntries.map((entry) => ({
+          ...entry,
+          pattern: clonePattern(entry.pattern)
+        }))
+      : [{ id: createHistoryEntryId(), labelKey: "history.generatedPattern", pattern: clonePattern(pattern) }]
+  );
+  const [activeHistoryIndex, setActiveHistoryIndex] = useState(initialActiveHistoryIndex ?? 0);
+  const activeHistoryIndexRef = useRef(activeHistoryIndex);
+
+  useEffect(() => {
+    activeHistoryIndexRef.current = activeHistoryIndex;
+  }, [activeHistoryIndex]);
   const [lineStartPoint, setLineStartPoint] = useState<PatternPoint | null>(null);
   const [linePreviewPoint, setLinePreviewPoint] = useState<PatternPoint | null>(null);
   const [eyedropperHoverCell, setEyedropperHoverCell] = useState<PatternPoint | null>(null);
@@ -299,9 +322,11 @@ export function PatternEditorWorkspace({
 
   function appendHistory(labelKey: HistoryLabelKey, nextPattern: PatternDocument): void {
     setHistoryEntries((currentEntries) => {
-      const activeEntries = currentEntries.slice(0, activeHistoryIndex + 1);
+      const activeEntries = currentEntries.slice(0, activeHistoryIndexRef.current + 1);
       const nextEntries = [...activeEntries, { id: createHistoryEntryId(), labelKey, pattern: clonePattern(nextPattern) }].slice(-maxHistoryEntries);
-      setActiveHistoryIndex(nextEntries.length - 1);
+      const nextIndex = nextEntries.length - 1;
+      setActiveHistoryIndex(nextIndex);
+      onHistoryStateChange?.(nextEntries, nextIndex);
       return nextEntries;
     });
   }
@@ -313,6 +338,7 @@ export function PatternEditorWorkspace({
     }
     onPatternChange(clonePattern(entry.pattern));
     setActiveHistoryIndex(index);
+    onHistoryStateChange?.(historyEntries, index);
     onStatusMessageChange({
       tone: "muted",
       key: "status.restored",
@@ -370,22 +396,52 @@ export function PatternEditorWorkspace({
         })}
         <div className="bg-border mx-1 hidden h-px w-8 shrink-0 md:my-1 md:block" role="presentation" />
         <button
-          aria-label={t("workspace.newImport")}
-          className={cn(toolRailButtonClassName, "border-primary/35 bg-accent text-accent-foreground hover:bg-accent/80")}
-          title={t("workspace.newImport")}
+          aria-label={t("workspace.newImportTooltip")}
+          className={cn(
+            toolRailButtonClassName,
+            "border-primary/35 bg-accent text-accent-foreground hover:bg-accent/80"
+          )}
+          title={t("workspace.newImportTooltip")}
           type="button"
           onClick={onOpenImportDialog}
         >
           <ImagePlus className="h-5 w-5" aria-hidden="true" />
         </button>
         <button
-          aria-label={t("workspace.createNewPattern")}
+          aria-label={t("workspace.createNewPatternTooltip")}
           className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
-          title={t("workspace.createNewPattern")}
+          title={t("workspace.createNewPatternTooltip")}
           type="button"
           onClick={onOpenCreateNewPatternDialog}
         >
-          <LayoutGrid className="h-5 w-5" aria-hidden="true" />
+          <Blocks className="h-5 w-5" aria-hidden="true" />
+        </button>
+        <button
+          aria-label={t("workspace.patternLibraryTooltip")}
+          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+          title={t("workspace.patternLibraryTooltip")}
+          type="button"
+          onClick={onOpenLibrary}
+        >
+          <LibraryBig className="h-5 w-5" aria-hidden="true" />
+        </button>
+        <button
+          aria-label={t("workspace.exportImageTooltip")}
+          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+          title={t("workspace.exportImageTooltip")}
+          type="button"
+          onClick={onExportPng}
+        >
+          <ImageDown className="h-5 w-5" aria-hidden="true" />
+        </button>
+        <button
+          aria-label={t("workspace.exportFileTooltip")}
+          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+          title={t("workspace.exportFileTooltip")}
+          type="button"
+          onClick={onExportJson}
+        >
+          <Download className="h-5 w-5" aria-hidden="true" />
         </button>
       </aside>
 

@@ -14,13 +14,16 @@ export const zh = {
   header: {
     logoAlt: "珀勒鲁姆标志",
     taglinePrimary:
-      "预览图片、选择明确尺寸、生成清晰的拼豆图纸，然后像手工练习表一样编辑。"
+      "预览图片、选择明确尺寸、生成清晰的拼豆图纸，然后像手工练习表一样编辑。",
+    openLibrary: "已保存图纸"
   },
   welcome: {
     title: "开始拼豆图纸",
     body: "导入照片以匹配拼豆颜色，或创建空白网格自行绘制。",
     importImage: "导入图片",
-    createNewPattern: "新建图纸"
+    createNewPattern: "新建图纸",
+    openLibrary: "浏览已保存图纸",
+    importPatternJson: "导入已保存的图纸",
   },
   status: {
     importPrompt: "选择图片并预览，然后生成图纸。",
@@ -36,7 +39,11 @@ export const zh = {
     restored: "已恢复：{{label}}。",
     emptyCellEyedropper: "该格为空，没有可吸取的拼豆颜色。",
     noUndo: "没有可撤销的编辑。",
-    noRedo: "没有可重做的编辑。"
+    noRedo: "没有可重做的编辑。",
+    librarySaveFailed: "无法将图纸写入浏览器存储。请在图库中把重要图纸导出为文件。",
+    patternImportInvalid: "该文件不是有效的珀勒鲁姆图纸导出。",
+    patternImported: "图纸已导入到本地库。",
+    exportPngFailed: "PNG 导出失败。"
   },
   errors: {
     readImageCanvasUnavailable: "当前环境无法使用画布进行图片转换。",
@@ -112,6 +119,12 @@ export const zh = {
       line: "直线"
     },
     editorToolsAside: "编辑工具",
+    newImportTooltip: "选择照片生成拼豆图纸，或打开导入选项。",
+    createNewPatternTooltip: "从空白拼豆网格开始绘制。",
+    patternLibraryTooltip: "打开本机已保存的图纸。",
+    exportImageTooltip: "导出可分享或打印的图纸图片。",
+    exportFileTooltip:
+      "下载可在本应用再次打开的编辑文件。图纸仍会在此浏览器中自动记录。",
     newImport: "新建 / 导入",
     createNewPattern: "新建图纸",
     generatedChartPreview: "生成的图纸预览",
@@ -134,6 +147,33 @@ export const zh = {
     eraser: "拖动时橡皮会沿路径清除拼豆格。",
     bucket: "油漆桶填充相同颜色并接触边缘的区域。",
     line: "按下起点，移动，松开以绘制直线。"
+  },
+  library: {
+    dialogTitle: "图纸库",
+    dialogDescription: "在本浏览器中管理图纸：打开已有图纸、导出图片，或下载可编辑文件以便迁移或分享。",
+    searchLabel: "搜索",
+    searchPlaceholder: "按标题搜索",
+    sortLabel: "排序",
+    sortUpdated: "最近更新",
+    sortCreated: "最近创建",
+    sortTitle: "标题 A–Z",
+    emptyFiltered: "没有匹配的图纸。",
+    metaLine: "更新 {{updated}} · 创建 {{created}}",
+    renameAria: "重命名 {{title}}",
+    open: "打开",
+    duplicate: "复制",
+    exportPng: "导出图片",
+    exportImageHint: "导出这张图纸的图片。",
+    exportJson: "导出文件",
+    exportFileHint: "下载可在本应用再次打开的编辑文件。",
+    delete: "删除",
+    confirmDelete: "确定从本浏览器删除该图纸？",
+    importJson: "导入已保存文件",
+    importSavedHint: "选择此前从此应用导出的可编辑图纸文件。",
+    done: "完成",
+    defaultTitle: "未命名图纸",
+    importedTitle: "导入的图纸",
+    duplicatedTitleSuffix: "副本"
   },
   sidePanels: {
     legendAria: "图例色块",

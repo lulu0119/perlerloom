@@ -1,30 +1,67 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactElement } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactElement } from "react";
 import { createBlankPattern, type PatternDocument, type PatternSettings } from "@perlerloom/core";
 import { mardPalette } from "@perlerloom/palettes";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { Button } from "@perlerloom/ui";
 import { publicPath } from "../../../base-path";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
 import { ConversionWorkerFailure } from "@/lib/conversion-worker-failure";
+import { renderPatternExportToPngBlob } from "@/lib/pattern-export-image";
+import {
+  createPatternRecordId,
+  exportPatternRecordToJson,
+  importPatternRecordFromExportJson,
+  loadPatternLibraryFromLocalStorage,
+  patternDownloadBasename,
+  savePatternLibraryToLocalStorage,
+  triggerBrowserDownload,
+  type PatternLibraryDocument,
+  type PatternRecord,
+  type SavedHistoryEntry
+} from "@/lib/pattern-storage";
 import { EditorWelcome } from "./editor-welcome";
 import type { AppStatusMessage } from "./app-status-message";
 import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
 import { LanguageSwitcher } from "./language-switcher";
 import { NewPatternDialog } from "./new-pattern-dialog";
 import { PatternEditorWorkspace } from "./pattern-editor-workspace";
+import { PatternLibraryDialog } from "./pattern-library-dialog";
 import {
   buildImportFormLayoutDefaults,
   clonePattern,
+  createHistoryEntryId,
   getTargetDimensions,
   isClusteringSpace,
   isDownsamplingMode,
   isMatchingSpace,
   maxPatternDimension,
   readImageFile,
-  ReadImageFailure
+  ReadImageFailure,
+  type HistoryEntry
 } from "./pattern-editor-utils";
+
+function emptyLibrary(): PatternLibraryDocument {
+  return {
+    version: 1,
+    activePatternId: null,
+    patterns: []
+  };
+}
+
+function normalizePatternLibraryDocument(doc: PatternLibraryDocument): PatternLibraryDocument {
+  if (doc.patterns.length === 0) {
+    return doc.activePatternId === null ? doc : { ...doc, activePatternId: null };
+  }
+  const exists =
+    doc.activePatternId !== null && doc.patterns.some((record) => record.id === doc.activePatternId);
+  if (exists) {
+    return doc;
+  }
+  return { ...doc, activePatternId: doc.patterns[0]!.id };
+}
 
 const initialSettings: PatternSettings = {
   targetColorCount: 24,
@@ -36,10 +73,52 @@ const initialSettings: PatternSettings = {
 
 const importSizingReferencePattern: PatternDocument = createBlankPattern(8, 8, initialSettings);
 
+function createPatternRecord(pattern: PatternDocument, title: string): PatternRecord {
+  const id = createPatternRecordId();
+  const now = new Date().toISOString();
+  const historyEntries: SavedHistoryEntry[] = [
+    {
+      id: createHistoryEntryId(),
+      labelKey: "history.generatedPattern",
+      pattern: clonePattern(pattern)
+    }
+  ];
+  return {
+    id,
+    title,
+    createdAt: now,
+    updatedAt: now,
+    pattern: clonePattern(pattern),
+    historyEntries,
+    activeHistoryIndex: 0,
+    storage: { provider: "local" }
+  };
+}
+
+function duplicatePatternRecord(source: PatternRecord, duplicateTitle: string): PatternRecord {
+  const now = new Date().toISOString();
+  return {
+    ...source,
+    id: createPatternRecordId(),
+    title: duplicateTitle,
+    createdAt: now,
+    updatedAt: now,
+    pattern: clonePattern(source.pattern),
+    historyEntries: source.historyEntries.map((entry) => ({
+      id: entry.id,
+      labelKey: entry.labelKey,
+      pattern: clonePattern(entry.pattern)
+    })),
+    storage: { provider: "local" }
+  };
+}
+
 export function PerlerloomApp(): ReactElement {
   const { t } = useTranslation();
-  const [pattern, setPattern] = useState<PatternDocument | null>(null);
-  const [editorInstanceKey, setEditorInstanceKey] = useState(0);
+  const [library, setLibrary] = useState<PatternLibraryDocument>(emptyLibrary);
+  const [hydrated, setHydrated] = useState(false);
+  const [libraryDialogOpen, setLibraryDialogOpen] = useState(false);
+  const [editorResetKey, setEditorResetKey] = useState(0);
   const [selectedSourceImage, setSelectedSourceImage] = useState<SelectedSourceImage | null>(null);
   const [importSettings, setImportSettings] = useState<PatternSettings>(initialSettings);
   const [resizeMode, setResizeMode] = useState<ResizeMode>("original");
@@ -53,6 +132,8 @@ export function PerlerloomApp(): ReactElement {
   const [newPatternDialogOpen, setNewPatternDialogOpen] = useState(false);
   const [newPatternDialogKey, setNewPatternDialogKey] = useState(0);
 
+  const paletteMapForExport = useMemo(() => new Map(mardPalette.map((color) => [color.code, color])), []);
+
   useEffect(() => {
     return () => {
       if (selectedSourceImage !== null) {
@@ -61,8 +142,64 @@ export function PerlerloomApp(): ReactElement {
     };
   }, [selectedSourceImage]);
 
+  useEffect(() => {
+    queueMicrotask(() => {
+      const loaded = loadPatternLibraryFromLocalStorage();
+      if (loaded !== null && loaded.patterns.length > 0) {
+        setLibrary(normalizePatternLibraryDocument(loaded));
+      }
+      setHydrated(true);
+    });
+  }, []);
+
+  const persistedLibrary = useMemo(() => normalizePatternLibraryDocument(library), [library]);
+
+  useEffect(() => {
+    if (!hydrated) {
+      return;
+    }
+    try {
+      savePatternLibraryToLocalStorage(persistedLibrary);
+    } catch {
+      queueMicrotask(() => {
+        setMessage({ tone: "accent", key: "status.librarySaveFailed" });
+      });
+    }
+  }, [hydrated, persistedLibrary]);
+
+  const activeRecord = useMemo(() => {
+    const patterns = persistedLibrary.patterns;
+    if (patterns.length === 0) {
+      return null;
+    }
+    const preferredId = persistedLibrary.activePatternId;
+    if (preferredId !== null) {
+      const match = patterns.find((record) => record.id === preferredId);
+      if (match !== undefined) {
+        return match;
+      }
+    }
+    return patterns[0] ?? null;
+  }, [persistedLibrary.activePatternId, persistedLibrary.patterns]);
+
+  const editorPattern =
+    activeRecord === null
+      ? null
+      : clonePattern(activeRecord.historyEntries[activeRecord.activeHistoryIndex]?.pattern ?? activeRecord.pattern);
+
+  const initialHistoryEntries =
+    activeRecord === null
+      ? undefined
+      : activeRecord.historyEntries.map((entry) => ({
+          id: entry.id,
+          labelKey: entry.labelKey,
+          pattern: clonePattern(entry.pattern)
+        }));
+
+  const initialActiveHistoryIndex = activeRecord?.activeHistoryIndex ?? 0;
+
   const openImportDialog = useCallback(() => {
-    const sizingPattern = pattern ?? importSizingReferencePattern;
+    const sizingPattern = activeRecord?.pattern ?? importSizingReferencePattern;
     setImportSettings({ ...sizingPattern.settings });
     setTargetColorCountInput(String(sizingPattern.settings.targetColorCount));
     const layout = buildImportFormLayoutDefaults(sizingPattern, selectedSourceImage);
@@ -71,11 +208,104 @@ export function PerlerloomApp(): ReactElement {
     setTargetHeightInput(layout.targetHeight);
     setScalePercentInput(layout.scalePercent);
     setGenerateDialogOpen(true);
-  }, [pattern, selectedSourceImage]);
+  }, [activeRecord?.pattern, selectedSourceImage]);
 
   const openNewPatternDialog = useCallback(() => {
     setNewPatternDialogKey((key) => key + 1);
     setNewPatternDialogOpen(true);
+  }, []);
+
+  const handleExportPatternJson = useCallback(
+    (patternId: string) => {
+      const record = library.patterns.find((item) => item.id === patternId);
+      if (record === undefined) {
+        return;
+      }
+      const json = exportPatternRecordToJson(record);
+      const blob = new Blob([json], { type: "application/json;charset=utf-8" });
+      triggerBrowserDownload(blob, `${patternDownloadBasename(record.title)}.json`);
+    },
+    [library.patterns]
+  );
+
+  const handleExportPatternPng = useCallback(
+    async (patternId: string) => {
+      const record = library.patterns.find((item) => item.id === patternId);
+      if (record === undefined) {
+        return;
+      }
+      try {
+        const blob = await renderPatternExportToPngBlob(record.pattern, paletteMapForExport);
+        triggerBrowserDownload(blob, `${patternDownloadBasename(record.title)}.png`);
+      } catch {
+        setMessage({ tone: "accent", key: "status.exportPngFailed" });
+      }
+    },
+    [library.patterns, paletteMapForExport]
+  );
+
+  const handleImportPatternJsonFile = useCallback(
+    async (file: File) => {
+      try {
+        const text = await file.text();
+        const imported = importPatternRecordFromExportJson(text, createPatternRecordId);
+        setLibrary((previous) => ({
+          version: 1,
+          activePatternId: imported.id,
+          patterns: [...previous.patterns, imported]
+        }));
+        setEditorResetKey((key) => key + 1);
+        setLibraryDialogOpen(false);
+        setMessage({ tone: "muted", key: "status.patternImported" });
+      } catch {
+        setMessage({ tone: "accent", key: "status.patternImportInvalid" });
+      }
+    },
+    []
+  );
+
+  const handleRenamePattern = useCallback((patternId: string, title: string) => {
+    setLibrary((previous) => ({
+      ...previous,
+      patterns: previous.patterns.map((record) =>
+        record.id === patternId ? { ...record, title, updatedAt: new Date().toISOString() } : record
+      )
+    }));
+  }, []);
+
+  const handleDuplicatePattern = useCallback(
+    (patternId: string) => {
+      const source = library.patterns.find((record) => record.id === patternId);
+      if (source === undefined) {
+        return;
+      }
+      const duplicateTitle = `${source.title} (${t("library.duplicatedTitleSuffix")})`;
+      const copy = duplicatePatternRecord(source, duplicateTitle);
+      setLibrary((previous) => ({
+        ...previous,
+        activePatternId: copy.id,
+        patterns: [...previous.patterns, copy]
+      }));
+      setEditorResetKey((key) => key + 1);
+    },
+    [library.patterns, t]
+  );
+
+  const handleDeletePattern = useCallback((patternId: string) => {
+    setLibrary((previous) => {
+      const patterns = previous.patterns.filter((record) => record.id !== patternId);
+      let activePatternId = previous.activePatternId;
+      if (activePatternId === patternId) {
+        activePatternId = patterns[0]?.id ?? null;
+      }
+      return { ...previous, patterns, activePatternId };
+    });
+  }, []);
+
+  const handleOpenPattern = useCallback((patternId: string) => {
+    setLibrary((previous) => ({ ...previous, activePatternId: patternId }));
+    setEditorResetKey((key) => key + 1);
+    setLibraryDialogOpen(false);
   }, []);
 
   async function handleSelectedFile(file: File): Promise<void> {
@@ -93,7 +323,7 @@ export function PerlerloomApp(): ReactElement {
         return { file, previewUrl, width: sourceWidth, height: sourceHeight };
       });
 
-      const sizingPattern = pattern ?? importSizingReferencePattern;
+      const sizingPattern = activeRecord?.pattern ?? importSizingReferencePattern;
       const layout = buildImportFormLayoutDefaults(sizingPattern, { width: sourceWidth, height: sourceHeight });
       setResizeMode(layout.resizeMode);
       setTargetWidthInput(layout.targetWidth);
@@ -144,10 +374,15 @@ export function PerlerloomApp(): ReactElement {
         targetHeight: targetDimensions.height
       });
       const nextPattern = clonePattern(convertedPattern);
-      setPattern(nextPattern);
+      const record = createPatternRecord(nextPattern, t("library.importedTitle"));
+      setLibrary((previous) => ({
+        version: 1,
+        activePatternId: record.id,
+        patterns: [...previous.patterns, record]
+      }));
       setImportSettings(nextPattern.settings);
       setTargetColorCountInput(String(nextPattern.settings.targetColorCount));
-      setEditorInstanceKey((key) => key + 1);
+      setEditorResetKey((key) => key + 1);
       setMessage({ tone: "muted", key: "status.patternGenerated" });
       setGenerateDialogOpen(false);
     } catch (error) {
@@ -228,24 +463,80 @@ export function PerlerloomApp(): ReactElement {
 
   function handleCreateBlankPattern(width: number, height: number): void {
     const blank = createBlankPattern(width, height, importSettings);
-    setPattern(blank);
-    setEditorInstanceKey((key) => key + 1);
+    const record = createPatternRecord(blank, t("library.defaultTitle"));
+    setLibrary((previous) => ({
+      version: 1,
+      activePatternId: record.id,
+      patterns: [...previous.patterns, record]
+    }));
+    setEditorResetKey((key) => key + 1);
+    setNewPatternDialogOpen(false);
     setMessage({ tone: "muted", key: "status.emptyGridReady" });
   }
 
   const commitPatternUpdate = useCallback((next: PatternDocument | ((previous: PatternDocument) => PatternDocument)): void => {
-    setPattern((previous) => {
-      if (previous === null) {
-        return previous;
+    setLibrary((previousLibrary) => {
+      const activeId = previousLibrary.activePatternId;
+      if (activeId === null) {
+        return previousLibrary;
       }
-      return typeof next === "function" ? next(previous) : next;
+      return {
+        ...previousLibrary,
+        patterns: previousLibrary.patterns.map((record) => {
+          if (record.id !== activeId) {
+            return record;
+          }
+          const resolved = typeof next === "function" ? next(record.pattern) : next;
+          return {
+            ...record,
+            pattern: clonePattern(resolved),
+            updatedAt: new Date().toISOString()
+          };
+        })
+      };
     });
   }, []);
+
+  const handleHistoryStateChange = useCallback((entries: HistoryEntry[], activeHistoryIndex: number): void => {
+    setLibrary((previousLibrary) => {
+      const activeId = previousLibrary.activePatternId;
+      if (activeId === null) {
+        return previousLibrary;
+      }
+      return {
+        ...previousLibrary,
+        patterns: previousLibrary.patterns.map((record) => {
+          if (record.id !== activeId) {
+            return record;
+          }
+          const saved: SavedHistoryEntry[] = entries.map((entry) => ({
+            id: entry.id,
+            labelKey: entry.labelKey as SavedHistoryEntry["labelKey"],
+            pattern: clonePattern(entry.pattern)
+          }));
+          const present = saved[activeHistoryIndex]?.pattern;
+          if (present === undefined) {
+            return record;
+          }
+          return {
+            ...record,
+            pattern: clonePattern(present),
+            historyEntries: saved,
+            activeHistoryIndex,
+            updatedAt: new Date().toISOString()
+          };
+        })
+      };
+    });
+  }, []);
+
+  const showWelcome = library.patterns.length === 0;
+  const showEditor = editorPattern !== null && initialHistoryEntries !== undefined;
 
   return (
     <main className="bg-background text-foreground flex min-h-0 flex-1 flex-col overflow-hidden">
       <header className="border-border shrink-0 border-b bg-white/90 px-4 py-3 shadow-sm">
-        <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div className="flex min-w-0 flex-1 items-start gap-3">
             <Image
               src={publicPath("/android-chrome-192x192.png")}
@@ -259,25 +550,61 @@ export function PerlerloomApp(): ReactElement {
               <p className="text-muted-foreground mt-1 max-w-3xl text-xs md:text-sm">{t("header.taglinePrimary")}</p>
             </div>
           </div>
-          <div className="flex shrink-0 flex-col items-stretch md:items-end">
+          <div className="flex shrink-0 flex-col items-stretch gap-2 md:flex-row md:items-center md:justify-end">
+            <Button
+              className="w-full md:w-auto"
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setLibraryDialogOpen(true)}
+            >
+              {t("header.openLibrary")}
+            </Button>
             <LanguageSwitcher />
           </div>
         </div>
       </header>
 
-      {pattern === null ? (
-        <EditorWelcome onCreateNewPattern={openNewPatternDialog} onImportImage={() => openImportDialog()} />
-      ) : (
+      {showWelcome ? (
+        <EditorWelcome
+          onCreateNewPattern={openNewPatternDialog}
+          onImportImage={() => openImportDialog()}
+          onImportPatternJson={(file) => handleImportPatternJsonFile(file)}
+          onOpenLibrary={() => setLibraryDialogOpen(true)}
+        />
+      ) : null}
+
+      {showEditor ? (
         <PatternEditorWorkspace
-          key={editorInstanceKey}
-          pattern={pattern}
+          key={`${persistedLibrary.activePatternId ?? "none"}-${String(editorResetKey)}`}
+          initialActiveHistoryIndex={initialActiveHistoryIndex}
+          initialHistoryEntries={initialHistoryEntries}
+          pattern={editorPattern}
+          statusMessage={message}
+          onExportJson={() => handleExportPatternJson(persistedLibrary.activePatternId!)}
+          onExportPng={() => void handleExportPatternPng(persistedLibrary.activePatternId!)}
+          onHistoryStateChange={handleHistoryStateChange}
           onOpenCreateNewPatternDialog={openNewPatternDialog}
           onOpenImportDialog={openImportDialog}
+          onOpenLibrary={() => setLibraryDialogOpen(true)}
           onPatternChange={commitPatternUpdate}
-          statusMessage={message}
           onStatusMessageChange={setMessage}
         />
-      )}
+      ) : null}
+
+      <PatternLibraryDialog
+        activePatternId={persistedLibrary.activePatternId}
+        open={libraryDialogOpen}
+        patterns={library.patterns}
+        onDeletePattern={handleDeletePattern}
+        onDuplicatePattern={handleDuplicatePattern}
+        onExportJson={handleExportPatternJson}
+        onExportPng={(id) => void handleExportPatternPng(id)}
+        onImportJsonFile={(file) => handleImportPatternJsonFile(file)}
+        onOpenChange={setLibraryDialogOpen}
+        onOpenPattern={handleOpenPattern}
+        onRenamePattern={handleRenamePattern}
+      />
 
       <GenerateImportDialog
         importSettings={importSettings}

@@ -14,13 +14,16 @@ export const en = {
   header: {
     logoAlt: "Perlerloom logo",
     taglinePrimary:
-      "Preview an image, choose an explicit size, generate a crisp bead chart, then edit it like a craft worksheet."
+      "Preview an image, choose an explicit size, generate a crisp bead chart, then edit it like a craft worksheet.",
+    openLibrary: "Saved charts"
   },
   welcome: {
     title: "Start a bead chart",
     body: "Import a photo to match colors to beads, or create an empty grid and paint it yourself.",
     importImage: "Import image",
-    createNewPattern: "Create new pattern"
+    createNewPattern: "Create new pattern",
+    openLibrary: "Browse saved charts",
+    importPatternJson: "Import a saved file",
   },
   status: {
     importPrompt: "Choose an image, preview it, then generate a chart.",
@@ -37,7 +40,11 @@ export const en = {
     restored: "Restored: {{label}}.",
     emptyCellEyedropper: "That cell is empty—no bead color to pick.",
     noUndo: "No edits to undo.",
-    noRedo: "No edits to redo."
+    noRedo: "No edits to redo.",
+    librarySaveFailed: "Could not write patterns to browser storage. Export important charts as a file from the library.",
+    patternImportInvalid: "That file is not a valid Perlerloom chart export.",
+    patternImported: "Pattern imported into your library.",
+    exportPngFailed: "PNG export failed."
   },
   errors: {
     readImageCanvasUnavailable: "Canvas is not available for image conversion.",
@@ -116,6 +123,12 @@ export const en = {
       line: "Line"
     },
     editorToolsAside: "Editor tools",
+    newImportTooltip: "Choose a photo and turn it into a chart, or open import options.",
+    createNewPatternTooltip: "Start from an empty bead grid.",
+    patternLibraryTooltip: "Open charts saved on this device.",
+    exportImageTooltip: "Export a picture of your chart to share or print.",
+    exportFileTooltip:
+      "Download an editable file you can open again here. Your chart still auto-saves in this browser.",
     newImport: "New / Import",
     createNewPattern: "Create new pattern",
     generatedChartPreview: "Generated chart preview",
@@ -151,6 +164,34 @@ export const en = {
     legendReplaceTitle: "Replace {{fromCode}} with {{activeColor}}",
     legendDelete: "Delete {{fromCode}} from pattern",
     legendDeleteTitle: "Delete {{fromCode}}"
+  },
+  library: {
+    dialogTitle: "Pattern library",
+    dialogDescription:
+      "Work with charts in this browser: open them, export a picture, or download an editable file to move or share.",
+    searchLabel: "Search",
+    searchPlaceholder: "Search by title",
+    sortLabel: "Sort",
+    sortUpdated: "Recently updated",
+    sortCreated: "Recently created",
+    sortTitle: "Title A–Z",
+    emptyFiltered: "No patterns match your search.",
+    metaLine: "Updated {{updated}} · Created {{created}}",
+    renameAria: "Rename {{title}}",
+    open: "Open",
+    duplicate: "Duplicate",
+    exportPng: "Export image",
+    exportImageHint: "Export a picture of this chart.",
+    exportJson: "Export file",
+    exportFileHint: "Download an editable file you can open again here.",
+    delete: "Delete",
+    confirmDelete: "Delete this pattern from this browser?",
+    importJson: "Import saved file",
+    importSavedHint: "Choose an editable chart file you exported from this app.",
+    done: "Done",
+    defaultTitle: "Untitled pattern",
+    importedTitle: "Imported chart",
+    duplicatedTitleSuffix: "copy"
   },
   mardPalette: {
     sectionLabel: "Mard palette",
