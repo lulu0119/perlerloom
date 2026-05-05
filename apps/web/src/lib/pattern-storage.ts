@@ -1,4 +1,3 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { PatternCell, PatternSettings } from "@perlerloom/core";
 
 export type SavedPatternPayload = {
@@ -27,11 +26,6 @@ export type SharePayload = {
   patternId: string;
   createdBy: string;
   access: "readOnly";
-};
-
-export type ExportMetadata = {
-  attributionUrl: string;
-  qrPayload: string;
 };
 
 export function validateSavedPatternPayload(payload: SavedPatternPayload): SavedPatternPayload {
@@ -64,73 +58,4 @@ export function createSharePayload(patternId: string, createdBy: string): ShareP
     createdBy,
     access: "readOnly"
   };
-}
-
-export function createExportMetadata(shareUrl: string): ExportMetadata {
-  return {
-    attributionUrl: "https://perlerloom.app",
-    qrPayload: shareUrl
-  };
-}
-
-export function createSupabaseBrowserClient(): SupabaseClient | null {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (supabaseUrl === undefined || supabaseAnonKey === undefined) {
-    return null;
-  }
-
-  return createClient(supabaseUrl, supabaseAnonKey);
-}
-
-export async function savePatternDocument(
-  supabase: SupabaseClient,
-  payload: SavedPatternPayload
-): Promise<{ patternId: string }> {
-  const validPayload = validateSavedPatternPayload(payload);
-  const { data, error } = await supabase
-    .from("patterns")
-    .insert({
-      owner_id: validPayload.ownerId,
-      title: validPayload.title,
-      version: validPayload.version,
-      width: validPayload.dimensions.width,
-      height: validPayload.dimensions.height,
-      palette_brand: validPayload.paletteBrand,
-      document: validPayload
-    })
-    .select("id")
-    .single();
-
-  if (error !== null) {
-    throw new Error(error.message);
-  }
-  if (data === null || typeof data.id !== "string") {
-    throw new Error("Supabase did not return a saved pattern id.");
-  }
-
-  return { patternId: data.id };
-}
-
-export async function createPatternShare(
-  supabase: SupabaseClient,
-  patternId: string,
-  createdBy: string
-): Promise<{ shareId: string }> {
-  const payload = createSharePayload(patternId, createdBy);
-  const { data, error } = await supabase.from("pattern_shares").insert({
-    pattern_id: payload.patternId,
-    created_by: payload.createdBy,
-    access: payload.access
-  }).select("id").single();
-
-  if (error !== null) {
-    throw new Error(error.message);
-  }
-  if (data === null || typeof data.id !== "string") {
-    throw new Error("Supabase did not return a share id.");
-  }
-
-  return { shareId: data.id };
 }

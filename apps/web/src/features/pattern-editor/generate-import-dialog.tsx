@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { ImageIcon, Sparkles, UploadCloud } from "lucide-react";
+import { ImageIcon, Layers, UploadCloud } from "lucide-react";
 import type { PatternSettings } from "@perlerloom/core";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -262,7 +262,9 @@ export function GenerateImportDialog({
 
             <section aria-label="Preprocessing options" className="space-y-3 rounded-xl bg-stone-50 p-3">
               <h3 className="text-sm font-semibold text-stone-950">Preprocessing</h3>
-              <p className="text-xs text-stone-600">Local conversion is active. Dithering starts off for cleaner bead charts.</p>
+              <p className="text-xs text-stone-600">
+                Tune color count, match and cluster color space, downsampling, and optional dithering before generating.
+              </p>
               <div className="space-y-1">
                 <Label className="text-xs text-stone-900" htmlFor="import-target-colors">
                   Target colors
@@ -340,15 +342,6 @@ export function GenerateImportDialog({
                   Enable dithering
                 </Label>
               </div>
-              <Button
-                className="w-full rounded-full border-stone-300 bg-stone-100 text-xs font-semibold text-stone-500 hover:bg-stone-100"
-                disabled
-                type="button"
-                variant="outline"
-              >
-                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                AI cleanup requires sign-in
-              </Button>
             </section>
 
             <p
@@ -367,7 +360,7 @@ export function GenerateImportDialog({
               type="button"
               onClick={onGenerate}
             >
-              <Sparkles className="h-4 w-4" aria-hidden="true" />
+              <Layers className="h-4 w-4" aria-hidden="true" />
               {isGenerating ? "Generating…" : "Generate pattern"}
             </Button>
           </div>

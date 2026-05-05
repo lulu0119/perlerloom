@@ -173,15 +173,6 @@ describe("Perlerloom editor shell", () => {
     await waitFor(() => expect(screen.getByRole("button", { name: /generated pattern/i })).toHaveAttribute("aria-current", "step"));
   });
 
-  it("requires authentication before cloud save", async () => {
-    const user = userEvent.setup();
-    render(<PerlerloomApp />);
-
-    await user.click(screen.getByRole("button", { name: /save to cloud/i }));
-
-    expect(screen.getByText(/sign in to save/i)).toBeInTheDocument();
-  });
-
   it("scales pattern canvas label font when chart zoom changes", async () => {
     const user = userEvent.setup();
     render(<PerlerloomApp />);

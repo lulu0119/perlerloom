@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
-import { Hand, ImagePlus, Layers, Minus, PaintBucket, Pencil, Pipette, Save, Share2, ZoomIn, ZoomOut, type LucideIcon } from "lucide-react";
+import { Hand, ImagePlus, Layers, Minus, PaintBucket, Pencil, Pipette, ZoomIn, ZoomOut, type LucideIcon } from "lucide-react";
 import {
   bucketFillPattern,
   buildLegend,
@@ -19,10 +18,8 @@ import {
 } from "@perlerloom/core";
 import { mardPalette } from "@perlerloom/palettes";
 import { cn } from "@perlerloom/ui";
-import QRCode from "qrcode";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
 import { majorGridLineCellIndices } from "@/lib/major-grid-line-indices";
-import { createExportMetadata } from "@/lib/pattern-storage";
 import { EditorSidePanels } from "./editor-side-panels";
 import { ChartToolHud } from "./chart-tool-hud";
 import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
@@ -101,14 +98,12 @@ export function PerlerloomApp(): React.ReactElement {
   const [activeColor, setActiveColor] = useState("H7");
   const [zoom, setZoom] = useState(1);
   const [message, setMessage] = useState("Choose an image, preview it, then generate a chart.");
-  const [shareQrDataUrl, setShareQrDataUrl] = useState<string | null>(null);
   const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>([initialHistoryEntry]);
   const [activeHistoryIndex, setActiveHistoryIndex] = useState(0);
   const [lineStartPoint, setLineStartPoint] = useState<PatternPoint | null>(null);
   const [linePreviewPoint, setLinePreviewPoint] = useState<PatternPoint | null>(null);
   const [eyedropperHoverCell, setEyedropperHoverCell] = useState<PatternPoint | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isAuthenticated] = useState(false);
   const [generateDialogOpen, setGenerateDialogOpen] = useState(false);
   const [mobileSidePanelOpen, setMobileSidePanelOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -403,14 +398,6 @@ export function PerlerloomApp(): React.ReactElement {
     setLinePreviewPoint(null);
   }
 
-  function handleSave(): void {
-    if (!isAuthenticated) {
-      setMessage("Sign in to save patterns to the cloud.");
-      return;
-    }
-    setMessage("Pattern saved.");
-  }
-
   function handleUndo(): void {
     if (activeHistoryIndex === 0) {
       setMessage("No edits to undo.");
@@ -425,13 +412,6 @@ export function PerlerloomApp(): React.ReactElement {
       return;
     }
     jumpToHistory(activeHistoryIndex + 1);
-  }
-
-  async function handleCreateShare(): Promise<void> {
-    const shareUrl = "https://perlerloom.app/share/local-preview";
-    const metadata = createExportMetadata(shareUrl);
-    setShareQrDataUrl(await QRCode.toDataURL(metadata.qrPayload));
-    setMessage(`Share export includes attribution: ${metadata.attributionUrl}`);
   }
 
   function applyPatternEdit(label: string, editedPattern: PatternDocument): void {
@@ -541,7 +521,7 @@ export function PerlerloomApp(): React.ReactElement {
             </p>
           </div>
           <p className="max-w-md rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-950 md:text-sm">
-            Local conversion is free. AI cleanup lives in the import flow; hosted accounts are not part of this MVP.
+            Everything runs in your browser: import an image, pick size and palette options, then edit the chart locally.
           </p>
         </div>
       </header>
@@ -645,34 +625,6 @@ export function PerlerloomApp(): React.ReactElement {
                     <ZoomIn className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                   </button>
                 </div>
-                <button
-                  aria-label="Save to cloud"
-                  className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full bg-stone-950 px-2.5 text-xs font-semibold text-white md:px-3"
-                  type="button"
-                  onClick={handleSave}
-                >
-                  <Save className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                  <span className="hidden sm:inline">Save</span>
-                </button>
-                <button
-                  aria-label="Create share QR"
-                  className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full border border-stone-300 bg-white px-2.5 text-xs font-semibold md:px-3"
-                  type="button"
-                  onClick={() => void handleCreateShare()}
-                >
-                  <Share2 className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                  <span className="hidden sm:inline">Share</span>
-                </button>
-                {shareQrDataUrl !== null ? (
-                  <Image
-                    alt="Perlerloom share QR code"
-                    className="h-8 w-8 shrink-0 rounded-lg border border-stone-200 p-0.5"
-                    height={48}
-                    src={shareQrDataUrl}
-                    unoptimized
-                    width={48}
-                  />
-                ) : null}
               </div>
             </div>
 

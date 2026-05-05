@@ -1,10 +1,6 @@
 import { describe, expect, it } from "vitest";
-import {
-  createExportMetadata,
-  createSharePayload,
-  validateSavedPatternPayload,
-  type SavedPatternPayload
-} from "./pattern-storage";
+import { createExportMetadata } from "./pattern-export-metadata";
+import { createSharePayload, validateSavedPatternPayload, type SavedPatternPayload } from "./pattern-storage";
 
 const validPayload: SavedPatternPayload = {
   ownerId: "user-1",
