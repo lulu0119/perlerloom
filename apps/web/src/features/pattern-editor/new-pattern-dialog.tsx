@@ -1,7 +1,8 @@
 "use client";
 
-import { useId, useState } from "react";
 import type { ReactElement } from "react";
+import { useId, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Button,
   Dialog,
@@ -14,9 +15,6 @@ import {
   Label
 } from "@perlerloom/ui";
 
-const defaultWidth = 8;
-const defaultHeight = 8;
-
 type NewPatternDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -24,7 +22,11 @@ type NewPatternDialogProps = {
   onConfirm: (width: number, height: number) => void;
 };
 
+const defaultWidth = 8;
+const defaultHeight = 8;
+
 export function NewPatternDialog({ open, onOpenChange, maxDimension, onConfirm }: NewPatternDialogProps): ReactElement {
+  const { t } = useTranslation();
   const widthFieldId = useId();
   const heightFieldId = useId();
   const [widthInput, setWidthInput] = useState(String(defaultWidth));
@@ -35,11 +37,11 @@ export function NewPatternDialog({ open, onOpenChange, maxDimension, onConfirm }
     const width = Number(widthInput.trim());
     const height = Number(heightInput.trim());
     if (!Number.isInteger(width) || !Number.isInteger(height)) {
-      setError("Width and height must be whole numbers.");
+      setError(t("newPatternDialog.errors.wholeNumbers"));
       return;
     }
     if (width < 1 || height < 1 || width > maxDimension || height > maxDimension) {
-      setError(`Use sizes between 1 and ${maxDimension}.`);
+      setError(t("newPatternDialog.errors.sizeRange", { max: maxDimension }));
       return;
     }
     setError(null);
@@ -49,21 +51,23 @@ export function NewPatternDialog({ open, onOpenChange, maxDimension, onConfirm }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent showCloseButton className="border-border max-w-md rounded-2xl border bg-white text-foreground">
+      <DialogContent
+        showCloseButton
+        closeLabel={t("dialog.close")}
+        className="border-border max-w-md rounded-2xl border bg-white text-foreground"
+      >
         <DialogHeader>
-          <DialogTitle className="text-lg font-bold text-foreground">New pattern</DialogTitle>
-          <DialogDescription className="text-muted-foreground text-xs">
-            Choose the grid size in beads. You can paint the empty grid with the pencil and other tools.
-          </DialogDescription>
+          <DialogTitle className="text-lg font-bold text-foreground">{t("newPatternDialog.title")}</DialogTitle>
+          <DialogDescription className="text-muted-foreground text-xs">{t("newPatternDialog.description")}</DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-2 gap-3 py-2">
           <div className="space-y-1">
             <Label className="text-foreground text-xs" htmlFor={widthFieldId}>
-              Width (beads)
+              {t("newPatternDialog.widthLabel")}
             </Label>
             <Input
               id={widthFieldId}
-              aria-label="Pattern width in beads"
+              aria-label={t("newPatternDialog.widthAria")}
               className="text-sm"
               inputMode="numeric"
               min={1}
@@ -75,11 +79,11 @@ export function NewPatternDialog({ open, onOpenChange, maxDimension, onConfirm }
           </div>
           <div className="space-y-1">
             <Label className="text-foreground text-xs" htmlFor={heightFieldId}>
-              Height (beads)
+              {t("newPatternDialog.heightLabel")}
             </Label>
             <Input
               id={heightFieldId}
-              aria-label="Pattern height in beads"
+              aria-label={t("newPatternDialog.heightAria")}
               className="text-sm"
               inputMode="numeric"
               min={1}
@@ -97,10 +101,10 @@ export function NewPatternDialog({ open, onOpenChange, maxDimension, onConfirm }
         ) : null}
         <DialogFooter className="gap-2 sm:gap-0">
           <Button className="rounded-full" type="button" variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
+            {t("newPatternDialog.cancel")}
           </Button>
           <Button className="rounded-full" type="button" onClick={handleConfirm}>
-            Create grid
+            {t("newPatternDialog.createGrid")}
           </Button>
         </DialogFooter>
       </DialogContent>

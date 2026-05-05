@@ -1,8 +1,10 @@
 "use client";
 
+import type { ReactElement } from "react";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ImageIcon, Layers, UploadCloud } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { PatternSettings } from "@perlerloom/core";
 import {
   Button,
@@ -23,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@perlerloom/ui";
+import type { AppStatusMessage } from "./app-status-message";
 
 export type ResizeMode = "original" | "dimensions" | "scale";
 
@@ -55,17 +58,11 @@ type GenerateImportDialogProps = {
   onDitheringEnabledChange: (checked: boolean) => void;
   maxPatternDimension: number;
   isGenerating: boolean;
-  message: string;
+  message: AppStatusMessage;
   onFileInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDrop: (event: React.DragEvent<HTMLLabelElement>) => void;
   onGenerate: () => void;
 };
-
-const resizeModeOptions: { mode: ResizeMode; label: string }[] = [
-  { mode: "original", label: "Original" },
-  { mode: "dimensions", label: "W/H" },
-  { mode: "scale", label: "Scale" }
-];
 
 export function GenerateImportDialog({
   open,
@@ -93,9 +90,16 @@ export function GenerateImportDialog({
   onFileInputChange,
   onDrop,
   onGenerate
-}: GenerateImportDialogProps): React.ReactElement {
+}: GenerateImportDialogProps): ReactElement {
+  const { t } = useTranslation();
   const uploadLabelRef = useRef<HTMLLabelElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+
+  const resizeModeOptions: { mode: ResizeMode; labelKey: "importDialog.resizeOriginal" | "importDialog.resizeDimensions" | "importDialog.resizeScale" }[] = [
+    { mode: "original", labelKey: "importDialog.resizeOriginal" },
+    { mode: "dimensions", labelKey: "importDialog.resizeDimensions" },
+    { mode: "scale", labelKey: "importDialog.resizeScale" }
+  ];
 
   useEffect(() => {
     if (!open) {
@@ -116,19 +120,18 @@ export function GenerateImportDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton
+        closeLabel={t("dialog.close")}
         className={cn(
           "flex max-h-[min(90dvh,40rem)] w-[calc(100%-1.5rem)] max-w-md flex-col gap-0 overflow-hidden rounded-t-2xl border-border bg-white p-0 text-foreground shadow-xl sm:rounded-2xl"
         )}
       >
         <DialogHeader className="border-border shrink-0 border-b px-4 py-3 text-left">
-          <DialogTitle className="text-lg font-bold text-foreground">New / Import</DialogTitle>
-          <DialogDescription className="text-muted-foreground text-xs">
-            Upload a source image, set size and preprocessing, then generate.
-          </DialogDescription>
+          <DialogTitle className="text-lg font-bold text-foreground">{t("importDialog.title")}</DialogTitle>
+          <DialogDescription className="text-muted-foreground text-xs">{t("importDialog.description")}</DialogDescription>
         </DialogHeader>
 
         <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-4">
-          <section aria-label="Upload and preview" className="space-y-3">
+          <section aria-label={t("importDialog.sectionUploadPreview")} className="space-y-3">
             <Label
               ref={uploadLabelRef}
               className="border-primary/40 bg-accent/70 hover:border-primary hover:bg-accent flex min-h-36 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-4 text-center font-normal transition"
@@ -137,43 +140,48 @@ export function GenerateImportDialog({
               onDrop={onDrop}
             >
               <UploadCloud className="text-brand-accent h-8 w-8" aria-hidden="true" />
-              <span className="text-foreground mt-2 text-sm font-semibold">Drop image here or click to upload</span>
-              <span className="text-muted-foreground mt-1 text-xs">PNG, JPEG, or another browser-supported image</span>
-              <input aria-label="Choose source image" className="sr-only" type="file" accept="image/*" onChange={onFileInputChange} />
+              <span className="text-foreground mt-2 text-sm font-semibold">{t("importDialog.dropHint")}</span>
+              <span className="text-muted-foreground mt-1 text-xs">{t("importDialog.formatsHint")}</span>
+              <input aria-label={t("importDialog.chooseSourceImage")} className="sr-only" type="file" accept="image/*" onChange={onFileInputChange} />
             </Label>
 
             {selectedSourceImage !== null ? (
               <div className="border-border rounded-xl border bg-white p-2">
                 <div className="bg-muted relative h-32 overflow-hidden rounded-lg">
-                  <Image alt="Selected source image" className="object-contain" fill sizes="280px" src={selectedSourceImage.previewUrl} unoptimized />
+                  <Image
+                    alt={t("importDialog.selectedSourceAlt")}
+                    className="object-contain"
+                    fill
+                    sizes="280px"
+                    src={selectedSourceImage.previewUrl}
+                    unoptimized
+                  />
                 </div>
                 <p className="text-foreground mt-2 text-xs font-medium">
-                  Source: {selectedSourceImage.width} × {selectedSourceImage.height} px
+                  {t("importDialog.sourceDimensions", { width: selectedSourceImage.width, height: selectedSourceImage.height })}
                 </p>
-                <p className="text-muted-foreground mt-1 text-xs">
-                  Preview is the uploaded image only; the bead grid appears after you tap Generate pattern.
-                </p>
+                <p className="text-muted-foreground mt-1 text-xs">{t("importDialog.previewNote")}</p>
               </div>
             ) : (
               <div className="border-border bg-muted rounded-xl border p-3 text-xs text-muted-foreground">
                 <ImageIcon className="text-muted-foreground mb-1 h-4 w-4" aria-hidden="true" />
-                Image preview appears here before generation.
+                {t("importDialog.emptyPreviewHint")}
               </div>
             )}
           </section>
 
           <div className="space-y-4">
-            <section aria-label="Pattern size" className="bg-muted space-y-3 rounded-xl p-3">
-              <h3 className="text-foreground text-sm font-semibold">Pattern size</h3>
+            <section aria-label={t("importDialog.sectionPatternSize")} className="bg-muted space-y-3 rounded-xl p-3">
+              <h3 className="text-foreground text-sm font-semibold">{t("importDialog.patternSizeHeading")}</h3>
               <p className="text-muted-foreground text-xs">
-                Images up to {maxPatternDimension} × {maxPatternDimension} keep their source size by default. Larger images need an explicit target.
+                {t("importDialog.patternSizeIntro", { max: maxPatternDimension })}
               </p>
               <RadioGroup
                 className="grid grid-cols-3 gap-1.5"
                 value={resizeMode}
                 onValueChange={(value) => onResizeModeChange(value as ResizeMode)}
               >
-                {resizeModeOptions.map(({ mode, label }) => (
+                {resizeModeOptions.map(({ mode, labelKey }) => (
                   <Label
                     key={mode}
                     className={cn(
@@ -183,17 +191,17 @@ export function GenerateImportDialog({
                     htmlFor={`import-resize-${mode}`}
                   >
                     <RadioGroupItem value={mode} id={`import-resize-${mode}`} className="border-input" />
-                    <span>{label}</span>
+                    <span>{t(labelKey)}</span>
                   </Label>
                 ))}
               </RadioGroup>
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
                   <Label className="text-foreground text-xs" htmlFor="import-target-width">
-                    Target width
+                    {t("importDialog.targetWidth")}
                   </Label>
                   <Input
-                    aria-label="Target width"
+                    aria-label={t("importDialog.targetWidth")}
                     className="text-sm"
                     id="import-target-width"
                     max={maxPatternDimension}
@@ -205,10 +213,10 @@ export function GenerateImportDialog({
                 </div>
                 <div className="space-y-1">
                   <Label className="text-foreground text-xs" htmlFor="import-target-height">
-                    Target height
+                    {t("importDialog.targetHeight")}
                   </Label>
                   <Input
-                    aria-label="Target height"
+                    aria-label={t("importDialog.targetHeight")}
                     className="text-sm"
                     id="import-target-height"
                     max={maxPatternDimension}
@@ -221,10 +229,10 @@ export function GenerateImportDialog({
               </div>
               <div className="space-y-1">
                 <Label className="text-foreground text-xs" htmlFor="import-scale-percent">
-                  Scale factor
+                  {t("importDialog.scaleFactor")}
                 </Label>
                 <Input
-                  aria-label="Scale factor"
+                  aria-label={t("importDialog.scaleFactor")}
                   className="text-sm"
                   id="import-scale-percent"
                   max={100}
@@ -236,7 +244,7 @@ export function GenerateImportDialog({
               </div>
               <div className="space-y-1">
                 <Label className="text-foreground text-xs" htmlFor="import-downsample-trigger">
-                  Downsampling method
+                  {t("importDialog.downsamplingMethod")}
                 </Label>
                 <Select
                   value={importSettings.downsamplingMode}
@@ -248,29 +256,27 @@ export function GenerateImportDialog({
                 >
                   <SelectTrigger id="import-downsample-trigger" className="w-full" size="sm">
                     <SelectValue>
-                      {importSettings.downsamplingMode === "nearest" ? "Nearest neighbor" : "Grid mode"}
+                      {importSettings.downsamplingMode === "nearest" ? t("importDialog.nearestNeighbor") : t("importDialog.gridMode")}
                     </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="nearest">Nearest neighbor</SelectItem>
-                    <SelectItem value="gridMode">Grid mode</SelectItem>
+                    <SelectItem value="nearest">{t("importDialog.nearestNeighbor")}</SelectItem>
+                    <SelectItem value="gridMode">{t("importDialog.gridMode")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </section>
 
-            <section aria-label="Preprocessing options" className="bg-muted space-y-3 rounded-xl p-3">
-              <h3 className="text-foreground text-sm font-semibold">Preprocessing</h3>
-              <p className="text-muted-foreground text-xs">
-                Tune color count, match and cluster color space, downsampling, and optional dithering before generating.
-              </p>
+            <section aria-label={t("importDialog.sectionPreprocessing")} className="bg-muted space-y-3 rounded-xl p-3">
+              <h3 className="text-foreground text-sm font-semibold">{t("importDialog.preprocessingHeading")}</h3>
+              <p className="text-muted-foreground text-xs">{t("importDialog.preprocessingIntro")}</p>
               <div className="space-y-1">
                 <Label className="text-foreground text-xs" htmlFor="import-target-colors">
-                  Target colors
+                  {t("importDialog.targetColors")}
                 </Label>
                 <Input
                   aria-describedby="import-target-colors-hint"
-                  aria-label="Target colors"
+                  aria-label={t("importDialog.targetColors")}
                   autoComplete="off"
                   className="text-sm"
                   id="import-target-colors"
@@ -281,15 +287,13 @@ export function GenerateImportDialog({
                   onChange={(event) => onTargetColorCountInputChange(event.currentTarget.value)}
                 />
                 <p className="text-muted-foreground text-[11px] leading-snug" id="import-target-colors-hint">
-                  This is how many k-means clusters are formed before each cluster center is snapped to the nearest bead
-                  color. The chart can end up with fewer distinct bead codes when several clusters map to the same
-                  palette entry.
+                  {t("importDialog.targetColorsHint")}
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
                   <Label className="text-foreground text-xs" htmlFor="import-match-trigger">
-                    Match space
+                    {t("importDialog.matchSpace")}
                   </Label>
                   <Select
                     value={importSettings.matchingSpace}
@@ -317,7 +321,7 @@ export function GenerateImportDialog({
                 </div>
                 <div className="space-y-1">
                   <Label className="text-foreground text-xs" htmlFor="import-cluster-trigger">
-                    Cluster space
+                    {t("importDialog.clusterSpace")}
                   </Label>
                   <Select
                     value={importSettings.clusteringSpace}
@@ -344,7 +348,7 @@ export function GenerateImportDialog({
                   onCheckedChange={(checked) => onDitheringEnabledChange(checked)}
                 />
                 <Label htmlFor="import-dithering" className="text-foreground cursor-pointer text-xs font-normal">
-                  Enable dithering
+                  {t("importDialog.enableDithering")}
                 </Label>
               </div>
             </section>
@@ -352,13 +356,11 @@ export function GenerateImportDialog({
             <p
               className={cn(
                 "rounded-xl px-3 py-2 text-xs",
-                message.includes("failed") || message.includes("before")
-                  ? "bg-accent text-accent-foreground"
-                  : "bg-muted text-muted-foreground"
+                message.tone === "accent" ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
               )}
               role="status"
             >
-              {message}
+              {t(message.key, message.params as Record<string, unknown>)}
             </p>
 
             <Button
@@ -368,7 +370,7 @@ export function GenerateImportDialog({
               onClick={onGenerate}
             >
               <Layers className="h-4 w-4" aria-hidden="true" />
-              {isGenerating ? "Generating…" : "Generate pattern"}
+              {isGenerating ? t("importDialog.generating") : t("importDialog.generatePattern")}
             </Button>
           </div>
         </div>

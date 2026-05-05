@@ -44,7 +44,7 @@ describe("conversion worker contract", () => {
       requestId: "bad-request"
     });
     if (response.type === "error") {
-      expect(response.message).toMatch(/RGB buffer size/i);
+      expect(response.code).toBe("rgb_buffer_mismatch");
     }
   });
 });

@@ -1,9 +1,19 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { I18nextProvider } from "react-i18next";
+import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import i18n, { i18nInitialization, LANGUAGE_STORAGE_KEY } from "@/i18n/config";
 import { PerlerloomApp } from "./perlerloom-app";
 
 const patternCanvasMockContexts: Array<{ font: string }> = [];
+
+function renderPerlerloomApp(): ReturnType<typeof render> {
+  return render(
+    <I18nextProvider i18n={i18n}>
+      <PerlerloomApp />
+    </I18nextProvider>
+  );
+}
 
 async function openGenerateImportDialog(user: ReturnType<typeof userEvent.setup>): Promise<void> {
   const importImage = screen.queryByRole("button", { name: /^import image$/i });
@@ -22,7 +32,13 @@ async function enterEditorWithBlankPattern(user: ReturnType<typeof userEvent.set
 }
 
 describe("Perlerloom editor shell", () => {
-  beforeEach(() => {
+  beforeAll(async () => {
+    await i18nInitialization;
+  });
+
+  beforeEach(async () => {
+    localStorage.removeItem(LANGUAGE_STORAGE_KEY);
+    await i18n.changeLanguage("en");
     patternCanvasMockContexts.length = 0;
     vi.stubGlobal(
       "createImageBitmap",
@@ -48,7 +64,7 @@ describe("Perlerloom editor shell", () => {
   });
 
   it("starts with a welcome empty state and no canvas until a pattern exists", () => {
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     expect(screen.queryByLabelText(/editable bead pattern/i)).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: /^import image$/i })).toBeInTheDocument();
@@ -57,7 +73,7 @@ describe("Perlerloom editor shell", () => {
 
   it("renders upload settings with dithering disabled by default", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
 
@@ -68,7 +84,7 @@ describe("Perlerloom editor shell", () => {
 
   it("shows an upload preview before generation and keeps generation explicit", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
     const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
@@ -86,7 +102,7 @@ describe("Perlerloom editor shell", () => {
 
   it("generates the pattern only after the generate button is clicked", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
     const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
@@ -106,7 +122,7 @@ describe("Perlerloom editor shell", () => {
       height: 1000,
       close: vi.fn()
     } as ImageBitmap);
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
     const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
@@ -122,7 +138,7 @@ describe("Perlerloom editor shell", () => {
 
   it("updates conversion selects without reading a cleared event target", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
     const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
@@ -141,7 +157,7 @@ describe("Perlerloom editor shell", () => {
 
   it("changes the active toolbar tool", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /paint bucket/i }));
@@ -152,7 +168,7 @@ describe("Perlerloom editor shell", () => {
 
   it("includes the eyedropper tool in the rail", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /^eyedropper$/i }));
@@ -163,7 +179,7 @@ describe("Perlerloom editor shell", () => {
 
   it("uses a tool-specific chart cursor", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /hand/i }));
@@ -173,7 +189,7 @@ describe("Perlerloom editor shell", () => {
 
   it("renders the legend as compact selectable badges", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await enterEditorWithBlankPattern(user);
 
@@ -190,7 +206,7 @@ describe("Perlerloom editor shell", () => {
 
   it("records edit history and can jump to a previous snapshot", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /paint bucket/i }));
@@ -204,7 +220,7 @@ describe("Perlerloom editor shell", () => {
 
   it("scales pattern canvas label font when chart zoom changes", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await enterEditorWithBlankPattern(user);
     await waitFor(() => expect(patternCanvasMockContexts.length).toBeGreaterThan(0));
@@ -225,7 +241,7 @@ describe("Perlerloom editor shell", () => {
 
   it("steps chart zoom when zoom out and zoom in buttons are clicked", async () => {
     const user = userEvent.setup();
-    render(<PerlerloomApp />);
+    renderPerlerloomApp();
 
     await enterEditorWithBlankPattern(user);
     await waitFor(() => expect(patternCanvasMockContexts.length).toBeGreaterThan(0));
@@ -241,6 +257,22 @@ describe("Perlerloom editor shell", () => {
     await waitFor(() => {
       expect(patternCanvasMockContexts.at(-1)!.font).not.toEqual(fontAfterZoomOut);
     });
+  });
+
+  it("stores selected language in localStorage", async () => {
+    const user = userEvent.setup();
+    renderPerlerloomApp();
+    const languageControl = screen.getByRole("combobox", { name: /language/i });
+    await user.click(languageControl);
+    await user.click(await screen.findByRole("option", { name: /中文/i }));
+    await waitFor(() => expect(localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("zh"));
+  });
+
+  it("shows Chinese interface when language is Chinese", async () => {
+    await i18n.changeLanguage("zh");
+    renderPerlerloomApp();
+    expect(screen.getByRole("heading", { level: 1, name: "珀勒鲁姆" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /导入图片/ })).toBeInTheDocument();
   });
 });
 

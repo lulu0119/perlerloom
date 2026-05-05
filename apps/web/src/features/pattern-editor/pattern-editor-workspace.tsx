@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactElement } from "react";
 import { ImagePlus, LayoutGrid, Layers, ZoomIn, ZoomOut } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
   bucketFillPattern,
   buildLegend,
@@ -14,6 +15,7 @@ import {
 } from "@perlerloom/core";
 import { mardPalette } from "@perlerloom/palettes";
 import { cn } from "@perlerloom/ui";
+import type { AppStatusMessage } from "./app-status-message";
 import { EditorSidePanels } from "./editor-side-panels";
 import { ChartToolHud } from "./chart-tool-hud";
 import {
@@ -22,7 +24,7 @@ import {
   clampZoom,
   clonePattern,
   createCanvasLayout,
-  createHistoryId,
+  createHistoryEntryId,
   drawPatternCanvas,
   getCanvasCursorClassName,
   getToolIcon,
@@ -30,24 +32,19 @@ import {
   snapZoomToChartStep,
   stepChartZoom,
   type EditorTool,
-  type HistoryEntry
+  type HistoryEntry,
+  type HistoryLabelKey
 } from "./pattern-editor-utils";
 
-const toolLabels: Record<EditorTool, string> = {
-  pencil: "Pencil",
-  eyedropper: "Eyedropper",
-  paintBucket: "Paint Bucket",
-  hand: "Hand",
-  line: "Line"
-};
+const editorTools: EditorTool[] = ["pencil", "eyedropper", "paintBucket", "hand", "line"];
 
 export type PatternEditorWorkspaceProps = {
   pattern: PatternDocument;
   onPatternChange: (next: PatternDocument | ((previous: PatternDocument) => PatternDocument)) => void;
   onOpenImportDialog: () => void;
   onOpenCreateNewPatternDialog: () => void;
-  statusMessage: string;
-  onStatusMessageChange: (message: string) => void;
+  statusMessage: AppStatusMessage;
+  onStatusMessageChange: (message: AppStatusMessage) => void;
 };
 
 export function PatternEditorWorkspace({
@@ -58,11 +55,12 @@ export function PatternEditorWorkspace({
   statusMessage,
   onStatusMessageChange
 }: PatternEditorWorkspaceProps): ReactElement {
+  const { t } = useTranslation();
   const [activeTool, setActiveTool] = useState<EditorTool>("pencil");
   const [activeColor, setActiveColor] = useState("H7");
   const [zoom, setZoom] = useState(1);
   const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>(() => [
-    { id: createHistoryId("Generated pattern"), label: "Generated pattern", pattern: clonePattern(pattern) }
+    { id: createHistoryEntryId(), labelKey: "history.generatedPattern", pattern: clonePattern(pattern) }
   ]);
   const [activeHistoryIndex, setActiveHistoryIndex] = useState(0);
   const [lineStartPoint, setLineStartPoint] = useState<PatternPoint | null>(null);
@@ -108,6 +106,10 @@ export function PatternEditorWorkspace({
     }
   }
 
+  function toolLabel(tool: EditorTool): string {
+    return t(`workspace.tools.${tool}`);
+  }
+
   function handleCanvasClick(event: React.MouseEvent<HTMLCanvasElement>): void {
     const point = canvasPointToPatternPoint(event.currentTarget, event.clientX, event.clientY, pattern, canvasLayout);
     if (point === null) {
@@ -118,7 +120,7 @@ export function PatternEditorWorkspace({
       const index = point.row * pattern.width + point.column;
       const code = pattern.cells[index];
       if (code === null) {
-        onStatusMessageChange("That cell is empty—no bead color to pick.");
+        onStatusMessageChange({ tone: "accent", key: "status.emptyCellEyedropper" });
         return;
       }
       setActiveColor(code);
@@ -126,7 +128,7 @@ export function PatternEditorWorkspace({
     }
 
     if (activeTool === "paintBucket") {
-      applyPatternEdit("Bucket fill", bucketFillPattern(pattern, point, activeColor));
+      applyPatternEdit("history.bucketFill", bucketFillPattern(pattern, point, activeColor));
     }
   }
 
@@ -240,7 +242,7 @@ export function PatternEditorWorkspace({
     const snapshot = pencilStrokeLatestRef.current;
     pencilStrokeLatestRef.current = null;
     if (snapshot !== null) {
-      appendHistory("Pencil stroke", clonePattern(snapshot));
+      appendHistory("history.pencilStroke", clonePattern(snapshot));
     }
   }
 
@@ -254,7 +256,7 @@ export function PatternEditorWorkspace({
     }
 
     if (activeTool === "line" && lineStartPoint !== null && linePreviewPoint !== null) {
-      applyPatternEdit("Line", drawPatternLine(pattern, lineStartPoint, linePreviewPoint, activeColor));
+      applyPatternEdit("history.line", drawPatternLine(pattern, lineStartPoint, linePreviewPoint, activeColor));
     }
     setLineStartPoint(null);
     setLinePreviewPoint(null);
@@ -262,7 +264,7 @@ export function PatternEditorWorkspace({
 
   function handleUndo(): void {
     if (activeHistoryIndex === 0) {
-      onStatusMessageChange("No edits to undo.");
+      onStatusMessageChange({ tone: "muted", key: "status.noUndo" });
       return;
     }
     jumpToHistory(activeHistoryIndex - 1);
@@ -270,22 +272,22 @@ export function PatternEditorWorkspace({
 
   function handleRedo(): void {
     if (activeHistoryIndex >= historyEntries.length - 1) {
-      onStatusMessageChange("No edits to redo.");
+      onStatusMessageChange({ tone: "muted", key: "status.noRedo" });
       return;
     }
     jumpToHistory(activeHistoryIndex + 1);
   }
 
-  function applyPatternEdit(label: string, editedPattern: PatternDocument): void {
+  function applyPatternEdit(labelKey: HistoryLabelKey, editedPattern: PatternDocument): void {
     const nextPattern = clonePattern(editedPattern);
     onPatternChange(nextPattern);
-    appendHistory(label, nextPattern);
+    appendHistory(labelKey, nextPattern);
   }
 
-  function appendHistory(label: string, nextPattern: PatternDocument): void {
+  function appendHistory(labelKey: HistoryLabelKey, nextPattern: PatternDocument): void {
     setHistoryEntries((currentEntries) => {
       const activeEntries = currentEntries.slice(0, activeHistoryIndex + 1);
-      const nextEntries = [...activeEntries, { id: createHistoryId(label), label, pattern: clonePattern(nextPattern) }].slice(-maxHistoryEntries);
+      const nextEntries = [...activeEntries, { id: createHistoryEntryId(), labelKey, pattern: clonePattern(nextPattern) }].slice(-maxHistoryEntries);
       setActiveHistoryIndex(nextEntries.length - 1);
       return nextEntries;
     });
@@ -298,7 +300,11 @@ export function PatternEditorWorkspace({
     }
     onPatternChange(clonePattern(entry.pattern));
     setActiveHistoryIndex(index);
-    onStatusMessageChange(`Restored: ${entry.label}.`);
+    onStatusMessageChange({
+      tone: "muted",
+      key: "status.restored",
+      params: { label: t(entry.labelKey) }
+    });
   }
 
   const toolRailButtonClassName =
@@ -313,8 +319,8 @@ export function PatternEditorWorkspace({
       legend={legend}
       paletteByCode={paletteByCode}
       onActiveColorChange={setActiveColor}
-      onApplyDelete={(fromCode) => applyPatternEdit("Delete", deletePatternColor(pattern, fromCode))}
-      onApplyReplace={(fromCode) => applyPatternEdit("Replace", replacePatternColor(pattern, fromCode, activeColor))}
+      onApplyDelete={(fromCode) => applyPatternEdit("history.delete", deletePatternColor(pattern, fromCode))}
+      onApplyReplace={(fromCode) => applyPatternEdit("history.replace", replacePatternColor(pattern, fromCode, activeColor))}
       onJumpToHistory={jumpToHistory}
       onRedo={handleRedo}
       onUndo={handleUndo}
@@ -324,15 +330,16 @@ export function PatternEditorWorkspace({
   return (
     <div className="flex min-h-0 flex-1 flex-col md:flex-row">
       <aside
-        aria-label="Editor tools"
+        aria-label={t("workspace.editorToolsAside")}
         className="border-border flex shrink-0 flex-row items-center gap-1 overflow-x-auto border-b bg-white/95 px-2 py-1.5 md:w-14 md:flex-col md:items-center md:overflow-y-auto md:overflow-x-visible md:border-b-0 md:border-r md:px-0 md:py-2"
       >
-        {(Object.keys(toolLabels) as EditorTool[]).map((tool) => {
+        {editorTools.map((tool) => {
           const Icon = getToolIcon(tool);
+          const label = toolLabel(tool);
           return (
             <button
               aria-current={activeTool === tool ? "true" : undefined}
-              aria-label={toolLabels[tool]}
+              aria-label={label}
               className={cn(
                 toolRailButtonClassName,
                 activeTool === tool
@@ -340,7 +347,7 @@ export function PatternEditorWorkspace({
                   : "border-border bg-white hover:bg-muted md:hover:bg-muted"
               )}
               key={tool}
-              title={toolLabels[tool]}
+              title={label}
               type="button"
               onClick={() => selectActiveTool(tool)}
             >
@@ -350,18 +357,18 @@ export function PatternEditorWorkspace({
         })}
         <div className="bg-border mx-1 hidden h-px w-8 shrink-0 md:my-1 md:block" role="presentation" />
         <button
-          aria-label="New / Import"
+          aria-label={t("workspace.newImport")}
           className={cn(toolRailButtonClassName, "border-primary/35 bg-accent text-accent-foreground hover:bg-accent/80")}
-          title="New / Import"
+          title={t("workspace.newImport")}
           type="button"
           onClick={onOpenImportDialog}
         >
           <ImagePlus className="h-5 w-5" aria-hidden="true" />
         </button>
         <button
-          aria-label="Create new pattern"
+          aria-label={t("workspace.createNewPattern")}
           className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
-          title="Create new pattern"
+          title={t("workspace.createNewPattern")}
           type="button"
           onClick={onOpenCreateNewPatternDialog}
         >
@@ -372,7 +379,7 @@ export function PatternEditorWorkspace({
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <div className="bg-brand-surface-muted md:bg-background flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
           <div className="border-border flex shrink-0 flex-col gap-1 border-b bg-white/90 px-2 py-1.5">
-            <p className="text-brand-accent text-[10px] font-semibold uppercase tracking-[0.22em]">Generated chart preview</p>
+            <p className="text-brand-accent text-[10px] font-semibold uppercase tracking-[0.22em]">{t("workspace.generatedChartPreview")}</p>
             <div className="flex flex-wrap items-center gap-2">
               <div className="min-w-0 flex-1">
                 <ChartToolHud
@@ -387,10 +394,10 @@ export function PatternEditorWorkspace({
               <div
                 className="border-border text-foreground inline-flex h-8 shrink-0 items-center gap-0.5 rounded-full border bg-white px-1 text-xs font-medium"
                 role="group"
-                aria-label="Magnification controls"
+                aria-label={t("workspace.magnificationControls")}
               >
                 <button
-                  aria-label="Zoom out"
+                  aria-label={t("workspace.zoomOut")}
                   className="text-muted-foreground inline-flex shrink-0 items-center justify-center rounded-full p-1 transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
                   disabled={snapZoomToChartStep(zoom) <= CHART_ZOOM_STEPS[0]!}
                   type="button"
@@ -399,7 +406,7 @@ export function PatternEditorWorkspace({
                   <ZoomOut className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                 </button>
                 <select
-                  aria-label="Chart zoom"
+                  aria-label={t("workspace.chartZoom")}
                   className="max-h-6 min-h-0 max-w-[4.5rem] shrink-0 cursor-pointer appearance-none border-0 bg-transparent py-0 text-xs font-semibold leading-none outline-none"
                   value={String(zoom)}
                   onChange={(event) => {
@@ -417,7 +424,7 @@ export function PatternEditorWorkspace({
                   <option value="2">200%</option>
                 </select>
                 <button
-                  aria-label="Zoom in"
+                  aria-label={t("workspace.zoomIn")}
                   className="text-muted-foreground inline-flex shrink-0 items-center justify-center rounded-full p-1 transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
                   disabled={snapZoomToChartStep(zoom) >= CHART_ZOOM_STEPS[CHART_ZOOM_STEPS.length - 1]!}
                   type="button"
@@ -429,13 +436,21 @@ export function PatternEditorWorkspace({
             </div>
           </div>
 
-          <p className="border-border bg-muted/90 text-muted-foreground line-clamp-2 border-b px-2 py-1 text-xs md:text-sm" role="status">
-            {statusMessage}
+          <p
+            className={cn(
+              "line-clamp-2 border-b px-2 py-1 text-xs md:text-sm",
+              statusMessage.tone === "accent"
+                ? "border-border bg-accent text-accent-foreground"
+                : "border-border bg-muted/90 text-muted-foreground"
+            )}
+            role="status"
+          >
+            {t(statusMessage.key, statusMessage.params as Record<string, unknown>)}
           </p>
 
           <div ref={chartScrollRef} className="min-h-0 flex-1 overflow-auto p-2 md:p-3">
             <canvas
-              aria-label="Editable bead pattern"
+              aria-label={t("workspace.editableBeadPattern")}
               className={cn("block rounded-lg bg-white shadow-sm", canvasCursorClassName)}
               height={canvasLayout.height}
               ref={canvasRef}
@@ -456,7 +471,7 @@ export function PatternEditorWorkspace({
 
       <aside
         className="border-border hidden min-h-0 w-[300px] shrink-0 flex-col overflow-y-auto overscroll-contain border-l bg-white/95 p-3 md:flex"
-        aria-label="Palette and history"
+        aria-label={t("workspace.paletteAndHistoryAside")}
       >
         {sidePanelContent}
       </aside>
@@ -464,7 +479,7 @@ export function PatternEditorWorkspace({
       <button
         aria-expanded={mobileSidePanelOpen}
         aria-haspopup="dialog"
-        aria-label="Open palette and history"
+        aria-label={t("workspace.openPaletteAndHistory")}
         className="border-primary/35 bg-accent text-accent-foreground fixed bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full border shadow-lg md:hidden"
         type="button"
         onClick={() => setMobileSidePanelOpen(true)}
@@ -475,13 +490,13 @@ export function PatternEditorWorkspace({
       {mobileSidePanelOpen ? (
         <div className="fixed inset-0 z-40 md:hidden">
           <button
-            aria-label="Dismiss palette and history"
+            aria-label={t("workspace.dismissPaletteAndHistory")}
             className="absolute inset-0 bg-black/40"
             type="button"
             onClick={() => setMobileSidePanelOpen(false)}
           />
           <div
-            aria-label="Palette and history"
+            aria-label={t("workspace.paletteAndHistoryDialog")}
             className="border-border absolute bottom-0 left-0 right-0 flex max-h-[78dvh] flex-col overflow-y-auto overscroll-contain rounded-t-2xl border bg-white p-3 shadow-2xl"
             role="dialog"
           >

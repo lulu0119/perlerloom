@@ -1,6 +1,8 @@
 import { convertImageToPattern, type PatternDocument, type PatternSettings } from "@perlerloom/core";
 import { mardPalette, type RgbColor } from "@perlerloom/palettes";
 
+export type ConversionFailureCode = "rgb_buffer_mismatch" | "conversion_failed";
+
 export type ConversionWorkerRequest = {
   requestId: string;
   width: number;
@@ -20,14 +22,18 @@ export type ConversionWorkerResponse =
   | {
       type: "error";
       requestId: string;
-      message: string;
+      code: ConversionFailureCode;
     };
 
 export function handleConversionRequest(request: ConversionWorkerRequest): ConversionWorkerResponse {
   try {
     const rgbView = new Uint8Array(request.rgbBytes);
     if (rgbView.length !== request.width * request.height * 3) {
-      throw new Error("RGB buffer size does not match image dimensions.");
+      return {
+        type: "error",
+        requestId: request.requestId,
+        code: "rgb_buffer_mismatch"
+      };
     }
 
     const pixels: RgbColor[] = new Array(request.width * request.height);
@@ -55,11 +61,11 @@ export function handleConversionRequest(request: ConversionWorkerRequest): Conve
       requestId: request.requestId,
       pattern
     };
-  } catch (error) {
+  } catch {
     return {
       type: "error",
       requestId: request.requestId,
-      message: error instanceof Error ? error.message : "Pattern conversion failed."
+      code: "conversion_failed"
     };
   }
 }

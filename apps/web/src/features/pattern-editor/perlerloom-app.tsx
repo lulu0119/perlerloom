@@ -3,9 +3,13 @@
 import { useCallback, useEffect, useState, type ReactElement } from "react";
 import { createBlankPattern, type PatternDocument, type PatternSettings } from "@perlerloom/core";
 import { mardPalette } from "@perlerloom/palettes";
+import { useTranslation } from "react-i18next";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
+import { ConversionWorkerFailure } from "@/lib/conversion-worker-failure";
 import { EditorWelcome } from "./editor-welcome";
+import type { AppStatusMessage } from "./app-status-message";
 import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
+import { LanguageSwitcher } from "./language-switcher";
 import { NewPatternDialog } from "./new-pattern-dialog";
 import { PatternEditorWorkspace } from "./pattern-editor-workspace";
 import {
@@ -16,7 +20,8 @@ import {
   isDownsamplingMode,
   isMatchingSpace,
   maxPatternDimension,
-  readImageFile
+  readImageFile,
+  ReadImageFailure
 } from "./pattern-editor-utils";
 
 const initialSettings: PatternSettings = {
@@ -30,6 +35,7 @@ const initialSettings: PatternSettings = {
 const importSizingReferencePattern: PatternDocument = createBlankPattern(8, 8, initialSettings);
 
 export function PerlerloomApp(): ReactElement {
+  const { t } = useTranslation();
   const [pattern, setPattern] = useState<PatternDocument | null>(null);
   const [editorInstanceKey, setEditorInstanceKey] = useState(0);
   const [selectedSourceImage, setSelectedSourceImage] = useState<SelectedSourceImage | null>(null);
@@ -39,7 +45,7 @@ export function PerlerloomApp(): ReactElement {
   const [targetHeightInput, setTargetHeightInput] = useState(String(importSizingReferencePattern.height));
   const [scalePercentInput, setScalePercentInput] = useState("100");
   const [targetColorCountInput, setTargetColorCountInput] = useState(String(initialSettings.targetColorCount));
-  const [message, setMessage] = useState("Choose an image, preview it, then generate a chart.");
+  const [message, setMessage] = useState<AppStatusMessage>({ tone: "muted", key: "status.importPrompt" });
   const [isGenerating, setIsGenerating] = useState(false);
   const [generateDialogOpen, setGenerateDialogOpen] = useState(false);
   const [newPatternDialogOpen, setNewPatternDialogOpen] = useState(false);
@@ -93,23 +99,27 @@ export function PerlerloomApp(): ReactElement {
       setScalePercentInput(layout.scalePercent);
       setMessage(
         sourceWidth > maxPatternDimension || sourceHeight > maxPatternDimension
-          ? "Source is larger than 256 cells. Choose an explicit target size before generating."
-          : "Ready to generate without resizing."
+          ? { tone: "accent", key: "status.sourceTooLarge", params: { max: maxPatternDimension } }
+          : { tone: "muted", key: "status.readyNoResize" }
       );
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Image preview failed.");
+      if (error instanceof ReadImageFailure) {
+        setMessage({ tone: "accent", key: "errors.readImageCanvasUnavailable" });
+      } else {
+        setMessage({ tone: "accent", key: "status.imagePreviewFailed" });
+      }
     }
   }
 
   async function handleGeneratePattern(): Promise<void> {
     if (selectedSourceImage === null) {
-      setMessage("Choose an image before generating.");
+      setMessage({ tone: "accent", key: "status.chooseImageBeforeGenerate" });
       return;
     }
 
     const targetDimensions = getTargetDimensions(selectedSourceImage, resizeMode, targetWidthInput, targetHeightInput, scalePercentInput);
     if (targetDimensions === null) {
-      setMessage("Pattern size could not be computed. Check the fields and try again.");
+      setMessage({ tone: "accent", key: "status.sizeComputeFailed" });
       return;
     }
 
@@ -123,7 +133,7 @@ export function PerlerloomApp(): ReactElement {
 
     try {
       setIsGenerating(true);
-      setMessage("Converting image locally...");
+      setMessage({ tone: "muted", key: "status.converting" });
       const image = await readImageFile(selectedSourceImage.file);
       const convertedPattern = await convertImageInWorker({
         ...image,
@@ -136,10 +146,20 @@ export function PerlerloomApp(): ReactElement {
       setImportSettings(nextPattern.settings);
       setTargetColorCountInput(String(nextPattern.settings.targetColorCount));
       setEditorInstanceKey((key) => key + 1);
-      setMessage("Pattern generated locally.");
+      setMessage({ tone: "muted", key: "status.patternGenerated" });
       setGenerateDialogOpen(false);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Image conversion failed.");
+      if (error instanceof ConversionWorkerFailure) {
+        if (error.code === "rgb_buffer_mismatch") {
+          setMessage({ tone: "accent", key: "errors.conversionRgbBufferMismatch" });
+        } else {
+          setMessage({ tone: "accent", key: "errors.conversionFailed" });
+        }
+      } else if (error instanceof ReadImageFailure) {
+        setMessage({ tone: "accent", key: "errors.readImageCanvasUnavailable" });
+      } else {
+        setMessage({ tone: "accent", key: "status.imageConversionFailed" });
+      }
     } finally {
       setIsGenerating(false);
     }
@@ -208,7 +228,7 @@ export function PerlerloomApp(): ReactElement {
     const blank = createBlankPattern(width, height, importSettings);
     setPattern(blank);
     setEditorInstanceKey((key) => key + 1);
-    setMessage("Empty grid ready—paint with the pencil or pick colors from the palette.");
+    setMessage({ tone: "muted", key: "status.emptyGridReady" });
   }
 
   const commitPatternUpdate = useCallback((next: PatternDocument | ((previous: PatternDocument) => PatternDocument)): void => {
@@ -223,18 +243,14 @@ export function PerlerloomApp(): ReactElement {
   return (
     <main className="bg-background text-foreground flex min-h-0 flex-1 flex-col overflow-hidden">
       <header className="border-border shrink-0 border-b bg-white/90 px-4 py-3 shadow-sm">
-        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-brand-accent font-sans text-lg font-semibold uppercase tracking-[0.22em]">
-              Perlerloom
-            </h1>
-            <p className="text-muted-foreground mt-1 max-w-3xl text-xs md:text-sm">
-              Preview an image, choose an explicit size, generate a crisp bead chart, then edit it like a craft worksheet.
-            </p>
+        <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-brand-accent font-sans text-lg font-semibold uppercase tracking-[0.22em]">{t("meta.title")}</h1>
+            <p className="text-muted-foreground mt-1 max-w-3xl text-xs md:text-sm">{t("header.taglinePrimary")}</p>
           </div>
-          <p className="border-border bg-accent text-accent-foreground max-w-md rounded-xl border px-3 py-2 text-xs md:text-sm">
-            Everything runs in your browser: import an image, pick size and palette options, then edit the chart locally.
-          </p>
+          <div className="flex shrink-0 flex-col items-stretch md:items-end">
+            <LanguageSwitcher />
+          </div>
         </div>
       </header>
 

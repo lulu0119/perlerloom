@@ -4,6 +4,7 @@ import { ChevronDown, Hand, Minus, PaintBucket, Pencil, Pipette } from "lucide-r
 import type { PatternDocument, PatternPoint } from "@perlerloom/core";
 import type { ReactElement, ReactNode } from "react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@perlerloom/ui";
 import { MardPaletteGrid } from "./mard-palette-grid";
 
@@ -43,6 +44,7 @@ export function ChartToolHud({
   eyedropperHoverCell,
   paletteByCode
 }: ChartToolHudProps): ReactElement {
+  const { t } = useTranslation();
   const [colorMenuOpen, setColorMenuOpen] = useState(false);
   const isHand = activeTool === "hand";
   const showsDrawingColorSelect = !isHand;
@@ -52,20 +54,19 @@ export function ChartToolHud({
   const hoverIndex =
     eyedropperHoverCell !== null ? eyedropperHoverCell.row * pattern.width + eyedropperHoverCell.column : null;
   const hoverCode = hoverIndex !== null ? pattern.cells[hoverIndex] ?? null : null;
-  const hoverHex =
-    hoverCode !== null ? (paletteByCode.get(hoverCode)?.hex ?? "#ffffff") : "#f5f5f4";
+  const hoverHex = hoverCode !== null ? (paletteByCode.get(hoverCode)?.hex ?? "#ffffff") : "#f5f5f4";
 
   let centerSlot: ReactNode;
   if (activeTool === "hand") {
-    centerSlot = <span>Drag on the chart to scroll the preview.</span>;
+    centerSlot = <span>{t("chartHud.hand")}</span>;
   } else if (activeTool === "eyedropper") {
     centerSlot = (
       <div className="flex min-w-0 items-center gap-1.5" data-testid="chart-eyedropper-under-pointer">
         <span aria-live="polite" className="flex min-w-0 items-center gap-1.5">
           {eyedropperHoverCell === null ? (
-            <span className="text-muted-foreground">Move over a bead to preview its color.</span>
+            <span className="text-muted-foreground">{t("chartHud.eyedropperIdle")}</span>
           ) : hoverCode === null ? (
-            <span className="text-muted-foreground">Empty cell — nothing to pick.</span>
+            <span className="text-muted-foreground">{t("chartHud.eyedropperEmpty")}</span>
           ) : (
             <>
               <span
@@ -80,15 +81,11 @@ export function ChartToolHud({
       </div>
     );
   } else if (activeTool === "pencil") {
-    centerSlot = (
-      <span>
-        Pencil paints a <strong className="text-foreground font-semibold">single bead</strong> path while you drag.
-      </span>
-    );
+    centerSlot = <span>{t("chartHud.pencil")}</span>;
   } else if (activeTool === "paintBucket") {
-    centerSlot = <span>Flood fill matches the same color and touches edges.</span>;
+    centerSlot = <span>{t("chartHud.bucket")}</span>;
   } else {
-    centerSlot = <span>Place the start, move, then release to draw a straight run.</span>;
+    centerSlot = <span>{t("chartHud.line")}</span>;
   }
 
   return (
@@ -96,7 +93,7 @@ export function ChartToolHud({
       className="border-border divide-border flex h-8 min-h-8 max-h-8 min-w-0 divide-x overflow-hidden rounded-full border bg-white"
       data-testid="chart-tool-hud"
       role="region"
-      aria-label="Chart tool options"
+      aria-label={t("chartHud.regionLabel")}
     >
       <div className="bg-muted/80 flex w-8 shrink-0 items-center justify-center">
         <ChartHudToolGlyph tool={activeTool} />

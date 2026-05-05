@@ -1,0 +1,153 @@
+export const zh = {
+  meta: {
+    title: "珀勒鲁姆",
+    description: "从上传图片生成并编辑清晰的拼豆图纸。"
+  },
+  languageSwitcher: {
+    ariaLabel: "语言",
+    english: "English",
+    chinese: "中文"
+  },
+  dialog: {
+    close: "关闭"
+  },
+  header: {
+    taglinePrimary:
+      "预览图片、选择明确尺寸、生成清晰的拼豆图纸，然后像手工练习表一样编辑。"
+  },
+  welcome: {
+    title: "开始拼豆图纸",
+    body: "导入照片以匹配拼豆颜色，或创建空白网格自行绘制。",
+    importImage: "导入图片",
+    createNewPattern: "新建图纸"
+  },
+  status: {
+    importPrompt: "选择图片并预览，然后生成图纸。",
+    sourceTooLarge: "源图超过 {{max}} 格。生成前请先选择明确的目标尺寸。",
+    readyNoResize: "已准备好，无需缩放即可生成。",
+    imagePreviewFailed: "图片预览失败。",
+    chooseImageBeforeGenerate: "生成前请先选择图片。",
+    sizeComputeFailed: "无法计算图纸尺寸。请检查输入后重试。",
+    converting: "正在本地转换图片…",
+    patternGenerated: "已在本地生成图纸。",
+    imageConversionFailed: "图片转换失败。",
+    emptyGridReady: "空白网格已就绪——可用铅笔绘制或从调色板取色。",
+    restored: "已恢复：{{label}}。",
+    emptyCellEyedropper: "该格为空，没有可吸取的拼豆颜色。",
+    noUndo: "没有可撤销的编辑。",
+    noRedo: "没有可重做的编辑。"
+  },
+  errors: {
+    readImageCanvasUnavailable: "当前环境无法使用画布进行图片转换。",
+    conversionRgbBufferMismatch: "RGB 缓冲区大小与图片尺寸不匹配。",
+    conversionFailed: "图纸转换失败。"
+  },
+  history: {
+    generatedPattern: "生成的图纸",
+    pencilStroke: "铅笔笔划",
+    bucketFill: "油漆桶填充",
+    line: "直线",
+    replace: "替换",
+    delete: "删除"
+  },
+  importDialog: {
+    title: "新建 / 导入",
+    description: "上传源图，设置尺寸与预处理，然后生成。",
+    sectionUploadPreview: "上传与预览",
+    dropHint: "将图片拖放到此处或点击上传",
+    formatsHint: "PNG、JPEG 或浏览器支持的其它图片格式",
+    chooseSourceImage: "选择源图片",
+    selectedSourceAlt: "已选择的源图片",
+    sourceDimensions: "源图：{{width}} × {{height}} 像素",
+    previewNote: "预览仅为上传图片；点击生成图纸后才会显示拼豆网格。",
+    emptyPreviewHint: "生成前将在此处显示图片预览。",
+    sectionPatternSize: "图纸尺寸",
+    patternSizeHeading: "图纸尺寸",
+    patternSizeIntro:
+      "宽与高不超过 {{max}} × {{max}} 时默认保持源图尺寸；更大的图片需要指定目标尺寸。",
+    resizeOriginal: "原始",
+    resizeDimensions: "宽/高",
+    resizeScale: "缩放",
+    targetWidth: "目标宽度",
+    targetHeight: "目标高度",
+    scaleFactor: "缩放比例（%）",
+    downsamplingMethod: "缩小采样方式",
+    nearestNeighbor: "最近邻",
+    gridMode: "网格模式",
+    sectionPreprocessing: "预处理选项",
+    preprocessingHeading: "预处理",
+    preprocessingIntro: "在生成前调整颜色数量、匹配与聚类色彩空间、缩小采样以及可选抖动。",
+    targetColors: "目标颜色数",
+    targetColorsHint:
+      "这是 k-means 聚类的数量，每个聚类中心再吸附到最近的拼豆颜色。若多个聚类映射到同一调色板条目，最终图纸上不同色号可能更少。",
+    matchSpace: "匹配色彩空间",
+    clusterSpace: "聚类色彩空间",
+    enableDithering: "启用抖动",
+    generatePattern: "生成图纸",
+    generating: "正在生成…"
+  },
+  newPatternDialog: {
+    title: "新建图纸",
+    description: "以拼豆格数设置网格大小。可用铅笔等工具在空白网格上绘制。",
+    widthLabel: "宽度（格）",
+    heightLabel: "高度（格）",
+    widthAria: "图纸宽度（格）",
+    heightAria: "图纸高度（格）",
+    cancel: "取消",
+    createGrid: "创建网格",
+    errors: {
+      wholeNumbers: "宽度和高度必须是整数。",
+      sizeRange: "尺寸须在 1 到 {{max}} 之间。"
+    }
+  },
+  workspace: {
+    tools: {
+      pencil: "铅笔",
+      eyedropper: "吸管",
+      paintBucket: "油漆桶",
+      hand: "抓手",
+      line: "直线"
+    },
+    editorToolsAside: "编辑工具",
+    newImport: "新建 / 导入",
+    createNewPattern: "新建图纸",
+    generatedChartPreview: "生成的图纸预览",
+    magnificationControls: "缩放控制",
+    zoomOut: "缩小",
+    zoomIn: "放大",
+    chartZoom: "图纸缩放",
+    editableBeadPattern: "可编辑的拼豆图纸",
+    paletteAndHistoryAside: "调色板与历史",
+    openPaletteAndHistory: "打开调色板与历史",
+    dismissPaletteAndHistory: "关闭调色板与历史",
+    paletteAndHistoryDialog: "调色板与历史"
+  },
+  chartHud: {
+    regionLabel: "图纸工具选项",
+    hand: "在图纸上拖动以滚动预览。",
+    eyedropperIdle: "移动到拼豆格上以预览颜色。",
+    eyedropperEmpty: "空格 — 无可吸取内容。",
+    pencil: "拖动时铅笔会沿路径逐格绘制。",
+    bucket: "油漆桶填充相同颜色并接触边缘的区域。",
+    line: "按下起点，移动，松开以绘制直线。"
+  },
+  sidePanels: {
+    legendAria: "图例色块",
+    usedInChart: "图纸中使用",
+    historyTimelineAria: "历史时间线",
+    history: "历史",
+    undo: "撤销",
+    redo: "重做",
+    legendSelect: "选择 {{code}}",
+    legendReplace: "用当前颜色 {{activeColor}} 替换 {{fromCode}}",
+    legendReplaceTitle: "将 {{fromCode}} 替换为 {{activeColor}}",
+    legendDelete: "从图纸中删除 {{fromCode}}",
+    legendDeleteTitle: "删除 {{fromCode}}"
+  },
+  mardPalette: {
+    sectionLabel: "Mard 调色板",
+    heading: "Mard 调色板",
+    firstInGroup: "分组中首个：{{code}}",
+    selectColor: "选择调色板颜色 {{code}}"
+  }
+} as const;

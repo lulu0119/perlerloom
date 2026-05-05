@@ -1,7 +1,9 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
+import type { ReactElement } from "react";
 import { ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { mardPalette, type BeadColor } from "@perlerloom/palettes";
 import { readableTextHexOnBackgroundHex } from "@perlerloom/core";
 import { cn } from "@perlerloom/ui";
@@ -69,7 +71,8 @@ export function MardPaletteGrid({
   onSelectColor,
   className,
   embedded = false
-}: MardPaletteGridProps): React.ReactElement {
+}: MardPaletteGridProps): ReactElement {
+  const { t } = useTranslation();
   const panelIdPrefix = useId().replaceAll(":", "");
   const letterGroups = useMemo(() => buildMardPaletteLetterGroups(mardPalette), []);
   const [expandedPrefixes, setExpandedPrefixes] = useState<Set<string>>(() => new Set());
@@ -113,7 +116,7 @@ export function MardPaletteGrid({
                   aria-hidden="true"
                   className="border-border ml-auto h-5 w-5 shrink-0 rounded-sm border"
                   style={{ backgroundColor: firstColor.hex }}
-                  title={`First in group: ${firstColor.code}`}
+                  title={t("mardPalette.firstInGroup", { code: firstColor.code })}
                 />
               ) : null}
             </button>
@@ -131,7 +134,7 @@ export function MardPaletteGrid({
                     const labelColor = readableTextHexOnBackgroundHex(color.hex);
                     return (
                       <button
-                        aria-label={`Select palette color ${color.code}`}
+                        aria-label={t("mardPalette.selectColor", { code: color.code })}
                         aria-pressed={isActive}
                         className={cn(
                           "flex aspect-square min-h-0 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md px-1 py-0.5 text-center font-mono text-xs font-bold tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring",
@@ -170,8 +173,8 @@ export function MardPaletteGrid({
   }
 
   return (
-    <section aria-label="Mard palette" className={cn("border-border flex w-full shrink-0 flex-col rounded-xl border bg-white p-2", className)}>
-      <h2 className="text-muted-foreground mb-1.5 shrink-0 text-xs font-semibold uppercase tracking-wide">Mard palette</h2>
+    <section aria-label={t("mardPalette.sectionLabel")} className={cn("border-border flex w-full shrink-0 flex-col rounded-xl border bg-white p-2", className)}>
+      <h2 className="text-muted-foreground mb-1.5 shrink-0 text-xs font-semibold uppercase tracking-wide">{t("mardPalette.heading")}</h2>
       {paletteBody}
     </section>
   );

@@ -1,20 +1,17 @@
 "use client";
 
+import type { ReactElement } from "react";
 import { ArrowLeftRight, Redo2, Trash2, Undo2 } from "lucide-react";
-import { readableTextHexOnBackgroundHex, type PatternDocument, type PatternLegendItem } from "@perlerloom/core";
+import { useTranslation } from "react-i18next";
+import { readableTextHexOnBackgroundHex, type PatternLegendItem } from "@perlerloom/core";
 import { cn } from "@perlerloom/ui";
 import {
   drawingColorChromeBorderColorWhenActiveClass,
   drawingColorChromeBorderColorWhenIdleClass,
   drawingColorChromeBorderWidthClass
 } from "./active-drawing-color-chrome";
+import type { HistoryEntry } from "./pattern-editor-utils";
 import { MardPaletteGrid } from "./mard-palette-grid";
-
-type HistoryEntry = {
-  id: string;
-  label: string;
-  pattern: PatternDocument;
-};
 
 type EditorSidePanelsProps = {
   activeColor: string;
@@ -44,11 +41,13 @@ export function EditorSidePanels({
   onUndo,
   onRedo,
   className
-}: EditorSidePanelsProps): React.ReactElement {
+}: EditorSidePanelsProps): ReactElement {
+  const { t } = useTranslation();
+
   return (
     <div className={cn("flex min-h-0 min-w-0 flex-1 flex-col gap-3", className)}>
-      <section aria-label="Legend badges" className="border-border bg-muted/80 shrink-0 rounded-xl border p-2">
-        <h2 className="text-muted-foreground mb-1.5 text-xs font-semibold uppercase tracking-wide">Used in chart</h2>
+      <section aria-label={t("sidePanels.legendAria")} className="border-border bg-muted/80 shrink-0 rounded-xl border p-2">
+        <h2 className="text-muted-foreground mb-1.5 text-xs font-semibold uppercase tracking-wide">{t("sidePanels.usedInChart")}</h2>
         <div className="flex flex-wrap gap-1.5">
           {legend.map((item) => {
             const color = paletteByCode.get(item.code);
@@ -65,7 +64,7 @@ export function EditorSidePanels({
                 key={item.code}
               >
                 <button
-                  aria-label={`Select ${item.code}`}
+                  aria-label={t("sidePanels.legendSelect", { code: item.code })}
                   aria-pressed={isActiveChip}
                   className="border-border flex min-h-9 w-9 shrink-0 items-center justify-center border-r px-1 text-center font-mono text-xs font-bold tabular-nums tracking-wide transition hover:brightness-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
                   style={{ backgroundColor: swatchHex, color: codeOnSwatchColor }}
@@ -75,18 +74,18 @@ export function EditorSidePanels({
                   {item.code}
                 </button>
                 <button
-                  aria-label={`Replace ${item.code} with active color ${activeColor}`}
+                  aria-label={t("sidePanels.legendReplace", { fromCode: item.code, activeColor })}
                   className="border-border text-brand-accent hover:bg-accent/90 inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center border-r bg-white transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
-                  title={`Replace ${item.code} with ${activeColor}`}
+                  title={t("sidePanels.legendReplaceTitle", { fromCode: item.code, activeColor })}
                   type="button"
                   onClick={() => onApplyReplace(item.code)}
                 >
                   <ArrowLeftRight className="h-4 w-4" aria-hidden="true" />
                 </button>
                 <button
-                  aria-label={`Delete ${item.code} from pattern`}
+                  aria-label={t("sidePanels.legendDelete", { fromCode: item.code })}
                   className="inline-flex min-h-9 min-w-9 shrink-0 items-center justify-center bg-white text-red-800 transition hover:bg-red-100/80 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
-                  title={`Delete ${item.code}`}
+                  title={t("sidePanels.legendDeleteTitle", { fromCode: item.code })}
                   type="button"
                   onClick={() => onApplyDelete(item.code)}
                 >
@@ -100,12 +99,12 @@ export function EditorSidePanels({
 
       <MardPaletteGrid activeColor={activeColor} className="w-full shrink-0" onSelectColor={onActiveColorChange} />
 
-      <section aria-label="History timeline" className="border-border flex shrink-0 flex-col rounded-xl border bg-white p-2">
+      <section aria-label={t("sidePanels.historyTimelineAria")} className="border-border flex shrink-0 flex-col rounded-xl border bg-white p-2">
         <div className="mb-1.5 flex shrink-0 items-center justify-between gap-2">
-          <h2 className="text-muted-foreground text-xs font-semibold uppercase tracking-wide">History</h2>
+          <h2 className="text-muted-foreground text-xs font-semibold uppercase tracking-wide">{t("sidePanels.history")}</h2>
           <div className="flex gap-1">
             <button
-              aria-label="Undo"
+              aria-label={t("sidePanels.undo")}
               className="border-border bg-muted text-foreground rounded-lg border p-1.5 transition hover:bg-muted/80"
               type="button"
               onClick={onUndo}
@@ -113,7 +112,7 @@ export function EditorSidePanels({
               <Undo2 className="h-4 w-4" aria-hidden="true" />
             </button>
             <button
-              aria-label="Redo"
+              aria-label={t("sidePanels.redo")}
               className="border-border bg-muted text-foreground rounded-lg border p-1.5 transition hover:bg-muted/80"
               type="button"
               onClick={onRedo}
@@ -136,7 +135,7 @@ export function EditorSidePanels({
               type="button"
               onClick={() => onJumpToHistory(index)}
             >
-              {entry.label}
+              {t(entry.labelKey)}
             </button>
           ))}
         </div>

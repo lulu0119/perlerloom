@@ -20,9 +20,17 @@ export type ImportFormLayoutDefaults = {
   scalePercent: string;
 };
 
+export type HistoryLabelKey =
+  | "history.generatedPattern"
+  | "history.pencilStroke"
+  | "history.bucketFill"
+  | "history.line"
+  | "history.replace"
+  | "history.delete";
+
 export type HistoryEntry = {
   id: string;
-  label: string;
+  labelKey: HistoryLabelKey;
   pattern: PatternDocument;
 };
 
@@ -58,8 +66,8 @@ export function clonePattern(pattern: PatternDocument): PatternDocument {
   };
 }
 
-export function createHistoryId(label: string): string {
-  return `${label}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+export function createHistoryEntryId(): string {
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
 export function isMatchingSpace(value: string): value is MatchingSpace {
@@ -200,6 +208,16 @@ export function getTargetDimensions(
   return { width, height };
 }
 
+export class ReadImageFailure extends Error {
+  readonly code: "canvas_unavailable";
+
+  constructor() {
+    super("canvas_unavailable");
+    this.name = "ReadImageFailure";
+    this.code = "canvas_unavailable";
+  }
+}
+
 export async function readImageFile(file: File): Promise<{ rgbBytes: ArrayBuffer; width: number; height: number }> {
   const bitmap = await createImageBitmap(file);
   const canvas = document.createElement("canvas");
@@ -207,7 +225,7 @@ export async function readImageFile(file: File): Promise<{ rgbBytes: ArrayBuffer
   canvas.height = bitmap.height;
   const context = canvas.getContext("2d");
   if (context === null) {
-    throw new Error("Canvas is not available for image conversion.");
+    throw new ReadImageFailure();
   }
 
   context.imageSmoothingEnabled = false;

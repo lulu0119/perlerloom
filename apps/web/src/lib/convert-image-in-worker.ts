@@ -1,4 +1,5 @@
 import type { PatternDocument, PatternSettings } from "@perlerloom/core";
+import { ConversionWorkerFailure } from "@/lib/conversion-worker-failure";
 
 export type BrowserConversionInput = {
   rgbBytes: ArrayBuffer;
@@ -25,7 +26,7 @@ export async function convertImageInWorker(input: BrowserConversionInput): Promi
   });
 
   if (response.type === "error") {
-    throw new Error(response.message);
+    throw new ConversionWorkerFailure(response.code);
   }
 
   return response.pattern;
