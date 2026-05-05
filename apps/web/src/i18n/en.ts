@@ -62,9 +62,11 @@ export const en = {
     delete: "Delete"
   },
   importDialog: {
-    title: "New / Import",
-    description: "Upload a source image, set size and preprocessing, then generate.",
-    sectionUploadPreview: "Upload and preview",
+    title: "Create chart from photo",
+    description:
+      "Build a new bead chart from a picture. To reopen a chart you exported earlier, use Open a saved chart—not the photo upload.",
+    sectionOpenSavedChart: "Open a saved chart",
+    sectionFromPhoto: "From a photo",
     dropHint: "Drop image here or click to upload",
     formatsHint: "PNG, JPEG, or another browser-supported image",
     chooseSourceImage: "Choose source image",
@@ -123,12 +125,12 @@ export const en = {
       line: "Line"
     },
     editorToolsAside: "Editor tools",
-    newImportTooltip: "Choose a photo and turn it into a chart, or open import options.",
+    newImportTooltip: "Create a new chart from a photo (upload, options, then generate).",
     createNewPatternTooltip: "Start from an empty bead grid.",
     patternLibraryTooltip: "Open charts saved on this device.",
     exportImageTooltip: "Export a picture of your chart to share or print.",
     exportFileTooltip: "Download an editable file you can open again here.",
-    newImport: "New / Import",
+    newImport: "Photo → chart",
     createNewPattern: "Create new pattern",
     generatedChartPreview: "Generated chart preview",
     magnificationControls: "Magnification controls",

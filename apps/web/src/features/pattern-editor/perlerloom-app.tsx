@@ -261,6 +261,7 @@ export function PerlerloomApp(): ReactElement {
         }));
         setEditorResetKey((key) => key + 1);
         setLibraryDialogOpen(false);
+        setGenerateDialogOpen(false);
         setMessage({ tone: "muted", key: "status.patternImported" });
       } catch {
         setMessage({ tone: "accent", key: "status.patternImportInvalid" });
@@ -632,6 +633,7 @@ export function PerlerloomApp(): ReactElement {
         onTargetColorCountInputChange={handleTargetColorCountInputChange}
         onTargetHeightInputChange={setTargetHeightInput}
         onTargetWidthInputChange={setTargetWidthInput}
+        onImportPatternJson={handleImportPatternJsonFile}
       />
 
       <NewPatternDialog

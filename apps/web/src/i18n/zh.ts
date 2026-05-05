@@ -61,9 +61,11 @@ export const zh = {
     delete: "删除"
   },
   importDialog: {
-    title: "新建 / 导入",
-    description: "上传源图，设置尺寸与预处理，然后生成。",
-    sectionUploadPreview: "上传与预览",
+    title: "从照片生成图纸",
+    description:
+      "用图片生成新的拼豆网格。若要打开此前导出的可编辑文件，请使用下方「打开已保存图纸」，不要用照片上传。",
+    sectionOpenSavedChart: "打开已保存图纸",
+    sectionFromPhoto: "从照片",
     dropHint: "将图片拖放到此处或点击上传",
     formatsHint: "PNG、JPEG 或浏览器支持的其它图片格式",
     chooseSourceImage: "选择源图片",
@@ -119,12 +121,12 @@ export const zh = {
       line: "直线"
     },
     editorToolsAside: "编辑工具",
-    newImportTooltip: "选择照片生成拼豆图纸，或打开导入选项。",
+    newImportTooltip: "从照片新建图纸：上传图片、调整选项后生成。",
     createNewPatternTooltip: "从空白拼豆网格开始绘制。",
     patternLibraryTooltip: "打开本机已保存的图纸。",
     exportImageTooltip: "导出可分享或打印的图纸图片。",
     exportFileTooltip: "下载可在本应用再次打开的编辑文件。",
-    newImport: "新建 / 导入",
+    newImport: "照片生成",
     createNewPattern: "新建图纸",
     generatedChartPreview: "生成的图纸预览",
     magnificationControls: "缩放控制",

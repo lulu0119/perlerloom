@@ -21,7 +21,7 @@ async function openGenerateImportDialog(user: ReturnType<typeof userEvent.setup>
   if (importImage !== null) {
     await user.click(importImage);
   } else {
-    await user.click(screen.getByRole("button", { name: /^new \/ import$/i }));
+    await user.click(screen.getByRole("button", { name: /create a new chart from a photo/i }));
   }
 }
 
@@ -82,7 +82,7 @@ describe("Perlerloom editor shell", () => {
 
     await openGenerateImportDialog(user);
 
-    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
+    const dialog = await screen.findByRole("dialog", { name: /create chart from photo/i });
     expect(within(dialog).getByLabelText(/target colors/i)).toHaveValue("24");
   });
 
@@ -91,7 +91,7 @@ describe("Perlerloom editor shell", () => {
     renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
-    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
+    const dialog = await screen.findByRole("dialog", { name: /create chart from photo/i });
 
     expect(within(dialog).getByText(/drop image here or click to upload/i)).toBeInTheDocument();
     expect(within(dialog).getByRole("button", { name: /generate pattern/i })).toBeDisabled();
@@ -109,7 +109,7 @@ describe("Perlerloom editor shell", () => {
     renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
-    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
+    const dialog = await screen.findByRole("dialog", { name: /create chart from photo/i });
 
     await user.upload(within(dialog).getByLabelText(/choose source image/i), new File(["demo"], "demo.png", { type: "image/png" }));
     await user.click(await within(dialog).findByRole("button", { name: /generate pattern/i }));
@@ -129,7 +129,7 @@ describe("Perlerloom editor shell", () => {
     renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
-    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
+    const dialog = await screen.findByRole("dialog", { name: /create chart from photo/i });
 
     await user.upload(within(dialog).getByLabelText(/choose source image/i), new File(["large"], "large.png", { type: "image/png" }));
 
@@ -145,7 +145,7 @@ describe("Perlerloom editor shell", () => {
     renderPerlerloomApp();
 
     await openGenerateImportDialog(user);
-    const dialog = await screen.findByRole("dialog", { name: /new \/ import/i });
+    const dialog = await screen.findByRole("dialog", { name: /create chart from photo/i });
 
     await user.click(within(dialog).getByRole("combobox", { name: /downsampling method/i }));
     await user.click(await screen.findByRole("option", { name: /^grid mode$/i }));

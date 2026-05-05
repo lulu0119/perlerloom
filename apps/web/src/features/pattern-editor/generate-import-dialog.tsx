@@ -3,7 +3,7 @@
 import type { ReactElement } from "react";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { ImageIcon, ImagePlus, Layers } from "lucide-react";
+import { ImageIcon, ImagePlus, Layers, Upload } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { PatternSettings } from "@perlerloom/core";
 import {
@@ -60,6 +60,7 @@ type GenerateImportDialogProps = {
   onFileInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDrop: (event: React.DragEvent<HTMLLabelElement>) => void;
   onGenerate: () => void;
+  onImportPatternJson: (file: File) => void | Promise<void>;
 };
 
 export function GenerateImportDialog({
@@ -86,10 +87,12 @@ export function GenerateImportDialog({
   message,
   onFileInputChange,
   onDrop,
-  onGenerate
+  onGenerate,
+  onImportPatternJson
 }: GenerateImportDialogProps): ReactElement {
   const { t } = useTranslation();
   const uploadLabelRef = useRef<HTMLLabelElement>(null);
+  const patternJsonInputRef = useRef<HTMLInputElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
 
   const resizeModeOptions: { mode: ResizeMode; labelKey: "importDialog.resizeOriginal" | "importDialog.resizeDimensions" | "importDialog.resizeScale" }[] = [
@@ -128,7 +131,43 @@ export function GenerateImportDialog({
         </DialogHeader>
 
         <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-4 py-4">
-          <section aria-label={t("importDialog.sectionUploadPreview")} className="space-y-3">
+          <section aria-labelledby="import-open-saved-heading" className="bg-muted space-y-2 rounded-xl p-3">
+            <h3 className="text-foreground text-sm font-semibold" id="import-open-saved-heading">
+              {t("importDialog.sectionOpenSavedChart")}
+            </h3>
+            <p className="text-muted-foreground text-xs">{t("library.importSavedHint")}</p>
+            <input
+              accept="application/json,.json"
+              aria-label={t("library.importJson")}
+              className="sr-only"
+              ref={patternJsonInputRef}
+              type="file"
+              onChange={() => {
+                const input = patternJsonInputRef.current;
+                const file = input?.files?.[0];
+                if (file !== undefined) {
+                  void Promise.resolve(onImportPatternJson(file));
+                }
+                if (input !== null) {
+                  input.value = "";
+                }
+              }}
+            />
+            <Button
+              className="h-auto w-full rounded-full py-2.5 text-sm font-semibold"
+              type="button"
+              variant="outline"
+              onClick={() => patternJsonInputRef.current?.click()}
+            >
+              <Upload className="mr-2 h-4 w-4" aria-hidden="true" />
+              {t("library.importJson")}
+            </Button>
+          </section>
+
+          <section aria-labelledby="import-from-photo-heading" className="space-y-3">
+            <h3 className="text-foreground text-sm font-semibold" id="import-from-photo-heading">
+              {t("importDialog.sectionFromPhoto")}
+            </h3>
             <Label
               ref={uploadLabelRef}
               className="border-primary/40 bg-accent/70 hover:border-primary hover:bg-accent flex min-h-36 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-4 text-center font-normal transition"
