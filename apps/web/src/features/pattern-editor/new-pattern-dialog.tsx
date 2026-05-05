@@ -99,11 +99,11 @@ export function NewPatternDialog({ open, onOpenChange, maxDimension, onConfirm }
             {error}
           </p>
         ) : null}
-        <DialogFooter className="gap-2 sm:gap-0">
-          <Button className="rounded-full" type="button" variant="outline" onClick={() => onOpenChange(false)}>
+        <DialogFooter>
+          <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
             {t("newPatternDialog.cancel")}
           </Button>
-          <Button className="rounded-full" type="button" onClick={handleConfirm}>
+          <Button type="button" onClick={handleConfirm}>
             {t("newPatternDialog.createGrid")}
           </Button>
         </DialogFooter>
