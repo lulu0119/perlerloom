@@ -20,7 +20,7 @@ type ChartToolHudProps = {
 };
 
 function ChartHudToolGlyph({ tool }: { tool: ChartHudTool }): ReactElement {
-  const className = "text-muted-foreground h-3.5 w-3.5";
+  const className = "text-muted-foreground h-4 w-4 md:h-3.5 md:w-3.5";
   if (tool === "paintBucket") {
     return <PaintBucket className={className} aria-hidden />;
   }
@@ -95,16 +95,16 @@ export function ChartToolHud({
 
   return (
     <div
-      className="border-border divide-border flex h-8 min-h-8 max-h-8 min-w-0 divide-x overflow-hidden rounded-full border bg-white"
+      className="border-border divide-border flex h-10 min-h-10 max-h-10 min-w-0 items-stretch divide-x overflow-hidden rounded-full border bg-white md:h-8 md:min-h-8 md:max-h-8"
       data-testid="chart-tool-hud"
       role="region"
       aria-label={t("chartHud.regionLabel")}
     >
-      <div className="bg-muted/80 flex w-8 shrink-0 items-center justify-center">
+      <div className="bg-muted/80 flex w-10 shrink-0 items-center justify-center md:w-8">
         <ChartHudToolGlyph tool={activeTool} />
       </div>
       <div className="flex min-h-0 min-w-0 flex-1 items-center overflow-hidden px-2">
-        <div className="text-muted-foreground line-clamp-1 min-h-0 min-w-0 text-[11px] leading-tight [&_strong]:font-semibold [&_strong]:text-foreground">
+        <div className="text-muted-foreground line-clamp-2 min-h-0 min-w-0 text-[11px] leading-snug break-words md:line-clamp-1 [&_strong]:font-semibold [&_strong]:text-foreground">
           {centerSlot}
         </div>
       </div>
