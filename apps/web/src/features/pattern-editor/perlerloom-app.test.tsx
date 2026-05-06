@@ -200,7 +200,6 @@ describe("Perlerloom editor shell", () => {
     renderPerlerloomApp();
 
     await enterEditorWithBlankPattern(user);
-    await user.click(screen.getByRole("button", { name: /hand/i }));
 
     expect(screen.getByLabelText(/editable bead pattern/i)).toHaveClass("cursor-grab");
   });

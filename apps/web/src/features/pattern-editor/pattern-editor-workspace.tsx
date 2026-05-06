@@ -56,7 +56,7 @@ import {
   type HistoryLabelKey
 } from "./pattern-editor-utils";
 
-const editorTools: EditorTool[] = ["pencil", "eraser", "eyedropper", "paintBucket", "hand", "line"];
+const editorTools: EditorTool[] = ["hand", "pencil", "eraser", "eyedropper", "paintBucket", "line"];
 
 export type PatternEditorWorkspaceProps = {
   pattern: PatternDocument;
@@ -87,7 +87,7 @@ export function PatternEditorWorkspace({
   onAppStatus
 }: PatternEditorWorkspaceProps): ReactElement {
   const { t } = useTranslation();
-  const [activeTool, setActiveTool] = useState<EditorTool>("pencil");
+  const [activeTool, setActiveTool] = useState<EditorTool>("hand");
   const [activeColor, setActiveColor] = useState("H7");
   const [zoom, setZoom] = useState(1);
   const [historyEntries, setHistoryEntries] = useState<HistoryEntry[]>(() =>
