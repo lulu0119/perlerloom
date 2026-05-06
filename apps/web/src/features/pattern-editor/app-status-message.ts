@@ -6,5 +6,5 @@ export type AppStatusMessage = {
   params?: Record<string, string | number>;
 };
 
-/** When `AppStatusMessage.key` equals this value, the editor does not render the status strip. */
+/** When `AppStatusMessage.key` equals this value, no status toast is shown. */
 export const hiddenStatusStripMessageKey = "status.hidden";

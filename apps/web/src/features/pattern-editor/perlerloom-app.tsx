@@ -23,7 +23,8 @@ import {
   type SavedHistoryEntry
 } from "@/lib/pattern-storage";
 import { EditorWelcome } from "./editor-welcome";
-import { hiddenStatusStripMessageKey, type AppStatusMessage } from "./app-status-message";
+import type { AppStatusMessage } from "./app-status-message";
+import { showAppStatusToast } from "./app-status-toast";
 import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
 import { LanguageSwitcher } from "./language-switcher";
 import { NewPatternDialog } from "./new-pattern-dialog";
@@ -125,13 +126,16 @@ export function PerlerloomApp(): ReactElement {
   const [targetHeightInput, setTargetHeightInput] = useState(String(importSizingReferencePattern.height));
   const [scalePercentInput, setScalePercentInput] = useState("100");
   const [targetColorCountInput, setTargetColorCountInput] = useState(String(initialSettings.targetColorCount));
-  const [message, setMessage] = useState<AppStatusMessage>({ tone: "muted", key: hiddenStatusStripMessageKey });
   const [isGenerating, setIsGenerating] = useState(false);
   const [generateDialogOpen, setGenerateDialogOpen] = useState(false);
   const [newPatternDialogOpen, setNewPatternDialogOpen] = useState(false);
   const [newPatternDialogKey, setNewPatternDialogKey] = useState(0);
 
   const paletteMapForExport = useMemo(() => new Map(mardPalette.map((color) => [color.code, color])), []);
+
+  const notifyAppStatus = useCallback((next: AppStatusMessage) => {
+    showAppStatusToast(t, next);
+  }, [t]);
 
   useEffect(() => {
     return () => {
@@ -161,10 +165,10 @@ export function PerlerloomApp(): ReactElement {
       savePatternLibraryToLocalStorage(persistedLibrary);
     } catch {
       queueMicrotask(() => {
-        setMessage({ tone: "accent", key: "status.librarySaveFailed" });
+        notifyAppStatus({ tone: "accent", key: "status.librarySaveFailed" });
       });
     }
-  }, [hydrated, persistedLibrary]);
+  }, [hydrated, notifyAppStatus, persistedLibrary]);
 
   const activeRecord = useMemo(() => {
     const patterns = persistedLibrary.patterns;
@@ -243,10 +247,10 @@ export function PerlerloomApp(): ReactElement {
         });
         triggerBrowserDownload(blob, `${patternDownloadBasename(record.title)}.png`);
       } catch {
-        setMessage({ tone: "accent", key: "status.exportPngFailed" });
+        notifyAppStatus({ tone: "accent", key: "status.exportPngFailed" });
       }
     },
-    [library.patterns, paletteMapForExport, t]
+    [library.patterns, notifyAppStatus, paletteMapForExport, t]
   );
 
   const handleImportPatternJsonFile = useCallback(
@@ -262,12 +266,12 @@ export function PerlerloomApp(): ReactElement {
         setEditorResetKey((key) => key + 1);
         setLibraryDialogOpen(false);
         setGenerateDialogOpen(false);
-        setMessage({ tone: "muted", key: "status.patternImported" });
+        notifyAppStatus({ tone: "muted", key: "status.patternImported" });
       } catch {
-        setMessage({ tone: "accent", key: "status.patternImportInvalid" });
+        notifyAppStatus({ tone: "accent", key: "status.patternImportInvalid" });
       }
     },
-    []
+    [notifyAppStatus]
   );
 
   const handleRenamePattern = useCallback((patternId: string, title: string) => {
@@ -335,29 +339,29 @@ export function PerlerloomApp(): ReactElement {
       setTargetWidthInput(layout.targetWidth);
       setTargetHeightInput(layout.targetHeight);
       setScalePercentInput(layout.scalePercent);
-      setMessage(
+      notifyAppStatus(
         sourceWidth > maxPatternDimension || sourceHeight > maxPatternDimension
           ? { tone: "accent", key: "status.sourceTooLarge", params: { max: maxPatternDimension } }
           : { tone: "muted", key: "status.readyNoResize" }
       );
     } catch (error) {
       if (error instanceof ReadImageFailure) {
-        setMessage({ tone: "accent", key: "errors.readImageCanvasUnavailable" });
+        notifyAppStatus({ tone: "accent", key: "errors.readImageCanvasUnavailable" });
       } else {
-        setMessage({ tone: "accent", key: "status.imagePreviewFailed" });
+        notifyAppStatus({ tone: "accent", key: "status.imagePreviewFailed" });
       }
     }
   }
 
   async function handleGeneratePattern(): Promise<void> {
     if (selectedSourceImage === null) {
-      setMessage({ tone: "accent", key: "status.chooseImageBeforeGenerate" });
+      notifyAppStatus({ tone: "accent", key: "status.chooseImageBeforeGenerate" });
       return;
     }
 
     const targetDimensions = getTargetDimensions(selectedSourceImage, resizeMode, targetWidthInput, targetHeightInput, scalePercentInput);
     if (targetDimensions === null) {
-      setMessage({ tone: "accent", key: "status.sizeComputeFailed" });
+      notifyAppStatus({ tone: "accent", key: "status.sizeComputeFailed" });
       return;
     }
 
@@ -371,7 +375,7 @@ export function PerlerloomApp(): ReactElement {
 
     try {
       setIsGenerating(true);
-      setMessage({ tone: "muted", key: "status.converting" });
+      notifyAppStatus({ tone: "muted", key: "status.converting" });
       const image = await readImageFile(selectedSourceImage.file);
       const convertedPattern = await convertImageInWorker({
         ...image,
@@ -389,19 +393,19 @@ export function PerlerloomApp(): ReactElement {
       setImportSettings(nextPattern.settings);
       setTargetColorCountInput(String(nextPattern.settings.targetColorCount));
       setEditorResetKey((key) => key + 1);
-      setMessage({ tone: "muted", key: "status.patternGenerated" });
+      notifyAppStatus({ tone: "muted", key: "status.patternGenerated" });
       setGenerateDialogOpen(false);
     } catch (error) {
       if (error instanceof ConversionWorkerFailure) {
         if (error.code === "rgb_buffer_mismatch") {
-          setMessage({ tone: "accent", key: "errors.conversionRgbBufferMismatch" });
+          notifyAppStatus({ tone: "accent", key: "errors.conversionRgbBufferMismatch" });
         } else {
-          setMessage({ tone: "accent", key: "errors.conversionFailed" });
+          notifyAppStatus({ tone: "accent", key: "errors.conversionFailed" });
         }
       } else if (error instanceof ReadImageFailure) {
-        setMessage({ tone: "accent", key: "errors.readImageCanvasUnavailable" });
+        notifyAppStatus({ tone: "accent", key: "errors.readImageCanvasUnavailable" });
       } else {
-        setMessage({ tone: "accent", key: "status.imageConversionFailed" });
+        notifyAppStatus({ tone: "accent", key: "status.imageConversionFailed" });
       }
     } finally {
       setIsGenerating(false);
@@ -473,7 +477,7 @@ export function PerlerloomApp(): ReactElement {
     }));
     setEditorResetKey((key) => key + 1);
     setNewPatternDialogOpen(false);
-    setMessage({ tone: "muted", key: "status.emptyGridReady" });
+    notifyAppStatus({ tone: "muted", key: "status.emptyGridReady" });
   }
 
   const commitPatternUpdate = useCallback((next: PatternDocument | ((previous: PatternDocument) => PatternDocument)): void => {
@@ -575,7 +579,7 @@ export function PerlerloomApp(): ReactElement {
           initialActiveHistoryIndex={initialActiveHistoryIndex}
           initialHistoryEntries={initialHistoryEntries}
           pattern={editorPattern}
-          statusMessage={message}
+          onAppStatus={notifyAppStatus}
           onExportJson={() => handleExportPatternJson(persistedLibrary.activePatternId!)}
           onExportPng={() => void handleExportPatternPng(persistedLibrary.activePatternId!)}
           onHistoryStateChange={handleHistoryStateChange}
@@ -583,7 +587,6 @@ export function PerlerloomApp(): ReactElement {
           onOpenImportDialog={openImportDialog}
           onOpenLibrary={() => setLibraryDialogOpen(true)}
           onPatternChange={commitPatternUpdate}
-          onStatusMessageChange={setMessage}
         />
       ) : null}
 
@@ -605,7 +608,6 @@ export function PerlerloomApp(): ReactElement {
         importSettings={importSettings}
         isGenerating={isGenerating}
         maxPatternDimension={maxPatternDimension}
-        message={message}
         open={generateDialogOpen}
         resizeMode={resizeMode}
         scalePercentInput={scalePercentInput}

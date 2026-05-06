@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from "@testing-library/rea
 import userEvent from "@testing-library/user-event";
 import { I18nextProvider } from "react-i18next";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { AppToaster } from "@/app/app-toaster";
 import i18n, { i18nInitialization, LANGUAGE_STORAGE_KEY } from "@/i18n/config";
 import { PATTERN_LIBRARY_STORAGE_KEY } from "@/lib/pattern-storage";
 import { PerlerloomApp } from "./perlerloom-app";
@@ -11,7 +12,10 @@ const patternCanvasMockContexts: Array<{ font: string }> = [];
 function renderPerlerloomApp(): ReturnType<typeof render> {
   return render(
     <I18nextProvider i18n={i18n}>
-      <PerlerloomApp />
+      <>
+        <PerlerloomApp />
+        <AppToaster />
+      </>
     </I18nextProvider>
   );
 }
@@ -101,7 +105,7 @@ describe("Perlerloom editor shell", () => {
     expect(await within(dialog).findByAltText(/selected source image/i)).toBeInTheDocument();
     expect(within(dialog).getByText(/source: 2 × 1 px/i)).toBeInTheDocument();
     expect(within(dialog).getByRole("button", { name: /generate pattern/i })).toBeEnabled();
-    expect(within(dialog).getByText(/ready to generate/i)).toBeInTheDocument();
+    expect(await screen.findByText(/ready to generate without resizing/i)).toBeInTheDocument();
   });
 
   it("generates the pattern only after the generate button is clicked", async () => {
@@ -136,7 +140,7 @@ describe("Perlerloom editor shell", () => {
     expect(within(dialog).getByLabelText(/target width/i)).toHaveValue(256);
     expect(within(dialog).getByLabelText(/target height/i)).toHaveValue(256);
     expect(within(dialog).getByLabelText(/scale factor/i)).toHaveValue(25);
-    expect(within(dialog).getByText(/larger than 256 cells/i)).toBeInTheDocument();
+    expect(await screen.findByText(/larger than 256 cells/i)).toBeInTheDocument();
   });
 
   it("updates conversion selects without reading a cleared event target", async () => {

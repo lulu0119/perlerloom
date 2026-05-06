@@ -35,7 +35,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@perlerloom/ui";
-import { hiddenStatusStripMessageKey, type AppStatusMessage } from "./app-status-message";
+import { type AppStatusMessage } from "./app-status-message";
 import { EditorSidePanels } from "./editor-side-panels";
 import { ChartToolHud } from "./chart-tool-hud";
 import {
@@ -70,8 +70,7 @@ export type PatternEditorWorkspaceProps = {
   onOpenLibrary: () => void;
   onExportPng: () => void;
   onExportJson: () => void;
-  statusMessage: AppStatusMessage;
-  onStatusMessageChange: (message: AppStatusMessage) => void;
+  onAppStatus: (message: AppStatusMessage) => void;
 };
 
 export function PatternEditorWorkspace({
@@ -85,8 +84,7 @@ export function PatternEditorWorkspace({
   onOpenLibrary,
   onExportPng,
   onExportJson,
-  statusMessage,
-  onStatusMessageChange
+  onAppStatus
 }: PatternEditorWorkspaceProps): ReactElement {
   const { t } = useTranslation();
   const [activeTool, setActiveTool] = useState<EditorTool>("pencil");
@@ -178,7 +176,7 @@ export function PatternEditorWorkspace({
       const index = point.row * pattern.width + point.column;
       const code = pattern.cells[index];
       if (code === null) {
-        onStatusMessageChange({ tone: "accent", key: "status.emptyCellEyedropper" });
+        onAppStatus({ tone: "accent", key: "status.emptyCellEyedropper" });
         return;
       }
       setActiveColor(code);
@@ -334,7 +332,7 @@ export function PatternEditorWorkspace({
 
   function handleUndo(): void {
     if (activeHistoryIndex === 0) {
-      onStatusMessageChange({ tone: "muted", key: "status.noUndo" });
+      onAppStatus({ tone: "muted", key: "status.noUndo" });
       return;
     }
     jumpToHistory(activeHistoryIndex - 1);
@@ -342,7 +340,7 @@ export function PatternEditorWorkspace({
 
   function handleRedo(): void {
     if (activeHistoryIndex >= historyEntries.length - 1) {
-      onStatusMessageChange({ tone: "muted", key: "status.noRedo" });
+      onAppStatus({ tone: "muted", key: "status.noRedo" });
       return;
     }
     jumpToHistory(activeHistoryIndex + 1);
@@ -374,7 +372,7 @@ export function PatternEditorWorkspace({
     onPatternChange(clonePattern(entry.pattern));
     setActiveHistoryIndex(index);
     onHistoryStateChange?.(historyEntries, index);
-    onStatusMessageChange({
+    onAppStatus({
       tone: "muted",
       key: "status.restored",
       params: { label: t(entry.labelKey) }
@@ -620,20 +618,6 @@ export function PatternEditorWorkspace({
               </div>
             </div>
           </div>
-
-          {statusMessage.key !== hiddenStatusStripMessageKey ? (
-            <p
-              className={cn(
-                "line-clamp-2 border-b px-2 py-1 text-xs md:text-sm",
-                statusMessage.tone === "accent"
-                  ? "border-border bg-accent text-accent-foreground"
-                  : "border-border bg-muted/90 text-muted-foreground"
-              )}
-              role="status"
-            >
-              {t(statusMessage.key, statusMessage.params as Record<string, unknown>)}
-            </p>
-          ) : null}
 
           <div
             ref={chartScrollRef}

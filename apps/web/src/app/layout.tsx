@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { publicPath } from "../../base-path";
+import { AppToaster } from "@/app/app-toaster";
 import { I18nProvider } from "@/i18n/i18n-provider";
 import "./globals.css";
 
@@ -48,7 +49,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full min-h-0 antialiased`}
     >
       <body className="flex h-dvh min-h-0 flex-col overflow-hidden">
-        <I18nProvider>{children}</I18nProvider>
+        <I18nProvider>
+          {children}
+          <AppToaster />
+        </I18nProvider>
       </body>
     </html>
   );

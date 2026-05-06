@@ -24,7 +24,6 @@ import {
   SelectTrigger,
   SelectValue
 } from "@perlerloom/ui";
-import type { AppStatusMessage } from "./app-status-message";
 
 export type ResizeMode = "original" | "dimensions" | "scale";
 
@@ -56,7 +55,6 @@ type GenerateImportDialogProps = {
   onDownsamplingModeChange: (value: string) => void;
   maxPatternDimension: number;
   isGenerating: boolean;
-  message: AppStatusMessage;
   onFileInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onDrop: (event: React.DragEvent<HTMLLabelElement>) => void;
   onGenerate: () => void;
@@ -84,7 +82,6 @@ export function GenerateImportDialog({
   onDownsamplingModeChange,
   maxPatternDimension,
   isGenerating,
-  message,
   onFileInputChange,
   onDrop,
   onGenerate,
@@ -378,16 +375,6 @@ export function GenerateImportDialog({
                 </div>
               </div>
             </section>
-
-            <p
-              className={cn(
-                "rounded-xl px-3 py-2 text-xs",
-                message.tone === "accent" ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
-              )}
-              role="status"
-            >
-              {t(message.key, message.params as Record<string, unknown>)}
-            </p>
 
             <Button
               className="h-auto w-full rounded-full py-2.5 text-sm font-semibold"
