@@ -51,15 +51,15 @@ The goal is simple: help you move from inspiration to a usable bead chart faster
 
 ## Current Progress
 
-- Mard 291-color palette data
-- Browser-only image preview and conversion
-- Web Worker conversion for heavier images
-- Optional dithering and color-count tuning
-- Editable bead grid with palette, legend, tools, and history
-- English and Chinese interface
-- Cloud save and share
-- Print-ready PNG export (grid, bead-code legend, header; from the editor and library)
-- AI-assisted pixel-art conversion
+- [x] Mard 291-color palette data
+- [x] Browser-only image preview and conversion
+- [x] Web Worker conversion for heavier images
+- [x] Optional dithering and color-count tuning
+- [x] Editable bead grid with palette, legend, tools, and history
+- [x] English and Chinese interface
+- [ ] Cloud save and share
+- [x] Print-ready PNG export (grid, bead-code legend, header; from the editor and library)
+- [ ] AI-assisted pixel-art conversion
 
 ## Try It Locally
 
