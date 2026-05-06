@@ -23,7 +23,7 @@ import {
   type SavedHistoryEntry
 } from "@/lib/pattern-storage";
 import { EditorWelcome } from "./editor-welcome";
-import type { AppStatusMessage } from "./app-status-message";
+import { hiddenStatusStripMessageKey, type AppStatusMessage } from "./app-status-message";
 import { GenerateImportDialog, type ResizeMode, type SelectedSourceImage } from "./generate-import-dialog";
 import { LanguageSwitcher } from "./language-switcher";
 import { NewPatternDialog } from "./new-pattern-dialog";
@@ -125,7 +125,7 @@ export function PerlerloomApp(): ReactElement {
   const [targetHeightInput, setTargetHeightInput] = useState(String(importSizingReferencePattern.height));
   const [scalePercentInput, setScalePercentInput] = useState("100");
   const [targetColorCountInput, setTargetColorCountInput] = useState(String(initialSettings.targetColorCount));
-  const [message, setMessage] = useState<AppStatusMessage>({ tone: "muted", key: "status.importPrompt" });
+  const [message, setMessage] = useState<AppStatusMessage>({ tone: "muted", key: hiddenStatusStripMessageKey });
   const [isGenerating, setIsGenerating] = useState(false);
   const [generateDialogOpen, setGenerateDialogOpen] = useState(false);
   const [newPatternDialogOpen, setNewPatternDialogOpen] = useState(false);
@@ -537,9 +537,9 @@ export function PerlerloomApp(): ReactElement {
 
   return (
     <main className="bg-background text-foreground flex min-h-0 flex-1 flex-col overflow-hidden">
-      <header className="border-border shrink-0 border-b bg-white/90 px-4 py-3 shadow-sm">
-        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-          <div className="flex min-w-0 flex-1 items-start gap-3">
+      <header className="border-border shrink-0 border-b bg-white/90 p-2 shadow-sm">
+        <div className="flex min-w-0 items-center justify-between gap-3">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
             <Image
               src={publicPath("/android-chrome-192x192.png")}
               alt={t("header.logoAlt")}
@@ -547,22 +547,17 @@ export function PerlerloomApp(): ReactElement {
               height={52}
               className="h-[52px] w-[52px] shrink-0"
             />
-            <div className="min-w-0">
-              <h1 className="text-brand-accent font-sans text-lg font-semibold uppercase tracking-[0.22em]">{t("meta.title")}</h1>
-              <p className="text-muted-foreground mt-1 max-w-3xl text-xs md:text-sm">{t("header.taglinePrimary")}</p>
-            </div>
+            <h1 className="text-brand-accent min-w-0 font-sans text-lg font-semibold uppercase tracking-[0.22em]">
+              {t("meta.title")}
+            </h1>
           </div>
-          <div className="flex shrink-0 flex-col items-stretch gap-2 md:flex-row md:items-center md:justify-end">
-            <Button
-              className="w-full md:w-auto"
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => setLibraryDialogOpen(true)}
-            >
+          <div className="flex min-w-0 shrink-0 items-center justify-end gap-2">
+            <Button className="shrink-0 whitespace-nowrap" type="button" variant="outline" size="sm" onClick={() => setLibraryDialogOpen(true)}>
               {t("header.openLibrary")}
             </Button>
-            <LanguageSwitcher />
+            <div className="min-w-0">
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       </header>

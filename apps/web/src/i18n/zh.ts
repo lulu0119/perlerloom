@@ -14,8 +14,6 @@ export const zh = {
   },
   header: {
     logoAlt: "珀勒鲁姆标志",
-    taglinePrimary:
-      "预览图片、选择明确尺寸、生成清晰的拼豆图纸，然后像手工练习表一样编辑。",
     openLibrary: "已保存图纸"
   },
   welcome: {
@@ -25,7 +23,6 @@ export const zh = {
     createNewPattern: "新建图纸",
   },
   status: {
-    importPrompt: "选择图片并预览，然后生成图纸。",
     sourceTooLarge: "源图超过 {{max}} 格。生成前请先选择明确的目标尺寸。",
     readyNoResize: "已准备好，无需缩放即可生成。",
     imagePreviewFailed: "图片预览失败。",
@@ -126,7 +123,6 @@ export const zh = {
     exportFileTooltip: "下载可在本应用再次打开的编辑文件。",
     newImport: "照片生成",
     createNewPattern: "新建图纸",
-    generatedChartPreview: "生成的图纸预览",
     magnificationControls: "缩放控制",
     zoomOut: "缩小",
     zoomIn: "放大",

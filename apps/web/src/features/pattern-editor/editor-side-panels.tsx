@@ -45,7 +45,7 @@ export function EditorSidePanels({
   const { t } = useTranslation();
 
   return (
-    <div className={cn("flex min-h-0 min-w-0 flex-1 flex-col gap-3", className)}>
+    <div className={cn("flex min-h-0 min-w-0 flex-1 flex-col gap-2", className)}>
       {legend.length > 0 ? (
         <section aria-label={t("sidePanels.legendAria")} className="border-border bg-muted/80 shrink-0 rounded-xl border p-2">
           <h2 className="text-muted-foreground mb-1.5 text-xs font-semibold uppercase tracking-wide">{t("sidePanels.usedInChart")}</h2>

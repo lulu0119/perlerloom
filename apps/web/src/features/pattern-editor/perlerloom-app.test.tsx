@@ -115,7 +115,6 @@ describe("Perlerloom editor shell", () => {
     await user.click(await within(dialog).findByRole("button", { name: /generate pattern/i }));
 
     expect(await screen.findByText(/pattern generated locally/i)).toBeInTheDocument();
-    expect(screen.getByText(/generated chart preview/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /generated pattern/i })).toHaveAttribute("aria-current", "step");
   });
 

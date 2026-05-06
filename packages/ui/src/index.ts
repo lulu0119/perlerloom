@@ -14,6 +14,18 @@ export {
   DialogTrigger
 } from "./components/dialog";
 export {
+  Drawer,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription
+} from "./components/drawer";
+export {
   DropdownMenu,
   DropdownMenuPortal,
   DropdownMenuTrigger,

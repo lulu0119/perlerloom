@@ -28,7 +28,7 @@ export function LanguageSwitcher(): ReactElement {
     >
       <SelectTrigger
         aria-label={t("languageSwitcher.ariaLabel")}
-        className="border-border h-9 w-[min(8.5rem,100%)] shrink-0 rounded-full text-xs font-semibold"
+        className="border-border h-9 w-full max-w-[8.5rem] min-w-0 rounded-full text-xs font-semibold"
         size="sm"
       >
         <SelectValue>

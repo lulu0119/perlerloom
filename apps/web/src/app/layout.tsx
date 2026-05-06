@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { publicPath } from "../../base-path";
 import { I18nProvider } from "@/i18n/i18n-provider";
@@ -20,6 +20,10 @@ const iconMetadata = [
   { url: publicPath("/favicon-16x16.png"), sizes: "16x16", type: "image/png" }
 ];
 const appleIconMetadata = [{ url: publicPath("/apple-touch-icon.png"), sizes: "180x180", type: "image/png" }];
+
+export const viewport: Viewport = {
+  viewportFit: "cover"
+};
 
 export const metadata: Metadata = {
   title: "Perlerloom",

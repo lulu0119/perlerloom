@@ -14,8 +14,6 @@ export const en = {
   },
   header: {
     logoAlt: "Perlerloom logo",
-    taglinePrimary:
-      "Preview an image, choose an explicit size, generate a crisp bead chart, then edit it like a craft worksheet.",
     openLibrary: "Saved charts"
   },
   welcome: {
@@ -25,7 +23,6 @@ export const en = {
     createNewPattern: "Create new pattern",
   },
   status: {
-    importPrompt: "Choose an image, preview it, then generate a chart.",
     sourceTooLarge:
       "Source is larger than {{max}} cells. Choose an explicit target size before generating.",
     readyNoResize: "Ready to generate without resizing.",
@@ -130,7 +127,6 @@ export const en = {
     exportFileTooltip: "Download an editable file you can open again here.",
     newImport: "Photo → chart",
     createNewPattern: "Create new pattern",
-    generatedChartPreview: "Generated chart preview",
     magnificationControls: "Magnification controls",
     zoomOut: "Zoom out",
     zoomIn: "Zoom in",
