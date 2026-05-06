@@ -116,6 +116,9 @@ export const zh = {
       line: "直线"
     },
     editorToolsAside: "编辑工具",
+    toolRailPreviousPage: "绘制工具",
+    toolRailNextPage: "导入与导出",
+    toolRailPagerLabel: "编辑工具，第 {{page}} / 2 页",
     newImportTooltip: "从照片新建图纸：上传图片、调整选项后生成。",
     createNewPatternTooltip: "从空白拼豆网格开始绘制。",
     patternLibraryTooltip: "打开本机已保存的图纸。",

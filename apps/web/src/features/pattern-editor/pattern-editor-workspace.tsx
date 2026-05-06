@@ -2,7 +2,18 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactElement } from "react";
-import { Blocks, Download, ImageDown, ImagePlus, Layers, LibraryBig, ZoomIn, ZoomOut } from "lucide-react";
+import {
+  Blocks,
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  ImageDown,
+  ImagePlus,
+  Layers,
+  LibraryBig,
+  ZoomIn,
+  ZoomOut
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
   bucketFillPattern,
@@ -101,6 +112,13 @@ export function PatternEditorWorkspace({
   const [linePreviewPoint, setLinePreviewPoint] = useState<PatternPoint | null>(null);
   const [eyedropperHoverCell, setEyedropperHoverCell] = useState<PatternPoint | null>(null);
   const [mobileSidePanelOpen, setMobileSidePanelOpen] = useState(false);
+  const [mobileToolRailPage, setMobileToolRailPage] = useState<0 | 1>(0);
+  const [isNarrowToolRail, setIsNarrowToolRail] = useState(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      return false;
+    }
+    return window.matchMedia("(max-width: 767px)").matches;
+  });
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartScrollRef = useRef<HTMLDivElement>(null);
   const handPanRef = useRef<{ clientX: number; clientY: number; scrollLeft: number; scrollTop: number } | null>(null);
@@ -127,8 +145,11 @@ export function PatternEditorWorkspace({
     }
     const mediaQueryList = window.matchMedia("(max-width: 767px)");
     function syncMobileLayout(): void {
-      if (!mediaQueryList.matches) {
+      const narrow = mediaQueryList.matches;
+      setIsNarrowToolRail(narrow);
+      if (!narrow) {
         setMobileSidePanelOpen(false);
+        setMobileToolRailPage(0);
       }
     }
     syncMobileLayout();
@@ -364,6 +385,106 @@ export function PatternEditorWorkspace({
     "text-foreground flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring";
   const canvasCursorClassName = getCanvasCursorClassName(activeTool);
 
+  const drawingToolButtons = editorTools.map((tool) => {
+    const Icon = getToolIcon(tool);
+    const label = toolLabel(tool);
+    return (
+      <Tooltip key={tool}>
+        <TooltipTrigger
+          aria-current={activeTool === tool ? "true" : undefined}
+          aria-label={label}
+          className={cn(
+            toolRailButtonClassName,
+            activeTool === tool
+              ? "border-primary bg-accent text-accent-foreground"
+              : "border-border bg-white hover:bg-muted md:hover:bg-muted"
+          )}
+          type="button"
+          onClick={() => selectActiveTool(tool)}
+        >
+          <Icon className="h-5 w-5" aria-hidden="true" />
+        </TooltipTrigger>
+        <TooltipContent side="right" align="center">
+          {label}
+        </TooltipContent>
+      </Tooltip>
+    );
+  });
+
+  const fileActionButtons = useMemo(
+    () => [
+      <Tooltip key="new-import">
+        <TooltipTrigger
+          aria-label={t("workspace.newImportTooltip")}
+          className={cn(
+            toolRailButtonClassName,
+            "border-primary/35 bg-accent text-accent-foreground hover:bg-accent/80"
+          )}
+          type="button"
+          onClick={onOpenImportDialog}
+        >
+          <ImagePlus className="h-5 w-5" aria-hidden="true" />
+        </TooltipTrigger>
+        <TooltipContent side="right" align="center">
+          {t("workspace.newImportTooltip")}
+        </TooltipContent>
+      </Tooltip>,
+      <Tooltip key="new-pattern">
+        <TooltipTrigger
+          aria-label={t("workspace.createNewPatternTooltip")}
+          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+          type="button"
+          onClick={onOpenCreateNewPatternDialog}
+        >
+          <Blocks className="h-5 w-5" aria-hidden="true" />
+        </TooltipTrigger>
+        <TooltipContent side="right" align="center">
+          {t("workspace.createNewPatternTooltip")}
+        </TooltipContent>
+      </Tooltip>,
+      <Tooltip key="library">
+        <TooltipTrigger
+          aria-label={t("workspace.patternLibraryTooltip")}
+          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+          type="button"
+          onClick={onOpenLibrary}
+        >
+          <LibraryBig className="h-5 w-5" aria-hidden="true" />
+        </TooltipTrigger>
+        <TooltipContent side="right" align="center">
+          {t("workspace.patternLibraryTooltip")}
+        </TooltipContent>
+      </Tooltip>,
+      <Tooltip key="export-png">
+        <TooltipTrigger
+          aria-label={t("workspace.exportImageTooltip")}
+          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+          type="button"
+          onClick={onExportPng}
+        >
+          <ImageDown className="h-5 w-5" aria-hidden="true" />
+        </TooltipTrigger>
+        <TooltipContent side="right" align="center">
+          {t("workspace.exportImageTooltip")}
+        </TooltipContent>
+      </Tooltip>,
+      <Tooltip key="export-json">
+        <TooltipTrigger
+          aria-label={t("workspace.exportFileTooltip")}
+          className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+          type="button"
+          onClick={onExportJson}
+        >
+          <Download className="h-5 w-5" aria-hidden="true" />
+        </TooltipTrigger>
+        <TooltipContent side="right" align="center">
+          {t("workspace.exportFileTooltip")}
+        </TooltipContent>
+      </Tooltip>
+    ],
+    [t, onOpenImportDialog, onOpenCreateNewPatternDialog, onOpenLibrary, onExportPng, onExportJson]
+  );
+
   const sidePanelContent = (
     <EditorSidePanels
       activeColor={activeColor}
@@ -385,105 +506,54 @@ export function PatternEditorWorkspace({
       <div className="flex min-h-0 flex-1 flex-col md:flex-row">
       <aside
         aria-label={t("workspace.editorToolsAside")}
-        className="border-border flex shrink-0 flex-row items-center gap-1 overflow-x-auto border-b bg-white/95 p-2 md:w-16 md:flex-col md:items-center md:overflow-y-auto md:overflow-x-visible md:border-b-0 md:border-r"
+        className="border-border flex shrink-0 flex-col border-b bg-white/95 p-2 md:w-16 md:border-b-0 md:border-r"
       >
-        {editorTools.map((tool) => {
-          const Icon = getToolIcon(tool);
-          const label = toolLabel(tool);
-          return (
-            <Tooltip key={tool}>
-              <TooltipTrigger
-                aria-current={activeTool === tool ? "true" : undefined}
-                aria-label={label}
-                className={cn(
-                  toolRailButtonClassName,
-                  activeTool === tool
-                    ? "border-primary bg-accent text-accent-foreground"
-                    : "border-border bg-white hover:bg-muted md:hover:bg-muted"
-                )}
-                type="button"
-                onClick={() => selectActiveTool(tool)}
-              >
-                <Icon className="h-5 w-5" aria-hidden="true" />
-              </TooltipTrigger>
-              <TooltipContent side="right" align="center">
-                {label}
-              </TooltipContent>
-            </Tooltip>
-          );
-        })}
-        <div
-          className="bg-border mx-1 h-11 w-px shrink-0 md:mx-auto md:my-1 md:h-px md:w-8 md:self-center"
-          role="presentation"
-        />
-        <Tooltip>
-          <TooltipTrigger
-            aria-label={t("workspace.newImportTooltip")}
-            className={cn(
-              toolRailButtonClassName,
-              "border-primary/35 bg-accent text-accent-foreground hover:bg-accent/80"
-            )}
+        {isNarrowToolRail ? (
+        <div className="flex w-full min-w-0 flex-row items-center gap-1">
+          <button
+            aria-label={t("workspace.toolRailPreviousPage")}
+            className="border-border text-muted-foreground flex h-11 w-9 shrink-0 items-center justify-center rounded-xl border bg-white transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-40"
+            disabled={mobileToolRailPage === 0}
             type="button"
-            onClick={onOpenImportDialog}
+            onClick={() => setMobileToolRailPage(0)}
           >
-            <ImagePlus className="h-5 w-5" aria-hidden="true" />
-          </TooltipTrigger>
-          <TooltipContent side="right" align="center">
-            {t("workspace.newImportTooltip")}
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger
-            aria-label={t("workspace.createNewPatternTooltip")}
-            className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
+            <ChevronLeft className="h-5 w-5 shrink-0" aria-hidden="true" />
+          </button>
+          <div
+            aria-label={t("workspace.toolRailPagerLabel", { page: mobileToolRailPage + 1 })}
+            className="min-w-0 flex-1 overflow-hidden"
+            role="group"
+          >
+            <div
+              className={cn(
+                "flex w-[200%] shrink-0 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:duration-0",
+                mobileToolRailPage === 0 ? "translate-x-0" : "-translate-x-1/2"
+              )}
+            >
+              <div className="flex w-1/2 shrink-0 items-center justify-center gap-1">{drawingToolButtons}</div>
+              <div className="flex w-1/2 shrink-0 items-center justify-center gap-1">{fileActionButtons}</div>
+            </div>
+          </div>
+          <button
+            aria-label={t("workspace.toolRailNextPage")}
+            className="border-border text-muted-foreground flex h-11 w-9 shrink-0 items-center justify-center rounded-xl border bg-white transition hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-40"
+            disabled={mobileToolRailPage === 1}
             type="button"
-            onClick={onOpenCreateNewPatternDialog}
+            onClick={() => setMobileToolRailPage(1)}
           >
-            <Blocks className="h-5 w-5" aria-hidden="true" />
-          </TooltipTrigger>
-          <TooltipContent side="right" align="center">
-            {t("workspace.createNewPatternTooltip")}
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger
-            aria-label={t("workspace.patternLibraryTooltip")}
-            className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
-            type="button"
-            onClick={onOpenLibrary}
-          >
-            <LibraryBig className="h-5 w-5" aria-hidden="true" />
-          </TooltipTrigger>
-          <TooltipContent side="right" align="center">
-            {t("workspace.patternLibraryTooltip")}
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger
-            aria-label={t("workspace.exportImageTooltip")}
-            className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
-            type="button"
-            onClick={onExportPng}
-          >
-            <ImageDown className="h-5 w-5" aria-hidden="true" />
-          </TooltipTrigger>
-          <TooltipContent side="right" align="center">
-            {t("workspace.exportImageTooltip")}
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger
-            aria-label={t("workspace.exportFileTooltip")}
-            className={cn(toolRailButtonClassName, "border-border bg-white text-foreground hover:bg-muted")}
-            type="button"
-            onClick={onExportJson}
-          >
-            <Download className="h-5 w-5" aria-hidden="true" />
-          </TooltipTrigger>
-          <TooltipContent side="right" align="center">
-            {t("workspace.exportFileTooltip")}
-          </TooltipContent>
-        </Tooltip>
+            <ChevronRight className="h-5 w-5 shrink-0" aria-hidden="true" />
+          </button>
+        </div>
+        ) : (
+        <div className="flex min-h-0 w-full min-w-0 flex-col items-center gap-1 overflow-y-auto overflow-x-visible">
+          {drawingToolButtons}
+          <div
+            className="bg-border mx-1 h-11 w-px shrink-0 md:mx-auto md:my-1 md:h-px md:w-8 md:self-center"
+            role="presentation"
+          />
+          {fileActionButtons}
+        </div>
+        )}
       </aside>
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">

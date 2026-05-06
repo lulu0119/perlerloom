@@ -120,6 +120,9 @@ export const en = {
       line: "Line"
     },
     editorToolsAside: "Editor tools",
+    toolRailPreviousPage: "Drawing tools",
+    toolRailNextPage: "Import and export",
+    toolRailPagerLabel: "Editor tools, page {{page}} of 2",
     newImportTooltip: "Create a new chart from a photo (upload, options, then generate).",
     createNewPatternTooltip: "Start from an empty bead grid.",
     patternLibraryTooltip: "Open charts saved on this device.",
