@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Perlerloom",
   description:
-    "Turn photos into bead charts or start from a blank grid—match MIDI bead colors, edit on a worksheet-style canvas, and save charts locally in your browser.",
+    "Turn photos into bead charts in one click, or start from a blank grid—match image colors to palette codes, edit on a worksheet-style canvas, and save charts locally in your browser.",
   manifest: manifestPath,
   icons: {
     icon: iconMetadata,

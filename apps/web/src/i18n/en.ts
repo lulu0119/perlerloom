@@ -2,7 +2,7 @@ export const en = {
   meta: {
     title: "Perlerloom",
     description:
-      "Turn photos into bead charts or start from a blank grid—match MIDI bead colors, edit on a worksheet-style canvas,\nand save charts locally in your browser."
+      "Turn photos into bead charts in one click, or start from a blank grid—\nmatch image colors to palette codes, edit on a worksheet-style canvas,\nand save charts locally in your browser."
   },
   languageSwitcher: {
     ariaLabel: "Language",
