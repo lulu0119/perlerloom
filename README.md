@@ -57,8 +57,13 @@ The goal is simple: help you move from inspiration to a usable bead chart faster
 - [x] Optional dithering and color-count tuning
 - [x] Editable bead grid with palette, legend, tools, and history
 - [x] English and Chinese interface
-- [ ] Cloud save and share
 - [x] Print-ready PNG export (grid, bead-code legend, header; from the editor and library)
+- [ ] Grid alignment, image crop, import charts exported from other tools, match by palette colors or OCR
+- [ ] Palette subset limits: mark bead codes unavailable and remap colors for partial inventories—at import and in the editor
+- [ ] Mirror transforms
+- [ ] Settings: move language into settings, color manager (gamut, bead brand; ties to palette limits), JSON exports record palette configuration, major-grid toggle and step (default on, 5×5), optional bead codes on the chart
+- [ ] Pegboard underlay mode (separate view): fine zoom to line up a tablet under a clear pegboard, touch lock, monochrome highlight for bead placement
+- [ ] Cloud save and share: chart hashing/fingerprints and merging local with remote copies
 - [ ] AI-assisted pixel-art conversion
 
 ## Try It Locally
