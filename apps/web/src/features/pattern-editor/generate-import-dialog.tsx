@@ -228,53 +228,57 @@ export function GenerateImportDialog({
                   </Label>
                 ))}
               </RadioGroup>
-              <div className="grid grid-cols-2 gap-2">
+              {resizeMode === "dimensions" ? (
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="space-y-1">
+                    <Label className="text-foreground text-xs" htmlFor="import-target-width">
+                      {t("importDialog.targetWidth")}
+                    </Label>
+                    <Input
+                      aria-label={t("importDialog.targetWidth")}
+                      className="text-sm"
+                      id="import-target-width"
+                      max={maxPatternDimension}
+                      min={1}
+                      type="number"
+                      value={targetWidthInput}
+                      onChange={(event) => onTargetWidthInputChange(event.currentTarget.value)}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-foreground text-xs" htmlFor="import-target-height">
+                      {t("importDialog.targetHeight")}
+                    </Label>
+                    <Input
+                      aria-label={t("importDialog.targetHeight")}
+                      className="text-sm"
+                      id="import-target-height"
+                      max={maxPatternDimension}
+                      min={1}
+                      type="number"
+                      value={targetHeightInput}
+                      onChange={(event) => onTargetHeightInputChange(event.currentTarget.value)}
+                    />
+                  </div>
+                </div>
+              ) : null}
+              {resizeMode === "scale" ? (
                 <div className="space-y-1">
-                  <Label className="text-foreground text-xs" htmlFor="import-target-width">
-                    {t("importDialog.targetWidth")}
+                  <Label className="text-foreground text-xs" htmlFor="import-scale-percent">
+                    {t("importDialog.scaleFactor")}
                   </Label>
                   <Input
-                    aria-label={t("importDialog.targetWidth")}
+                    aria-label={t("importDialog.scaleFactor")}
                     className="text-sm"
-                    id="import-target-width"
-                    max={maxPatternDimension}
+                    id="import-scale-percent"
+                    max={100}
                     min={1}
                     type="number"
-                    value={targetWidthInput}
-                    onChange={(event) => onTargetWidthInputChange(event.currentTarget.value)}
+                    value={scalePercentInput}
+                    onChange={(event) => onScalePercentInputChange(event.currentTarget.value)}
                   />
                 </div>
-                <div className="space-y-1">
-                  <Label className="text-foreground text-xs" htmlFor="import-target-height">
-                    {t("importDialog.targetHeight")}
-                  </Label>
-                  <Input
-                    aria-label={t("importDialog.targetHeight")}
-                    className="text-sm"
-                    id="import-target-height"
-                    max={maxPatternDimension}
-                    min={1}
-                    type="number"
-                    value={targetHeightInput}
-                    onChange={(event) => onTargetHeightInputChange(event.currentTarget.value)}
-                  />
-                </div>
-              </div>
-              <div className="space-y-1">
-                <Label className="text-foreground text-xs" htmlFor="import-scale-percent">
-                  {t("importDialog.scaleFactor")}
-                </Label>
-                <Input
-                  aria-label={t("importDialog.scaleFactor")}
-                  className="text-sm"
-                  id="import-scale-percent"
-                  max={100}
-                  min={1}
-                  type="number"
-                  value={scalePercentInput}
-                  onChange={(event) => onScalePercentInputChange(event.currentTarget.value)}
-                />
-              </div>
+              ) : null}
               <div className="space-y-1">
                 <Label className="text-foreground text-xs" htmlFor="import-downsample-trigger">
                   {t("importDialog.downsamplingMethod")}
