@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { mardPalette } from "@perlerloom/palettes";
+import { mardPalette } from "@douloom/palettes";
 import {
   bucketFillPattern,
   convertImageToPattern,

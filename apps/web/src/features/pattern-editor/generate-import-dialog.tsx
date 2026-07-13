@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ImageIcon, ImagePlus, Layers, Upload } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { PatternSettings } from "@perlerloom/core";
+import type { PatternSettings } from "@douloom/core";
 import {
   Button,
   cn,
@@ -23,7 +23,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "@perlerloom/ui";
+} from "@douloom/ui";
 
 export type ResizeMode = "original" | "dimensions" | "scale";
 

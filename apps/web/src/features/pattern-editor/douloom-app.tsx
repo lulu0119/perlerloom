@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, type ReactElement } from "react";
-import { createBlankPattern, type PatternDocument, type PatternSettings } from "@perlerloom/core";
-import { mardPalette } from "@perlerloom/palettes";
+import { createBlankPattern, type PatternDocument, type PatternSettings } from "@douloom/core";
+import { mardPalette } from "@douloom/palettes";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-import { Button } from "@perlerloom/ui";
+import { Button } from "@douloom/ui";
 import { computePublicBasePath, publicPath } from "../../../base-path";
 import { convertImageInWorker } from "@/lib/convert-image-in-worker";
 import { ConversionWorkerFailure } from "@/lib/conversion-worker-failure";

@@ -14,8 +14,8 @@
   "rtl": false,
   "aliases": {
     "components": "@/components",
-    "utils": "@perlerloom/ui",
-    "ui": "@perlerloom/ui/components",
+    "utils": "@douloom/ui",
+    "ui": "@douloom/ui/components",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },

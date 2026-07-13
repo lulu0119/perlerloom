@@ -23,8 +23,8 @@ import {
   replacePatternColor,
   type PatternDocument,
   type PatternPoint
-} from "@perlerloom/core";
-import { mardPalette } from "@perlerloom/palettes";
+} from "@douloom/core";
+import { mardPalette } from "@douloom/palettes";
 import {
   cn,
   Drawer,
@@ -34,7 +34,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
-} from "@perlerloom/ui";
+} from "@douloom/ui";
 import { type AppStatusMessage } from "./app-status-message";
 import { EditorSidePanels } from "./editor-side-panels";
 import { ChartToolHud } from "./chart-tool-hud";

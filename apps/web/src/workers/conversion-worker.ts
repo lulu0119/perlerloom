@@ -1,5 +1,5 @@
-import { convertImageToPattern, type PatternDocument, type PatternSettings } from "@perlerloom/core";
-import { mardPalette, type RgbColor } from "@perlerloom/palettes";
+import { convertImageToPattern, type PatternDocument, type PatternSettings } from "@douloom/core";
+import { mardPalette, type RgbColor } from "@douloom/palettes";
 
 export type ConversionFailureCode = "rgb_buffer_mismatch" | "conversion_failed";
 

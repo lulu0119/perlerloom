@@ -9,7 +9,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "@perlerloom/ui";
+} from "@douloom/ui";
 
 export function LanguageSwitcher(): ReactElement {
   const { i18n, t } = useTranslation();

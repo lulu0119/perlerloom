@@ -1,11 +1,11 @@
 "use client";
 
 import { ChevronDown, Eraser, Hand, Minus, PaintBucket, Pencil, Pipette } from "lucide-react";
-import type { PatternDocument, PatternPoint } from "@perlerloom/core";
+import type { PatternDocument, PatternPoint } from "@douloom/core";
 import type { ReactElement, ReactNode } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@perlerloom/ui";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@douloom/ui";
 import { MardPaletteGrid } from "./mard-palette-grid";
 
 export type ChartHudTool = "pencil" | "eraser" | "eyedropper" | "paintBucket" | "hand" | "line";

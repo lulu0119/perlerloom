@@ -1,5 +1,5 @@
 {
-  "name": "@perlerloom/web",
+  "name": "@douloom/web",
   "version": "0.1.0",
   "license": "AGPL-3.0-or-later",
   "private": true,
@@ -13,9 +13,9 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@perlerloom/core": "workspace:*",
-    "@perlerloom/palettes": "workspace:*",
-    "@perlerloom/ui": "workspace:*",
+    "@douloom/core": "workspace:*",
+    "@douloom/palettes": "workspace:*",
+    "@douloom/ui": "workspace:*",
     "i18next": "^25.7.3",
     "lucide-react": "^0.562.0",
     "next": "16.2.4",

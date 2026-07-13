@@ -1,4 +1,4 @@
-import type { PatternDocument, PatternSettings } from "@perlerloom/core";
+import type { PatternDocument, PatternSettings } from "@douloom/core";
 import { ConversionWorkerFailure } from "@/lib/conversion-worker-failure";
 
 export type BrowserConversionInput = {

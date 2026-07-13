@@ -1,4 +1,4 @@
-import type { PatternCell, PatternDocument, PatternSettings } from "@perlerloom/core";
+import type { PatternCell, PatternDocument, PatternSettings } from "@douloom/core";
 
 export type SavedPatternPayload = {
   ownerId: string;

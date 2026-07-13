@@ -1,4 +1,4 @@
-import { createBlankPattern } from "@perlerloom/core";
+import { createBlankPattern } from "@douloom/core";
 import { describe, expect, it } from "vitest";
 import { createExportMetadata } from "./pattern-export-metadata";
 import {

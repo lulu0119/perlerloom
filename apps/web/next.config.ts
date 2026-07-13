@@ -4,7 +4,7 @@ import { computePublicBasePath } from "./base-path";
 const basePath = computePublicBasePath();
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@perlerloom/core", "@perlerloom/palettes", "@perlerloom/ui"],
+  transpilePackages: ["@douloom/core", "@douloom/palettes", "@douloom/ui"],
   output: "export",
   images: {
     unoptimized: true

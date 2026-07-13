@@ -3,8 +3,8 @@
 import type { ReactElement } from "react";
 import { ArrowLeftRight, Redo2, Trash2, Undo2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { readableTextHexOnBackgroundHex, type PatternLegendItem } from "@perlerloom/core";
-import { cn, Tooltip, TooltipContent, TooltipTrigger } from "@perlerloom/ui";
+import { readableTextHexOnBackgroundHex, type PatternLegendItem } from "@douloom/core";
+import { cn, Tooltip, TooltipContent, TooltipTrigger } from "@douloom/ui";
 import {
   drawingColorChromeBorderColorWhenActiveClass,
   drawingColorChromeBorderColorWhenIdleClass,

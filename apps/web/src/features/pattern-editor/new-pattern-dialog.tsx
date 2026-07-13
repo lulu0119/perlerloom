@@ -13,7 +13,7 @@ import {
   DialogTitle,
   Input,
   Label
-} from "@perlerloom/ui";
+} from "@douloom/ui";
 
 type NewPatternDialogProps = {
   open: boolean;

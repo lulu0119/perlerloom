@@ -7,7 +7,7 @@ import {
   type MatchingSpace,
   type PatternDocument,
   type PatternPoint
-} from "@perlerloom/core";
+} from "@douloom/core";
 import { majorGridLineCellIndices } from "@/lib/major-grid-line-indices";
 import type { ResizeMode, SelectedSourceImage } from "./generate-import-dialog";
 

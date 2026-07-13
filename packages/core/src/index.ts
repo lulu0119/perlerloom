@@ -4,7 +4,7 @@ import {
   rgbToLab,
   type BeadColor,
   type RgbColor
-} from "@perlerloom/palettes";
+} from "@douloom/palettes";
 
 import { buildLegend, type PatternLegendItem } from "./build-legend";
 

@@ -2,8 +2,8 @@ import {
   buildLegend,
   readableTextHexOnBackgroundHex,
   type PatternDocument
-} from "@perlerloom/core";
-import type { BeadColor } from "@perlerloom/palettes";
+} from "@douloom/core";
+import type { BeadColor } from "@douloom/palettes";
 import { createCanvasLayout, drawPatternCanvas, type CanvasLayout } from "@/features/pattern-editor/pattern-editor-utils";
 
 const exportMarginPx = 28;

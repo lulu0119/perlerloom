@@ -4,9 +4,9 @@ import { useId, useMemo, useState } from "react";
 import type { ReactElement } from "react";
 import { ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { mardPalette, type BeadColor } from "@perlerloom/palettes";
-import { readableTextHexOnBackgroundHex } from "@perlerloom/core";
-import { cn } from "@perlerloom/ui";
+import { mardPalette, type BeadColor } from "@douloom/palettes";
+import { readableTextHexOnBackgroundHex } from "@douloom/core";
+import { cn } from "@douloom/ui";
 import {
   drawingColorChromeBorderColorWhenActiveClass,
   drawingColorChromeBorderColorWhenIdleClass,

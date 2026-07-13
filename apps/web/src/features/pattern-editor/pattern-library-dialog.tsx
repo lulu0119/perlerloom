@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useRef, useState, type ReactElement } from "react";
 import { Copy, Download, ImageDown, Trash2, Upload } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { PatternDocument } from "@perlerloom/core";
-import { mardPalette } from "@perlerloom/palettes";
+import type { PatternDocument } from "@douloom/core";
+import { mardPalette } from "@douloom/palettes";
 import {
   Button,
   Dialog,
@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
   cn
-} from "@perlerloom/ui";
+} from "@douloom/ui";
 import { createCanvasLayout, drawPatternCanvas } from "@/features/pattern-editor/pattern-editor-utils";
 import type { PatternRecord } from "@/lib/pattern-storage";
 

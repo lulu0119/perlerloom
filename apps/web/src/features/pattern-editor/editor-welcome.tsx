@@ -3,7 +3,7 @@
 import type { ReactElement } from "react";
 import { Blocks, ImagePlus } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@perlerloom/ui";
+import { Button } from "@douloom/ui";
 
 type EditorWelcomeProps = {
   onImportImage: () => void;
