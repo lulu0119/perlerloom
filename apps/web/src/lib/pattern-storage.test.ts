@@ -64,9 +64,9 @@ describe("pattern storage contract", () => {
   });
 
   it("includes attribution and QR payload in export metadata", () => {
-    expect(createExportMetadata("https://perlerloom.app/share/demo")).toEqual({
-      attributionUrl: "https://perlerloom.app",
-      qrPayload: "https://perlerloom.app/share/demo"
+    expect(createExportMetadata("https://lulu0119.github.io/douloom/share/demo")).toEqual({
+      attributionUrl: "https://lulu0119.github.io/douloom",
+      qrPayload: "https://lulu0119.github.io/douloom/share/demo"
     });
   });
 });
@@ -140,7 +140,7 @@ describe("pattern library document", () => {
 
   it("import assigns a new id and preserves pattern data", () => {
     const exported = {
-      format: "perlerloom.patternRecord" as const,
+      format: "douloom.patternRecord" as const,
       version: 1 as const,
       exportedAt: "2025-03-01T12:00:00.000Z",
       record: baseRecord

@@ -65,13 +65,13 @@ export type PatternLibraryDocument = {
 };
 
 export type PatternRecordExportFile = {
-  format: "perlerloom.patternRecord";
+  format: "douloom.patternRecord";
   version: 1;
   exportedAt: string;
   record: PatternRecord;
 };
 
-export const PATTERN_LIBRARY_STORAGE_KEY = "perlerloom.patternLibrary";
+export const PATTERN_LIBRARY_STORAGE_KEY = "douloom.patternLibrary";
 
 const MARD_PALETTE_MAX = 291;
 const MAX_PATTERN_SIZE = 256;
@@ -351,7 +351,7 @@ export function createPatternRecordId(): string {
 
 export function exportPatternRecordToJson(record: PatternRecord): string {
   const payload: PatternRecordExportFile = {
-    format: "perlerloom.patternRecord",
+    format: "douloom.patternRecord",
     version: 1,
     exportedAt: new Date().toISOString(),
     record: validatePatternRecord(record)
@@ -369,7 +369,7 @@ export function importPatternRecordFromExportJson(json: string, createId: () => 
   if (!isPlainObject(parsed)) {
     throw new Error("Pattern export payload must be an object.");
   }
-  if (parsed.format !== "perlerloom.patternRecord") {
+  if (parsed.format !== "douloom.patternRecord") {
     throw new Error("Pattern export format is not recognized.");
   }
   if (parsed.version !== 1) {
