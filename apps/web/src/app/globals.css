@@ -50,7 +50,7 @@
   /* Brand surfaces (warm paper / cream) — use with bg-brand-surface, etc. */
   --color-brand-surface: oklch(0.97 0.018 88);
   --color-brand-surface-muted: oklch(0.935 0.028 88);
-  /* Headings and emphasis in Perlerloom amber range */
+  /* Headings and emphasis in Douloom amber range */
   --color-brand-accent: oklch(0.52 0.14 72);
 }
 

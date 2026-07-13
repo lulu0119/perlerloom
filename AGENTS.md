@@ -1,4 +1,4 @@
-# AGENTS.md — perlerloom
+# AGENTS.md — douloom
 
 Instructions for AI agents and humans working in this repository.
 

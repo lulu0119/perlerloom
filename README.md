@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="./apps/web/public/android-chrome-192x192.png" width="96" alt="Perlerloom logo" />
+  <img src="./apps/web/public/android-chrome-192x192.png" width="96" alt="Douloom logo" />
 </p>
 
-<h1 align="center">Perlerloom</h1>
+<h1 align="center">Douloom</h1>
 
 <p align="center">
   Turn photos and pixel art into editable bead charts that are ready for real craft work.
@@ -11,7 +11,7 @@
 <p align="center">
   <a href="./README.zh-CN.md">简体中文</a>
   ·
-  <a href="#what-is-perlerloom">What is Perlerloom?</a>
+  <a href="#what-is-douloom">What is Douloom?</a>
   ·
   <a href="#why-use-it">Why use it?</a>
   ·
@@ -28,16 +28,16 @@
 </p>
 
 > [!NOTE]
-> Perlerloom runs the image-to-chart workflow in your browser. You can import an image, preview it, choose the final bead size, and generate a chart without uploading the image to a server.
+> Douloom runs the image-to-chart workflow in your browser. You can import an image, preview it, choose the final bead size, and generate a chart without uploading the image to a server.
 
 > [!TIP]
 > For cleaner craft charts, start with a small explicit target size, then tune the target color count before generating.
 
-## What Is Perlerloom?
+## What Is Douloom?
 
-Perlerloom is a friendly bead-pattern editor for makers who want a practical chart, not just a pixelated preview.
+Douloom is a friendly bead-pattern editor for makers who want a practical chart, not just a pixelated preview.
 
-Import a photo, icon, or pixel-art reference, choose how large the finished pattern should be in beads, and let Perlerloom match the result to the Mard bead palette. After generation, keep editing directly on the grid with drawing tools, palette swatches, a legend, and undo/redo history.
+Import a photo, icon, or pixel-art reference, choose how large the finished pattern should be in beads, and let Douloom match the result to the Mard bead palette. After generation, keep editing directly on the grid with drawing tools, palette swatches, a legend, and undo/redo history.
 
 The goal is simple: help you move from inspiration to a usable bead chart faster, while keeping the final pattern editable by hand.
 
@@ -97,4 +97,4 @@ pnpm build
 
 ## Acknowledgements
 
-Perlerloom is built with Next.js, React, Tailwind CSS, shadcn-compatible UI primitives, Vitest, and the Mard bead palette data used by the converter.
+Douloom is built with Next.js, React, Tailwind CSS, shadcn-compatible UI primitives, Vitest, and the Mard bead palette data used by the converter.
