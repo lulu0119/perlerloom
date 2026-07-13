@@ -1,6 +1,6 @@
 export const zh = {
   meta: {
-    title: "珀勒鲁姆",
+    title: "豆织工坊",
     description:
       "照片可一键转成拼豆图纸，也可从空白网格起稿——\n对齐调色色号、在练习表式图纸上修改，\n图纸保存在本机浏览器。"
   },
@@ -13,7 +13,7 @@ export const zh = {
     close: "关闭"
   },
   header: {
-    logoAlt: "珀勒鲁姆标志",
+    logoAlt: "豆织工坊标志",
     openLibrary: "已保存图纸"
   },
   welcome: {
@@ -37,7 +37,7 @@ export const zh = {
     noUndo: "没有可撤销的编辑。",
     noRedo: "没有可重做的编辑。",
     librarySaveFailed: "无法将图纸写入浏览器存储。请在图库中把重要图纸导出为文件。",
-    patternImportInvalid: "该文件不是有效的珀勒鲁姆图纸导出。",
+    patternImportInvalid: "该文件不是有效的豆织工坊图纸导出。",
     patternImported: "图纸已导入到本地库。",
     exportPngFailed: "PNG 导出失败。"
   },

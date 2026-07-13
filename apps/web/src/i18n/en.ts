@@ -1,6 +1,6 @@
 export const en = {
   meta: {
-    title: "Perlerloom",
+    title: "Douloom",
     description:
       "Turn photos into bead charts in one click, or start from a blank grid—\nmatch image colors to palette codes, edit on a worksheet-style canvas,\nand save charts locally in your browser."
   },
@@ -13,7 +13,7 @@ export const en = {
     close: "Close"
   },
   header: {
-    logoAlt: "Perlerloom logo",
+    logoAlt: "Douloom logo",
     openLibrary: "Saved charts"
   },
   welcome: {
@@ -38,7 +38,7 @@ export const en = {
     noUndo: "No edits to undo.",
     noRedo: "No edits to redo.",
     librarySaveFailed: "Could not write patterns to browser storage. Export important charts as a file from the library.",
-    patternImportInvalid: "That file is not a valid Perlerloom chart export.",
+    patternImportInvalid: "That file is not a valid Douloom chart export.",
     patternImported: "Pattern imported into your library.",
     exportPngFailed: "PNG export failed."
   },
