@@ -17,7 +17,7 @@ Remove the third-party brand token **Perler** from the product and repository id
 | Scope | Full rename (repo, packages, UI copy, storage keys, export format) |
 | Local data | No migration — new keys only; old `perlerloom*` localStorage is ignored |
 | Execution | Single PR / single session mechanical rename |
-| Domain placeholder | Replace `https://perlerloom.app` with `https://douloom.app` (brand string only; runtime share URLs still use `window.location`) |
+| Export attribution URL | Replace hardcoded `https://perlerloom.app` with GitHub Pages site root `https://lulu0119.github.io/douloom` (no custom domain; runtime share URLs still use `window.location`) |
 | i18n product title | `zh` → 豆织工坊；`en` → Douloom（logo alt 等同理） |
 
 ## Identity mapping
@@ -30,7 +30,7 @@ Remove the third-party brand token **Perler** from the product and repository id
 | `perlerloom.patternLibrary` | `douloom.patternLibrary` |
 | `perlerloom.language` | `douloom.language` |
 | Export `format`: `perlerloom.patternRecord` | `douloom.patternRecord` |
-| Default attribution `https://perlerloom.app` | `https://douloom.app` |
+| Default attribution `https://perlerloom.app` | `https://lulu0119.github.io/douloom` |
 | GitHub repository `perlerloom` | `douloom` (Pages `basePath` follows `github.event.repository.name`) |
 
 ## In scope
@@ -49,7 +49,7 @@ Remove the third-party brand token **Perler** from the product and repository id
 - Migrating or dual-reading old localStorage keys
 - Accepting old export `format` values
 - Feature work, visual redesign, or logo artwork redraw (alt text / copy only)
-- Registering the real domain `douloom.app`
+- Buying or configuring a custom domain (Pages URL is the site identity for now)
 - Renaming the local disk folder (optional, operator-side)
 - Rewriting git history
 
@@ -57,7 +57,7 @@ Remove the third-party brand token **Perler** from the product and repository id
 
 1. Rename packages and workspace references; refresh lockfile.
 2. Rename source identifiers and `douloom-app` files; update imports.
-3. Update persistence keys, export format, and attribution placeholder.
+3. Update persistence keys, export format, and attribution URL to `https://lulu0119.github.io/douloom`.
 4. Update brand copy and docs (EN: Douloom; ZH: 豆织工坊).
 5. Update CI filter string.
 6. Rename GitHub repository to `douloom`; point local remote at the new name.
@@ -68,6 +68,7 @@ Remove the third-party brand token **Perler** from the product and repository id
 - English UI title and logo alt show **Douloom**; Chinese UI shows **豆织工坊**.
 - Fresh browser profile has empty library (no read of old keys).
 - Exported JSON uses `format: "douloom.patternRecord"`; files with the old format fail import under existing strict validation.
+- Default export attribution URL is `https://lulu0119.github.io/douloom`.
 - After repository rename, GitHub Pages build uses base path `/douloom`.
 - Automated checks above pass.
 
