@@ -113,7 +113,7 @@ function duplicatePatternRecord(source: PatternRecord, duplicateTitle: string): 
   };
 }
 
-export function PerlerloomApp(): ReactElement {
+export function DouloomApp(): ReactElement {
   const { t } = useTranslation();
   const [library, setLibrary] = useState<PatternLibraryDocument>(emptyLibrary);
   const [hydrated, setHydrated] = useState(false);

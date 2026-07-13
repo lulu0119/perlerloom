@@ -5,15 +5,15 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { AppToaster } from "@/app/app-toaster";
 import i18n, { i18nInitialization, LANGUAGE_STORAGE_KEY } from "@/i18n/config";
 import { PATTERN_LIBRARY_STORAGE_KEY } from "@/lib/pattern-storage";
-import { PerlerloomApp } from "./perlerloom-app";
+import { DouloomApp } from "./douloom-app";
 
 const patternCanvasMockContexts: Array<{ font: string }> = [];
 
-function renderPerlerloomApp(): ReturnType<typeof render> {
+function renderDouloomApp(): ReturnType<typeof render> {
   return render(
     <I18nextProvider i18n={i18n}>
       <>
-        <PerlerloomApp />
+        <DouloomApp />
         <AppToaster />
       </>
     </I18nextProvider>
@@ -36,7 +36,7 @@ async function enterEditorWithBlankPattern(user: ReturnType<typeof userEvent.set
   await screen.findByLabelText(/editable bead pattern/i);
 }
 
-describe("Perlerloom editor shell", () => {
+describe("Douloom editor shell", () => {
   beforeAll(async () => {
     await i18nInitialization;
   });
@@ -70,10 +70,10 @@ describe("Perlerloom editor shell", () => {
   });
 
   it("starts with a welcome empty state and no canvas until a pattern exists", () => {
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     expect(screen.queryByLabelText(/editable bead pattern/i)).not.toBeInTheDocument();
-    const logo = screen.getByRole("img", { name: /perlerloom logo/i });
+    const logo = screen.getByRole("img", { name: /douloom logo/i });
     expect(logo).toBeInTheDocument();
     expect(logo.className).not.toMatch(/\brounded-/);
     expect(screen.getByRole("button", { name: /^import image$/i })).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("Perlerloom editor shell", () => {
 
   it("shows default target color count in the import dialog", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await openGenerateImportDialog(user);
 
@@ -92,7 +92,7 @@ describe("Perlerloom editor shell", () => {
 
   it("shows an upload preview before generation and keeps generation explicit", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await openGenerateImportDialog(user);
     const dialog = await screen.findByRole("dialog", { name: /create chart from photo/i });
@@ -110,7 +110,7 @@ describe("Perlerloom editor shell", () => {
 
   it("generates the pattern only after the generate button is clicked", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await openGenerateImportDialog(user);
     const dialog = await screen.findByRole("dialog", { name: /create chart from photo/i });
@@ -129,7 +129,7 @@ describe("Perlerloom editor shell", () => {
       height: 1000,
       close: vi.fn()
     } as ImageBitmap);
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await openGenerateImportDialog(user);
     const dialog = await screen.findByRole("dialog", { name: /create chart from photo/i });
@@ -145,7 +145,7 @@ describe("Perlerloom editor shell", () => {
 
   it("updates conversion selects without reading a cleared event target", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await openGenerateImportDialog(user);
     const dialog = await screen.findByRole("dialog", { name: /create chart from photo/i });
@@ -164,7 +164,7 @@ describe("Perlerloom editor shell", () => {
 
   it("changes the active toolbar tool", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /paint bucket/i }));
@@ -175,7 +175,7 @@ describe("Perlerloom editor shell", () => {
 
   it("includes the eyedropper tool in the rail", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /^eyedropper$/i }));
@@ -186,7 +186,7 @@ describe("Perlerloom editor shell", () => {
 
   it("includes the eraser tool and hides drawing color select while active", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /^eraser$/i }));
@@ -197,7 +197,7 @@ describe("Perlerloom editor shell", () => {
 
   it("uses a tool-specific chart cursor", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await enterEditorWithBlankPattern(user);
 
@@ -206,7 +206,7 @@ describe("Perlerloom editor shell", () => {
 
   it("renders the legend as compact selectable badges", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await enterEditorWithBlankPattern(user);
 
@@ -226,7 +226,7 @@ describe("Perlerloom editor shell", () => {
 
   it("records edit history and can jump to a previous snapshot", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await enterEditorWithBlankPattern(user);
     await user.click(screen.getByRole("button", { name: /paint bucket/i }));
@@ -240,7 +240,7 @@ describe("Perlerloom editor shell", () => {
 
   it("scales pattern canvas label font when chart zoom changes", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await enterEditorWithBlankPattern(user);
     await waitFor(() => expect(patternCanvasMockContexts.length).toBeGreaterThan(0));
@@ -261,7 +261,7 @@ describe("Perlerloom editor shell", () => {
 
   it("steps chart zoom when zoom out and zoom in buttons are clicked", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
 
     await enterEditorWithBlankPattern(user);
     await waitFor(() => expect(patternCanvasMockContexts.length).toBeGreaterThan(0));
@@ -281,7 +281,7 @@ describe("Perlerloom editor shell", () => {
 
   it("persists the pattern library to localStorage after creating a blank chart", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
     await enterEditorWithBlankPattern(user);
     await waitFor(() => {
       const raw = localStorage.getItem(PATTERN_LIBRARY_STORAGE_KEY);
@@ -293,7 +293,7 @@ describe("Perlerloom editor shell", () => {
 
   it("stores selected language in localStorage", async () => {
     const user = userEvent.setup();
-    renderPerlerloomApp();
+    renderDouloomApp();
     const languageControl = screen.getByRole("combobox", { name: /language/i });
     await user.click(languageControl);
     await user.click(await screen.findByRole("option", { name: /中文/i }));
@@ -302,18 +302,18 @@ describe("Perlerloom editor shell", () => {
 
   it("shows Chinese interface when language is Chinese", async () => {
     await i18n.changeLanguage("zh");
-    renderPerlerloomApp();
-    expect(screen.getByRole("heading", { level: 1, name: "珀勒鲁姆" })).toBeInTheDocument();
+    renderDouloomApp();
+    expect(screen.getByRole("heading", { level: 1, name: "豆织工坊" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /导入图片/ })).toBeInTheDocument();
   });
 
   it("keeps the initial browser render in English when Chinese is stored", async () => {
     localStorage.setItem(LANGUAGE_STORAGE_KEY, "zh-CN");
 
-    renderPerlerloomApp();
+    renderDouloomApp();
 
-    expect(screen.getByRole("heading", { level: 1, name: "Perlerloom" })).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: "Perlerloom logo" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "Douloom" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Douloom logo" })).toBeInTheDocument();
   });
 });
 

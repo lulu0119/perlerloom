@@ -1,5 +1,5 @@
-import { PerlerloomApp } from "@/features/pattern-editor/perlerloom-app";
+import { DouloomApp } from "@/features/pattern-editor/douloom-app";
 
 export default function Home() {
-  return <PerlerloomApp />;
+  return <DouloomApp />;
 }

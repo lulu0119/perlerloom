@@ -27,7 +27,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Perlerloom",
+  title: "Douloom",
   description:
     "Turn photos into bead charts in one click, or start from a blank grid—match image colors to palette codes, edit on a worksheet-style canvas, and save charts locally in your browser.",
   manifest: manifestPath,
